@@ -75,7 +75,7 @@ public class findStopView extends javax.swing.JFrame {
 
         nearestBSLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
-        searchRoutesButt.setText("Search");
+        searchRoutesButt.setText("Search Routes");
         searchRoutesButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchRoutesButtActionPerformed(evt);
@@ -138,7 +138,7 @@ public class findStopView extends javax.swing.JFrame {
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         this.dispose();
-        new resultView().setVisible(true);
+        new searchRoutesView().setVisible(true);
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void findBSButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBSButtActionPerformed
