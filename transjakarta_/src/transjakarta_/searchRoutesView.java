@@ -40,6 +40,12 @@ public class searchRoutesView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel1.setText("From");
 
+        fromTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fromTxtActionPerformed(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel2.setText("To");
 
@@ -48,6 +54,11 @@ public class searchRoutesView extends javax.swing.JFrame {
 
         searchRoutesButt.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         searchRoutesButt.setText("Search");
+        searchRoutesButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchRoutesButtActionPerformed(evt);
+            }
+        });
 
         findBSLabel.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         findBSLabel.setText("Find bus stop?");
@@ -110,6 +121,15 @@ public class searchRoutesView extends javax.swing.JFrame {
         // TODO add your handling code here:
         new findStopView().setVisible(true);
     }//GEN-LAST:event_findBSLabelMouseClicked
+
+    private void fromTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fromTxtActionPerformed
+
+    private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
+        this.dispose();
+        new resultView().setVisible(true);
+    }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel findBSLabel;
