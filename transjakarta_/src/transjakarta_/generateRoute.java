@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,10 +20,23 @@ public class generateRoute {
     //private generateRoute fastest = new generateRoute();
     //private generateRoute shortest = new generateRoute();
     
+    findLoc Departure;
+    findLoc Destination;
+    
     Connection con;
     Statement stmt1, stmt2;
     ResultSet rs1, rs2;
     String halte;
+    
+    ArrayList<String> halteRoute = new ArrayList();
+    
+    generateRoute(){
+        
+    }
+    
+    generateRoute(int a){
+        
+    }
     
     public final void connectDB(){
         try{
@@ -31,9 +45,6 @@ public class generateRoute {
             con = DriverManager.getConnection(url, user, password);
             stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            //String query = "select * from tj";
-            //rs = stmt.executeQuery(query);
-            //rs.next();
         }catch(SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(this, e.getMessage());
@@ -64,13 +75,13 @@ public class generateRoute {
         }
     }
     
-    public void goToRS(ResultSet rs){
+    public void goToRS(){
         try{
-            ResultSet watrs = rs;
+            ResultSet watrs = rs1;
             watrs.first(); watrs.previous();
             while(true){
                 watrs.next();
-                if(watrs.getString("name").equals()){
+                if(watrs.getString("halte").equals(halte)){
                     break;
                 }
             }
@@ -79,9 +90,38 @@ public class generateRoute {
         }
     }
     
-    public void makeLeRoute(){
+    public void iteratelah(String halte, String halte){
+        if()
+    }
+        
+    if indexTransit > indexDepart go forth
+    
+    public void gataunimethodapa(int a, int b){
+        try{
+            if(Departure.getCorridor().equals(Destination.getCorridor())){
+                
+    //gotors departure, loop, add busstops
+            } else if(doWeHaveSameStops(Integer.valueOf(rs1.getString("corridor")), Integer.valueOf(rs2.getString("corridor")))){
+                ResultSet rsRoute = stmt1.executeQuery("select * from tj where ");
+            } else {
+                
+            }
+            
+            
+        } catch (SQLException e){
+            System.out.println(e);
+        }
         
     }
+    
+    /*
+    public void makeLeRoute(){
+        boolean niga = false;
+        while(rs.next()){
+            if
+        }
+        
+    }*/
     
     public static void main(String[] args) {
         generateRoute abc = new generateRoute();

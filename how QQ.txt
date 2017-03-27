@@ -2,8 +2,12 @@ A = which corridor is your nearby busstop
 B = which corridor is your destination's nearest busstop
 C = bridge 1 -> init as 1
 D = bridge 2
-
-
+	
+	
+	if(halteA.corridor == halteB.corridor)
+		gotoRS of my halte
+		findDirection back/forth
+		get stops till ded
 
 	if(corridorA & corridorB have same busstop -> save the bus stop)
 		generateRoute

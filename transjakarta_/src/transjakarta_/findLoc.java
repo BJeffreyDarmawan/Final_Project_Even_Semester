@@ -91,6 +91,7 @@ public class findLoc {
         findBusStop();
         return this.busStop;
     }
+<<<<<<< Updated upstream
 
     public ArrayList getNearby(String reg)
     {
@@ -113,4 +114,14 @@ public class findLoc {
         return nearBys;
     }
 
+=======
+    
+    public int getIndex(){
+        return rs.getInt("index");
+    }
+    
+    public String getCorridor(){
+        return rs.getString("corridor");
+    }
+>>>>>>> Stashed changes
 }
