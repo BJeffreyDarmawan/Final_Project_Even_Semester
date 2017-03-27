@@ -16,6 +16,7 @@ public class searchRoutesView extends javax.swing.JFrame {
      */
     public searchRoutesView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -119,7 +120,8 @@ public class searchRoutesView extends javax.swing.JFrame {
 
     private void findBSLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findBSLabelMouseClicked
         // TODO add your handling code here:
-        new findStopView().setVisible(true);
+        this.dispose();
+        new findBusStopView().setVisible(true);
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromTxtActionPerformed

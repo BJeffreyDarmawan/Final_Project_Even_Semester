@@ -7,18 +7,17 @@ package transjakarta_;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  *
- * @author Home
+ * @author Mikha Putri
  */
-public class findStopView extends javax.swing.JFrame {
+public class findBusStopView extends javax.swing.JFrame {
 
     /**
-     * Creates new form findStopView
+     * Creates new form findBusStopView
      */
-    public findStopView() {
+    public findBusStopView() {
         initComponents();
         display();
         this.setLocationRelativeTo(null);
@@ -37,7 +36,7 @@ public class findStopView extends javax.swing.JFrame {
         //System.out.println(abc[0]);
         nearbyBox.setModel(new DefaultComboBoxModel(abc));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,45 +47,34 @@ public class findStopView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        regionBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        regionBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        nearbyBox = new javax.swing.JComboBox<>();
         findBSButt = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         nearestBSLabel = new javax.swing.JLabel();
         searchRoutesButt = new javax.swing.JButton();
-        nearbyBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel1.setText("Region");
+        jLabel1.setText("CURRENT LOCATION");
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel2.setText("Region");
 
         regionBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        regionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Central Jakarta", "South Jakarta", "North Jakarta", "East Jakarta", "West Jakarta" }));
+        regionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Central Jakarta", "North Jakarta", "South Jakarta", "East Jakarta", "West Jakarta" }));
         regionBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 regionBoxItemStateChanged(evt);
             }
         });
-        regionBox.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                regionBoxInputMethodTextChanged(evt);
-            }
-        });
-        regionBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regionBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel2.setText("Nearby Place");
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel3.setText("CURRENT LOCATION");
+        jLabel3.setText("Nearby Place");
+
+        nearbyBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
 
         findBSButt.setText("Find");
         findBSButt.addActionListener(new java.awt.event.ActionListener() {
@@ -107,99 +95,63 @@ public class findStopView extends javax.swing.JFrame {
             }
         });
 
-        nearbyBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        nearbyBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                nearbyBoxItemStateChanged(evt);
-            }
-        });
-        nearbyBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nearbyBoxActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< Updated upstream
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-=======
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchRoutesButt))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
->>>>>>> Stashed changes
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
+                                .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addContainerGap(133, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(searchRoutesButt))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-<<<<<<< Updated upstream
+                                    .addComponent(jLabel3))
+                                .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(nearbyTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(findBSButt))
-                                    .addComponent(regionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(searchRoutesButt))
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(regionBox, 0, 300, Short.MAX_VALUE)
-                                    .addComponent(nearbyBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(findBSButt)))
-                .addGap(49, 49, 49))
->>>>>>> Stashed changes
+                                    .addComponent(regionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nearbyBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(findBSButt)))
+                        .addGap(45, 45, 45))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
                     .addComponent(regionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(findBSButt)
-                    .addComponent(nearbyBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(nearbyBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(findBSButt))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(searchRoutesButt)
-<<<<<<< Updated upstream
-                .addGap(24, 24, 24))
-=======
-                .addContainerGap(37, Short.MAX_VALUE))
->>>>>>> Stashed changes
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
-        this.dispose();
-        new searchRoutesView().setVisible(true);
-    }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void findBSButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBSButtActionPerformed
         // TODO add your handling code here:
@@ -210,29 +162,16 @@ public class findStopView extends javax.swing.JFrame {
         nearestBSLabel.setText(user.getBusStop());
     }//GEN-LAST:event_findBSButtActionPerformed
 
-    private void regionBoxInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_regionBoxInputMethodTextChanged
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_regionBoxInputMethodTextChanged
-
-<<<<<<< Updated upstream
-    private void regionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regionBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_regionBoxActionPerformed
-
-=======
-    private void nearbyBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nearbyBoxItemStateChanged
-        
-    }//GEN-LAST:event_nearbyBoxItemStateChanged
-
-    private void nearbyBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nearbyBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nearbyBoxActionPerformed
-
     private void regionBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_regionBoxItemStateChanged
         // TODO add your handling code here:
         displayNearby();
     }//GEN-LAST:event_regionBoxItemStateChanged
+
+    private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new searchRoutesView().setVisible(true);
+    }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,24 +190,23 @@ public class findStopView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(findStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(findStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(findStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(findStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new findStopView().setVisible(true);
+                new findBusStopView().setVisible(true);
             }
         });
     }
->>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;

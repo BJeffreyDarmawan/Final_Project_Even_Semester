@@ -46,7 +46,7 @@ public class findLoc {
     public final void connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/tj?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
+            String url = "jdbc:mysql://localhost:3306/test2?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "select * from tj";
@@ -91,9 +91,7 @@ public class findLoc {
         findBusStop();
         return this.busStop;
     }
-<<<<<<< Updated upstream
-=======
-    
+
     public ArrayList getNearby(String reg)
     {
         ArrayList<String> nearBys = new ArrayList();
@@ -115,5 +113,4 @@ public class findLoc {
         return nearBys;
     }
 
->>>>>>> Stashed changes
 }

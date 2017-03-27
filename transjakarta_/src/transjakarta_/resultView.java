@@ -16,11 +16,9 @@ public class resultView extends javax.swing.JFrame {
      */
     public resultView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
-    
-    public void displayMe(){
-        shortest_txt.setText("");
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

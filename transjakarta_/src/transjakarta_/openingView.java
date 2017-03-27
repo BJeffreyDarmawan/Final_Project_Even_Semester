@@ -16,6 +16,7 @@ public class openingView extends javax.swing.JFrame {
      */
     public openingView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -105,7 +106,7 @@ public class openingView extends javax.swing.JFrame {
     private void findBusStopButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBusStopButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new findStopView().setVisible(true);
+        new findBusStopView().setVisible(true);
     }//GEN-LAST:event_findBusStopButtActionPerformed
 
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
