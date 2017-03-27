@@ -1,0 +1,49 @@
+A = which corridor is your nearby busstop
+B = which corridor is your destination's nearest busstop
+C = bridge 1 -> init as 1
+D = bridge 2
+
+
+
+	if(corridorA & corridorB have same busstop -> save the bus stop)
+		generateRoute
+			findDirection1 (back / forth)
+			append arrayOfBusStops
+			findDirection2 (back / forth)
+			append arrayOfBusStops
+			transit where
+		//cond = false
+
+	else 
+	while(cond)
+		if(corridorA&corridorC have same busstop && corridorB&corridorC have same busstop -> save the bus stops)
+		cond = false
+		generateRoute
+			findDirection1 (back / forth)
+			append arrayOfBusStops
+			findDirection2 (back / forth)
+			append arrayOfBusStops
+			findDirection3 (back / forth)
+			append arrayOfBusStops
+			transit where
+		else
+			C++;
+
+	while(cond)
+		if(corridorA&corridorC have same busstop && corridorC&corridorD && corridorB&corridorD have same busstop -> save the bus stops)
+		cond = false
+		generateRoute
+			findDirection1 (back / forth)
+			append arrayOfBusStops
+			findDirection2 (back / forth)
+			append arrayOfBusStops
+			findDirection3 (back / forth)
+			append arrayOfBusStops
+			findDirection4 (back / forth)
+			append arrayOfBusStops
+			transit where
+		else
+			C+=2;
+			D+=2;
+
+	etc.. how many transits are possible.. at most..
