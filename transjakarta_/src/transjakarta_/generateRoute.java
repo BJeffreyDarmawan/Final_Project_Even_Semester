@@ -5,17 +5,66 @@
  */
 package transjakarta_;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Lenovo
  */
 public class generateRoute {
-    private generateRoute fastest = new generateRoute();
-    private generateRoute shortest = new generateRoute();
+    //private generateRoute fastest = new generateRoute();
+    //private generateRoute shortest = new generateRoute();
+    
+    Connection con;
+    Statement stmt;
+    ResultSet rs1, rs2;
+    String halte;
+    
+    public final void connectDB(){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/test2?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            //String query = "select * from tj";
+            //rs = stmt.executeQuery(query);
+            //rs.next();
+        }catch(SQLException e){
+            System.out.println(e);
+            //JOptionPane.showMessageDialog(this, e.getMessage());
+        }catch (ClassNotFoundException ex) {
+            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public boolean doWeHaveSameStops(int a, int b){
-        
-        return false;
+        try{
+            rs1 = stmt.executeQuery("select * from tj where corridor = '" + Integer.toString(a) + "'");
+            rs2 = stmt.executeQuery("select * from tj where corridor = '" + Integer.toString(b) + "'");
+            while(true){
+                rs1.next();
+                rs2.next();
+                if(rs1.getString("halte").equals(rs2.getString("halte"))){
+                    halte = rs1.getString("halte");
+                    return true;
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
+            //JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    public static void main(String[] args) {
+        generateRoute abc = new generateRoute();
+        if(abc.doWeHaveSameStops(1, 8))
+            System.out.println("abc");
     }
     
     
