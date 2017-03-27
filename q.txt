@@ -1,0 +1,2 @@
+misalnya kita bikin class non-gui, kita boleh ga bikin like:
+JOptionPane.showMessageDialog(new whatEverJFormClass, e.getMessage());
