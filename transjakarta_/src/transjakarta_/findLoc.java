@@ -36,16 +36,16 @@ public class findLoc {
     public final void connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/tj_busstops", user = "root", password = "";
+            String url = "jdbc:mysql://localhost:3306/test2?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "select * from bus_stops_n_nearby";
+            String query = "select * from tj";
             rs = stmt.executeQuery(query);
             rs.next();
         }catch(SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (ClassNotFoundException ex) {
+        }catch (ClassNotFoundException ex) {
             //JOptionPane.showMessageDialog(this, ex.getMessage());
             //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,7 +65,7 @@ public class findLoc {
                     nearBys = nearBy.split(",\\s");
                     for(int i = 0; i < nearBys.length; i++){
                         if(location.equals(nearBys[i])){
-                            this.busStop = rs.getString("name");
+                            this.busStop = rs.getString("halte");
                             gotBusStop = true;
                             break;
                         }
@@ -82,9 +82,13 @@ public class findLoc {
         return this.busStop;
     }
     
-    public static void main(String[] args) {
-        findLoc user = new findLoc("West Jakarta", "Apt Kedoya");
+    /*public static void main(String[] args) {
+        findLoc user = new findLoc("South Jakarta", "Plaza Senayan");
         System.out.println(user.getBusStop());
+<<<<<<< Updated upstream
         System.out.println("HEHE");
     }
+=======
+    }*/
+>>>>>>> Stashed changes
 }
