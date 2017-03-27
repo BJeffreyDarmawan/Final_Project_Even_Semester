@@ -10,6 +10,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import javafx.scene.control.ComboBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +32,10 @@ public class findLoc {
     Connection con;
     Statement stmt;
     ResultSet rs;
+    
+    findLoc(){
+        connectDB();
+    }
     
     findLoc(String region, String location){
         this.region = region;
@@ -81,4 +91,29 @@ public class findLoc {
         findBusStop();
         return this.busStop;
     }
+<<<<<<< Updated upstream
+=======
+    
+    public ArrayList getNearby(String reg)
+    {
+        ArrayList<String> nearBys = new ArrayList();
+        String nearBy;
+        String[] test;
+        //System.out.println(reg);
+        try{
+            rs = stmt.executeQuery("select * from tj where region = '" + reg + "'");
+            while(rs.next()){
+                nearBy = rs.getString("nearby");
+                test = nearBy.split(",\\s");
+                ArrayList<String> list = new ArrayList(Arrays.asList(test));
+                nearBys.addAll(list);
+            }
+        }catch(SQLException e)
+        {
+           System.out.println(e);
+        }
+        return nearBys;
+    }
+
+>>>>>>> Stashed changes
 }
