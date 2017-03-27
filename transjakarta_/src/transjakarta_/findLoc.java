@@ -84,11 +84,6 @@ public class findLoc {
     
     /*public static void main(String[] args) {
         findLoc user = new findLoc("South Jakarta", "Plaza Senayan");
-        System.out.println(user.getBusStop());
-<<<<<<< Updated upstream
-        System.out.println("HEHE");
-    }
-=======
-    }*/
->>>>>>> Stashed changes
+        System.out.println(user.getBusStop());*/
+        
 }
