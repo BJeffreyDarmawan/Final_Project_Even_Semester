@@ -17,24 +17,62 @@ public class findBusStopView extends javax.swing.JFrame {
     /**
      * Creates new form findBusStopView
      */
+    
+    String language;
     public findBusStopView() {
+        this.language="english";
+        initComponents();
+        display();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public findBusStopView(String language) {
+        this.language = language;
         initComponents();
         display();
         this.setLocationRelativeTo(null);
     }
     
     public void display(){
-        regionBox.setSelectedIndex(0);
-        displayNearby();
+        if(language.equals("indo")){
+            String[] a = {"Jakarta Pusat", "Jakarta Barat", "Jakarta Utara", "Jakarta Timur", "Jakarta Selatan"};
+            regionBox.setModel(new DefaultComboBoxModel(a));
+            regionBox.setSelectedIndex(0);
+        } else {
+            regionBox.setSelectedIndex(0);
+            
+            }
+            displayNearby();
+        
     }
     
     public void displayNearby(){
-        String weh = (String)regionBox.getSelectedItem();
-        findLoc user = new findLoc();
-        ArrayList<String> abcdefghi = user.getNearby(weh);
-        String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
-        //System.out.println(abc[0]);
-        nearbyBox.setModel(new DefaultComboBoxModel(abc));
+        if(language.equals("indo")){
+            System.out.println(regionBox.getSelectedItem());
+            String weh = (String)regionBox.getSelectedItem();
+            if(weh.equals("Jakarta Pusat"))
+                weh = "Central Jakarta";
+            else if(weh.equals("Jakarta Barat"))
+                weh = "West Jakarta";
+            else if(weh.equals("Jakarta Timur"))
+                weh = "East Jakarta";
+            else if(weh.equals("Jakarta Selatan"))
+                weh = "South Jakarta";
+            else if(weh.equals("Jakarta Utara"))
+                weh = "North Jakarta";
+            findLoc user = new findLoc();
+            ArrayList<String> abcdefghi = user.getNearby(weh);
+            String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
+            //System.out.println(abc[0]);
+            nearbyBox.setModel(new DefaultComboBoxModel(abc));
+        } else {
+            String weh = (String)regionBox.getSelectedItem();
+            findLoc user = new findLoc();
+            ArrayList<String> abcdefghi = user.getNearby(weh);
+            String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
+            //System.out.println(abc[0]);
+            nearbyBox.setModel(new DefaultComboBoxModel(abc));
+        }
     }
 
     /**

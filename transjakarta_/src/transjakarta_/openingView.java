@@ -13,20 +13,20 @@ import javax.swing.JOptionPane;
  */
 public class openingView extends javax.swing.JFrame {
 
-    String lang;
+    String language;
     
     public openingView() {
         initComponents();
     }
     
     public openingView(String languages) {
-        this.lang = languages;
+        this.language = languages;
         initComponents();
         languages();        
     }
     
     public void languages(){
-         if ("indo".equals(lang)){
+         if ("indo".equals(language)){
             jLabel1.setText("Selamat Datang");
             findBusStopButt.setText("Cari Halte");
             sRoutesButt.setText("Cari Rute");
@@ -141,7 +141,7 @@ public class openingView extends javax.swing.JFrame {
     private void findBusStopButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBusStopButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new findBusStopView().setVisible(true);
+        new findBusStopView(language).setVisible(true);
     }//GEN-LAST:event_findBusStopButtActionPerformed
 
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
