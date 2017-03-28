@@ -5,18 +5,39 @@
  */
 package transjakarta_;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Home
  */
 public class openingView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form openingView
-     */
+    String lang;
+    
     public openingView() {
         initComponents();
-        this.setLocationRelativeTo(null);
+    }
+    
+    public openingView(String languages) {
+        this.lang = languages;
+        initComponents();
+        languages();        
+    }
+    
+    public void languages(){
+         if ("indo".equals(lang)){
+            jLabel1.setText("Selamat Datang");
+            findBusStopButt.setText("Cari Halte");
+            sRoutesButt.setText("Cari Rute");
+            Settings.setText("Pengaturan");
+        }
+        else{
+            jLabel1.setText("Welcome!");
+            findBusStopButt.setText("Find Bus Stop");
+            sRoutesButt.setText("Find Route");
+            Settings.setText("Settings");
+        }
     }
 
     /**
@@ -32,6 +53,7 @@ public class openingView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         findBusStopButt = new javax.swing.JButton();
         sRoutesButt = new javax.swing.JButton();
+        Settings = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +93,13 @@ public class openingView extends javax.swing.JFrame {
             }
         });
 
+        Settings.setText("Settings");
+        Settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,6 +116,10 @@ public class openingView extends javax.swing.JFrame {
                         .addComponent(sRoutesButt)
                         .addGap(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(Settings)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +130,9 @@ public class openingView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(findBusStopButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sRoutesButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Settings)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,6 +149,11 @@ public class openingView extends javax.swing.JFrame {
         this.dispose();
         new searchRoutesView().setVisible(true);
     }//GEN-LAST:event_sRoutesButtActionPerformed
+
+    private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
+        this.dispose();
+        new settings().setVisible(true);
+    }//GEN-LAST:event_SettingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,12 +185,13 @@ public class openingView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new openingView().setVisible(true);
+                new openingView(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Settings;
     private javax.swing.JButton findBusStopButt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
