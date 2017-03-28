@@ -27,6 +27,8 @@ public class findLoc {
     private String region;
     private String location;
     private String busStop;
+    private int indx;
+    private String corridor;
     private boolean gotBusStop = false;
     
     Connection con;
@@ -35,18 +37,28 @@ public class findLoc {
     
     findLoc(){
         connectDB();
+        findBusStop();
     }
     
     findLoc(String region, String location){
         this.region = region;
         this.location = location;
         connectDB();
+        findBusStop();
     }
     
+    public int getIndex(){
+        return indx;
+    }
+    
+    public String getCorridor(){
+        return corridor;
+    }
+        
     public final void connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/test2?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
+            String url = "jdbc:mysql://localhost:3306/tj?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "select * from tj";
@@ -70,12 +82,13 @@ public class findLoc {
                 rs.next();
                 if(this.region.equals(rs.getString("region"))){
                     nearBy = rs.getString("nearby");
-                    //nearBy = nearBy.replaceAll("\\s","");
 			
                     nearBys = nearBy.split(",\\s");
                     for(int i = 0; i < nearBys.length; i++){
                         if(location.equals(nearBys[i])){
                             this.busStop = rs.getString("halte");
+                            this.corridor = rs.getString("corridor");
+                            this.indx = rs.getInt("index");
                             gotBusStop = true;
                             break;
                         }
@@ -88,7 +101,6 @@ public class findLoc {
     }
     
     public String getBusStop(){
-        findBusStop();
         return this.busStop;
     }
 
@@ -113,4 +125,14 @@ public class findLoc {
         return nearBys;
     }
 
+    
+    public int getIndex(){
+        return rs.getInt("index");
+    }
+    
+    public String getCorridor(){
+        return rs.getString("corridor");
+    }
 }
+
+   
