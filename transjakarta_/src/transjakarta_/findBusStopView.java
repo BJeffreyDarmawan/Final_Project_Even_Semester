@@ -30,7 +30,6 @@ public class findBusStopView extends javax.swing.JFrame {
     public findBusStopView(String language) {
         this.languages = language;
         initComponents();
-        JOptionPane.showMessageDialog(this, languages);
         display();
         this.setLocationRelativeTo(null);
     }
@@ -40,9 +39,20 @@ public class findBusStopView extends javax.swing.JFrame {
             String[] a = {"Jakarta Pusat", "Jakarta Barat", "Jakarta Utara", "Jakarta Timur", "Jakarta Selatan"};
             regionBox.setModel(new DefaultComboBoxModel(a));
             regionBox.setSelectedIndex(0);
+            jLabel1.setText("LOKASI SEKARANG");
+            jLabel2.setText("Wilayah");
+            jLabel3.setText("Tempat Terdekat");
+            jLabel4.setText("Halte Terdekat");
+            findBSButt.setText("Cari");
+            searchRoutesButt.setText("Cari Rute");            
         } else{
             regionBox.setSelectedIndex(0);
-            
+            jLabel1.setText("CURRENT LOCATION");
+            jLabel2.setText("Region");
+            jLabel3.setText("Nearby Place");            
+            jLabel4.setText("Nearest Bus Stop");
+            findBSButt.setText("Find");
+            searchRoutesButt.setText("Search Routes");            
             }
             displayNearby();
         
@@ -220,7 +230,7 @@ public class findBusStopView extends javax.swing.JFrame {
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView().setVisible(true);
+        new searchRoutesView(languages).setVisible(true);
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
 

@@ -31,7 +31,7 @@ public class openingView extends javax.swing.JFrame {
     
     public void languages(){
          if ("indo".equals(language)){
-            jLabel1.setText("Selamat Datang");
+            jLabel1.setText("Hai");
             findBusStopButt.setText("Cari Halte");
             sRoutesButt.setText("Cari Rute");
             Settings.setText("Pengaturan");
@@ -151,7 +151,7 @@ public class openingView extends javax.swing.JFrame {
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView().setVisible(true);
+        new searchRoutesView(language).setVisible(true);
     }//GEN-LAST:event_sRoutesButtActionPerformed
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed

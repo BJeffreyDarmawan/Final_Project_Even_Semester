@@ -123,7 +123,7 @@ public class settings extends javax.swing.JFrame {
         openingView.setText("Menu Utama");
         ID.setEnabled(false);
         languages = "indo";
-        JOptionPane.showMessageDialog(this, "Language Changed");
+        JOptionPane.showMessageDialog(this, "Bahasa Diganti!");
     }//GEN-LAST:event_IDActionPerformed
 
     private void ENGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ENGActionPerformed
@@ -132,7 +132,7 @@ public class settings extends javax.swing.JFrame {
         openingView.setText("Main Menu");
         ENG.setEnabled(false);
         languages= "english";        
-        JOptionPane.showMessageDialog(this, "Language Changed");
+        JOptionPane.showMessageDialog(this, "Language Changed!");
     }//GEN-LAST:event_ENGActionPerformed
 
     private void openingViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openingViewActionPerformed
