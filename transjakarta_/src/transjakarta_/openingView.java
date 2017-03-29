@@ -5,6 +5,9 @@
  */
 package transjakarta_;
 
+import java.awt.Color;
+import java.awt.Container;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,18 +16,23 @@ import javax.swing.JOptionPane;
  */
 public class openingView extends javax.swing.JFrame {
 
-    String language;
+    String language, color;
+    
+ 
     
     public openingView() {
         initComponents();
         language = "english";
+        color = "default";
         this.setLocationRelativeTo(null);
     }
     
-    public openingView(String languages) {
+    public openingView(String languages, String color) {
+        this.color = color;
         this.language = languages;
         initComponents();
         languages(); 
+        colours();
         this.setLocationRelativeTo(null);
         
     }
@@ -42,6 +50,19 @@ public class openingView extends javax.swing.JFrame {
             sRoutesButt.setText("Find Route");
             Settings.setText("Settings");
         }
+         
+    }
+    
+    public void colours(){
+        if ("pink".equals(color)){
+            this.getContentPane().setBackground( Color.PINK );
+        }
+        else if("gray".equals(color)){
+            this.getContentPane().setBackground( Color.LIGHT_GRAY );
+        }
+        else{
+            this.getContentPane().setBackground(null);
+    }
     }
 
     /**
@@ -145,20 +166,18 @@ public class openingView extends javax.swing.JFrame {
     private void findBusStopButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBusStopButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new findBusStopView(language).setVisible(true);
+        new findBusStopView(language, color).setVisible(true);
     }//GEN-LAST:event_findBusStopButtActionPerformed
 
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView(language).setVisible(true);
+        new searchRoutesView(language, color).setVisible(true);
     }//GEN-LAST:event_sRoutesButtActionPerformed
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
         this.dispose();
-
-        new settings(language).setVisible(true);
-
+        new settings(language, color).setVisible(true);
     }//GEN-LAST:event_SettingsActionPerformed
 
     /**

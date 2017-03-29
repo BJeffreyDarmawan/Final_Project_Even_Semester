@@ -5,6 +5,7 @@
  */
 package transjakarta_;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class searchRoutesView extends javax.swing.JFrame {
      * Creates new form searchRoutesView
      */
 
-    String language, from;
+    String language, from, color;
     Connection con;
     Statement stmt;
     ResultSet rs;
@@ -59,24 +60,28 @@ public class searchRoutesView extends javax.swing.JFrame {
         return halteArr;
     }
     
-    public searchRoutesView(String language, String from) {
+    public searchRoutesView(String language, String color, String from) {
         this.from = from;
+        this.color = color;
         this.language = language;            
         initComponents();
         displayMe();
         this.setLocationRelativeTo(null);
         connectDB();
+        Color();
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
         fromBox.setSelectedItem(from);
     }
     
-    public searchRoutesView(String language) {
-        this.language = language;            
+    public searchRoutesView(String language, String color) {
+        this.language = language;
+        this.color = color;
         initComponents();
         displayMe();
         this.setLocationRelativeTo(null);
         connectDB();
+        Color();
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
     }
@@ -112,6 +117,23 @@ public class searchRoutesView extends javax.swing.JFrame {
         }catch (ClassNotFoundException ex) {
             //JOptionPane.showMessageDialog(this, ex.getMessage());
             //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void Color(){
+        switch (color) {
+            case "pink":
+                this.getContentPane().setBackground( Color.PINK );
+                break;
+            case "gray":
+                this.getContentPane().setBackground( Color.LIGHT_GRAY );
+                break;
+            case "default":
+                this.getContentPane().setBackground(null);
+                break;
+            default:
+                this.getContentPane().setBackground(null);
+                break;
         }
     }
     /**
@@ -222,7 +244,7 @@ public class searchRoutesView extends javax.swing.JFrame {
     private void findBSLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findBSLabelMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new findBusStopView(language).setVisible(true);
+        new findBusStopView(language, color).setVisible(true);
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed

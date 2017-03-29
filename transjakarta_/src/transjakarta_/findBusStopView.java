@@ -5,6 +5,7 @@
  */
 package transjakarta_;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ public class findBusStopView extends javax.swing.JFrame {
      * Creates new form findBusStopView
      */
     
-    String languages;
+    String languages, color;
     public findBusStopView() {
         this.languages="english";
         initComponents();
@@ -27,10 +28,12 @@ public class findBusStopView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    public findBusStopView(String language) {
+    public findBusStopView(String language, String color) {
         this.languages = language;
+        this.color = color;
         initComponents();
         display();
+        Color();
         this.setLocationRelativeTo(null);
     }
     
@@ -44,7 +47,8 @@ public class findBusStopView extends javax.swing.JFrame {
             nearbyLabel.setText("Tempat Terdekat");
             nearestLabel.setText("Halte Terdekat");
             findBSButt.setText("Cari");
-            searchRoutesButt.setText("Cari Rute");            
+            searchRoutesButt.setText("Cari Rute"); 
+            mainmenu.setText("Menu Utama");
         } else{
             regionBox.setSelectedIndex(0);
             titleLabel.setText("CURRENT LOCATION");
@@ -52,7 +56,9 @@ public class findBusStopView extends javax.swing.JFrame {
             nearbyLabel.setText("Nearby Place");            
             nearestLabel.setText("Nearest Bus Stop");
             findBSButt.setText("Find");
-            searchRoutesButt.setText("Search Routes");            
+            searchRoutesButt.setText("Search Routes");  
+            mainmenu.setText("Main Menu");
+
             }
             displayNearby();
         
@@ -86,6 +92,23 @@ public class findBusStopView extends javax.swing.JFrame {
             nearbyBox.setModel(new DefaultComboBoxModel(abc));
         }
     }
+    
+    void Color(){
+        switch (color) {
+            case "pink":
+                this.getContentPane().setBackground( Color.PINK );
+                break;
+            case "gray":
+                this.getContentPane().setBackground( Color.LIGHT_GRAY );
+                break;
+            case "default":
+                this.getContentPane().setBackground(null);
+                break;
+            default:
+                this.getContentPane().setBackground(null);
+                break;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +128,7 @@ public class findBusStopView extends javax.swing.JFrame {
         nearestLabel = new javax.swing.JLabel();
         nearestBSLabel = new javax.swing.JLabel();
         searchRoutesButt = new javax.swing.JButton();
+        mainmenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,6 +169,13 @@ public class findBusStopView extends javax.swing.JFrame {
             }
         });
 
+        mainmenu.setText("Main Menu");
+        mainmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainmenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,10 +191,11 @@ public class findBusStopView extends javax.swing.JFrame {
                                 .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(titleLabel))
                         .addContainerGap(133, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(mainmenu)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(searchRoutesButt))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +228,9 @@ public class findBusStopView extends javax.swing.JFrame {
                     .addComponent(nearestLabel)
                     .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addComponent(searchRoutesButt)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchRoutesButt)
+                    .addComponent(mainmenu))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -230,12 +264,19 @@ public class findBusStopView extends javax.swing.JFrame {
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView(languages, nearestBSLabel.getText()).setVisible(true);
+        new searchRoutesView(languages, color, nearestBSLabel.getText()).setVisible(true);
+        //nearestBSLabel.getText();
     }//GEN-LAST:event_searchRoutesButtActionPerformed
+
+    private void mainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenuActionPerformed
+    this.dispose();
+    new openingView(languages, color).setVisible(true);  
+    }//GEN-LAST:event_mainmenuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;
+    private javax.swing.JButton mainmenu;
     private javax.swing.JComboBox<String> nearbyBox;
     private javax.swing.JLabel nearbyLabel;
     private javax.swing.JLabel nearestBSLabel;
