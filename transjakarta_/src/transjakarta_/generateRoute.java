@@ -50,7 +50,7 @@ public class generateRoute {
     public final void connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/tj?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
+            String url = "jdbc:mysql://localhost:3306/transjakarta", user = "root", password = "";
 
             con = DriverManager.getConnection(url, user, password);
             stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
