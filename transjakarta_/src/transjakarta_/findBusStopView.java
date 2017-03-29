@@ -7,6 +7,7 @@ package transjakarta_;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,27 +19,28 @@ public class findBusStopView extends javax.swing.JFrame {
      * Creates new form findBusStopView
      */
     
-    String language;
+    String languages;
     public findBusStopView() {
-        this.language="english";
+        this.languages="english";
         initComponents();
         display();
         this.setLocationRelativeTo(null);
     }
     
     public findBusStopView(String language) {
-        this.language = language;
+        this.languages = language;
         initComponents();
+        JOptionPane.showMessageDialog(this, languages);
         display();
         this.setLocationRelativeTo(null);
     }
     
     public void display(){
-        if(language.equals("indo")){
+        if(languages.equals("indo")){
             String[] a = {"Jakarta Pusat", "Jakarta Barat", "Jakarta Utara", "Jakarta Timur", "Jakarta Selatan"};
             regionBox.setModel(new DefaultComboBoxModel(a));
             regionBox.setSelectedIndex(0);
-        } else {
+        } else{
             regionBox.setSelectedIndex(0);
             
             }
@@ -47,7 +49,7 @@ public class findBusStopView extends javax.swing.JFrame {
     }
     
     public void displayNearby(){
-        if(language.equals("indo")){
+        if(languages.equals("indo")){
             System.out.println(regionBox.getSelectedItem());
             String weh = (String)regionBox.getSelectedItem();
             if(weh.equals("Jakarta Pusat"))
@@ -211,40 +213,6 @@ public class findBusStopView extends javax.swing.JFrame {
         new searchRoutesView().setVisible(true);
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new findBusStopView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;

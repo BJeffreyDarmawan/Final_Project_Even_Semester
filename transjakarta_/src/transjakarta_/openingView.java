@@ -17,6 +17,7 @@ public class openingView extends javax.swing.JFrame {
     
     public openingView() {
         initComponents();
+        language = "english";
     }
     
     public openingView(String languages) {
@@ -152,7 +153,7 @@ public class openingView extends javax.swing.JFrame {
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
         this.dispose();
-        new settings().setVisible(true);
+        new settings(language).setVisible(true);
     }//GEN-LAST:event_SettingsActionPerformed
 
     /**
@@ -185,7 +186,7 @@ public class openingView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new openingView(null).setVisible(true);
+                new openingView().setVisible(true);
             }
         });
     }

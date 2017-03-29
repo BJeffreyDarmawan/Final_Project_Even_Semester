@@ -37,7 +37,7 @@ public class findLoc {
     
     findLoc(){
         connectDB();
-        findBusStop();
+        
     }
     
     findLoc(String region, String location){
@@ -126,13 +126,7 @@ public class findLoc {
     }
 
     
-    public int getIndex(){
-        return rs.getInt("index");
-    }
     
-    public String getCorridor(){
-        return rs.getString("corridor");
-    }
 }
 
    
