@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +25,7 @@ public class searchRoutesView extends javax.swing.JFrame {
      * Creates new form searchRoutesView
      */
 
-    String language;
+    String language, from;
     Connection con;
     Statement stmt;
     ResultSet rs;
@@ -57,6 +58,19 @@ public class searchRoutesView extends javax.swing.JFrame {
         
         return halteArr;
     }
+    
+    public searchRoutesView(String language, String from) {
+        this.from = from;
+        this.language = language;            
+        initComponents();
+        displayMe();
+        this.setLocationRelativeTo(null);
+        connectDB();
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        fromBox.setSelectedItem(from);
+    }
+    
     public searchRoutesView(String language) {
         this.language = language;            
         initComponents();
@@ -68,14 +82,14 @@ public class searchRoutesView extends javax.swing.JFrame {
     }
     public void displayMe(){
          if ("indo".equals(language)){
-            from.setText("Dari");
+            From_label.setText("Dari");
             to.setText("Ke");
             searchroute.setText("CARI RUTE");
             searchRoutesButt.setText("Cari");
             findBSLabel.setText("Cari Halte?");
         }
          else if("english".equals(language)){
-            from.setText("From");
+            From_label.setText("From");
             to.setText("To");
             searchroute.setText("SEARCH ROUTES");
             searchRoutesButt.setText("Search");
@@ -109,7 +123,7 @@ public class searchRoutesView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        from = new javax.swing.JLabel();
+        From_label = new javax.swing.JLabel();
         to = new javax.swing.JLabel();
         searchroute = new javax.swing.JLabel();
         searchRoutesButt = new javax.swing.JButton();
@@ -119,8 +133,8 @@ public class searchRoutesView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        from.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        from.setText("From");
+        From_label.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        From_label.setText("From");
 
         to.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         to.setText("To");
@@ -144,6 +158,18 @@ public class searchRoutesView extends javax.swing.JFrame {
             }
         });
 
+        fromBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                fromBoxItemStateChanged(evt);
+            }
+        });
+
+        toBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                toBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,7 +181,7 @@ public class searchRoutesView extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(from)
+                                    .addComponent(From_label)
                                     .addGap(26, 26, 26))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(to)
@@ -165,7 +191,7 @@ public class searchRoutesView extends javax.swing.JFrame {
                                 .addComponent(toBox, 0, 241, Short.MAX_VALUE)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(findBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                             .addComponent(searchRoutesButt)))
                     .addComponent(searchroute))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -177,7 +203,7 @@ public class searchRoutesView extends javax.swing.JFrame {
                 .addComponent(searchroute)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(from)
+                    .addComponent(From_label)
                     .addComponent(fromBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -200,13 +226,22 @@ public class searchRoutesView extends javax.swing.JFrame {
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
+        //JOptionPane.showMessageDialog(this, from);
         this.dispose();
         new resultView().setVisible(true);
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
+    private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
+        from = (String) fromBox.getSelectedItem();
+    }//GEN-LAST:event_fromBoxItemStateChanged
+
+    private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
+       // to = (String) toBox.getSelectedItem();
+    }//GEN-LAST:event_toBoxItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel From_label;
     private javax.swing.JLabel findBSLabel;
-    private javax.swing.JLabel from;
     private javax.swing.JComboBox<String> fromBox;
     private javax.swing.JButton searchRoutesButt;
     private javax.swing.JLabel searchroute;

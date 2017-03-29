@@ -230,7 +230,7 @@ public class findBusStopView extends javax.swing.JFrame {
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView(languages).setVisible(true);
+        new searchRoutesView(languages, nearestBSLabel.getText()).setVisible(true);
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
 
