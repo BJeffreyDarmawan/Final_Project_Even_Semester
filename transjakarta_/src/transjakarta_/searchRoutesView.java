@@ -45,7 +45,8 @@ public class searchRoutesView extends javax.swing.JFrame {
         try{
             rs = stmt.executeQuery("select * from tj order by halte");
             while(rs.next()){
-                allHalte.add(rs.getString("halte"));
+                 allHalte.add(rs.getString("halte")); 
+                
             }
         }catch(SQLException e)
         {
@@ -88,7 +89,7 @@ public class searchRoutesView extends javax.swing.JFrame {
             con = ConnectionConfig.createConnection();
             
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "SELECT * FROM tj order by halte";
+            String query = "SELECT * FROM tj";
             rs = stmt.executeQuery(query);
             rs.next();
         }catch(SQLException e){

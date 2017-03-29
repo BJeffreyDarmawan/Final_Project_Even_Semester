@@ -45,7 +45,6 @@ public class findLoc {
         this.location = location;
         connectDB();
         findBusStop();
-        ConnectionConfig.closeConnection();
     }
     
     public int getIndex(){
