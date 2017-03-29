@@ -27,6 +27,24 @@ public class settings extends javax.swing.JFrame {
        //this.setVisible(true);
         //return languages;
     //}
+    
+
+    /*public settings(String language) {
+        this.languages = language;
+        if(languages.equals("indo"))
+        {
+            ENG.setEnabled(true);
+        } else {
+            ENG.setEnabled(false);
+        }
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public String changeLang(){
+        this.setVisible(true);
+        return languages;
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,8 +93,8 @@ public class settings extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(languages_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(languages_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ENG, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(ID))
@@ -120,6 +138,7 @@ public class settings extends javax.swing.JFrame {
     private void openingViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openingViewActionPerformed
         this.dispose();
         new openingView(languages).setVisible(true);
+       
     }//GEN-LAST:event_openingViewActionPerformed
 
 

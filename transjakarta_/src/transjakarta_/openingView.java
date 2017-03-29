@@ -18,12 +18,15 @@ public class openingView extends javax.swing.JFrame {
     public openingView() {
         initComponents();
         language = "english";
+        this.setLocationRelativeTo(null);
     }
     
     public openingView(String languages) {
         this.language = languages;
         initComponents();
-        languages();        
+        languages(); 
+        this.setLocationRelativeTo(null);
+        
     }
     
     public void languages(){
@@ -153,7 +156,9 @@ public class openingView extends javax.swing.JFrame {
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
         this.dispose();
+
         new settings(language).setVisible(true);
+
     }//GEN-LAST:event_SettingsActionPerformed
 
     /**

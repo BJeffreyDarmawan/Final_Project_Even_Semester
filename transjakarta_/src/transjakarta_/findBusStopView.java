@@ -47,21 +47,21 @@ public class findBusStopView extends javax.swing.JFrame {
             displayNearby();
         
     }
-    
+   
     public void displayNearby(){
         if(languages.equals("indo")){
             System.out.println(regionBox.getSelectedItem());
             String weh = (String)regionBox.getSelectedItem();
-            if(weh.equals("Jakarta Pusat"))
-                weh = "Central Jakarta";
-            else if(weh.equals("Jakarta Barat"))
-                weh = "West Jakarta";
-            else if(weh.equals("Jakarta Timur"))
-                weh = "East Jakarta";
-            else if(weh.equals("Jakarta Selatan"))
-                weh = "South Jakarta";
-            else if(weh.equals("Jakarta Utara"))
-                weh = "North Jakarta";
+                if(weh.equals("Jakarta Pusat"))
+                    weh = "Central Jakarta";
+                else if(weh.equals("Jakarta Barat"))
+                    weh = "West Jakarta";
+                else if(weh.equals("Jakarta Timur"))
+                    weh = "East Jakarta";
+                else if(weh.equals("Jakarta Selatan"))
+                    weh = "South Jakarta";
+                else if(weh.equals("Jakarta Utara"))
+                    weh = "North Jakarta";
             findLoc user = new findLoc();
             ArrayList<String> abcdefghi = user.getNearby(weh);
             String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
@@ -196,6 +196,16 @@ public class findBusStopView extends javax.swing.JFrame {
     private void findBSButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBSButtActionPerformed
         // TODO add your handling code here:
         String region = (String) regionBox.getSelectedItem();
+            if(region.equals("Jakarta Pusat"))
+                region = "Central Jakarta";
+            else if(region.equals("Jakarta Barat"))
+                region = "West Jakarta";
+            else if(region.equals("Jakarta Timur"))
+                region = "East Jakarta";
+            else if(region.equals("Jakarta Selatan"))
+                region = "South Jakarta";
+            else if(region.equals("Jakarta Utara"))
+                region = "North Jakarta";
         String nearby = (String) nearbyBox.getSelectedItem();
        
         findLoc user = new findLoc(region, nearby);
