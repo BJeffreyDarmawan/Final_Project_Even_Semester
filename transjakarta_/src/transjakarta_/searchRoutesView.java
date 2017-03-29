@@ -5,6 +5,15 @@
  */
 package transjakarta_;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Home
@@ -14,14 +23,48 @@ public class searchRoutesView extends javax.swing.JFrame {
     /**
      * Creates new form searchRoutesView
      */
+
     String language;
-    public searchRoutesView(String language) {
-        this.language = language;
+    Connection con;
+    Statement stmt;
+    ResultSet rs;
+    
+    public searchRoutesView() {
         initComponents();
         displayMe();
         this.setLocationRelativeTo(null);
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
     }
     
+    public String[] getHalte()
+    {
+        ArrayList<String> allHalte = new ArrayList();
+        String halte;
+        String[] sHalte = null; int a = 0;
+        try{
+            rs = stmt.executeQuery("select * from tj order by halte");
+            while(rs.next()){
+                allHalte.add(rs.getString("halte"));
+            }
+        }catch(SQLException e)
+        {
+           System.out.println(e);
+        }
+        String[] halteArr = new String[allHalte.size()];System.out.println(allHalte);
+        halteArr = allHalte.toArray(halteArr);
+        
+        return halteArr;
+    }
+    public searchRoutesView(String language) {
+        this.language = language;            
+        initComponents();
+        displayMe();
+        this.setLocationRelativeTo(null);
+        connectDB();
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+    }
     public void displayMe(){
          if ("indo".equals(language)){
             from.setText("Dari");
@@ -39,6 +82,23 @@ public class searchRoutesView extends javax.swing.JFrame {
          }
     }
 
+    public final void connectDB(){
+        try{
+            //singleton
+            con = ConnectionConfig.createConnection();
+            
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String query = "SELECT * FROM tj order by halte";
+            rs = stmt.executeQuery(query);
+            rs.next();
+        }catch(SQLException e){
+            System.out.println(e);
+            //JOptionPane.showMessageDialog(this, e.getMessage());
+        }catch (ClassNotFoundException ex) {
+            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,23 +109,17 @@ public class searchRoutesView extends javax.swing.JFrame {
     private void initComponents() {
 
         from = new javax.swing.JLabel();
-        fromTxt = new javax.swing.JTextField();
         to = new javax.swing.JLabel();
-        toTxt = new javax.swing.JTextField();
         searchroute = new javax.swing.JLabel();
         searchRoutesButt = new javax.swing.JButton();
         findBSLabel = new javax.swing.JLabel();
+        fromBox = new javax.swing.JComboBox<>();
+        toBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         from.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         from.setText("From");
-
-        fromTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fromTxtActionPerformed(evt);
-            }
-        });
 
         to.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         to.setText("To");
@@ -105,12 +159,12 @@ public class searchRoutesView extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(to)
                                     .addGap(44, 44, 44)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(fromTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(toTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(fromBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(toBox, 0, 241, Short.MAX_VALUE)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(findBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                             .addComponent(searchRoutesButt)))
                     .addComponent(searchroute))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -122,17 +176,17 @@ public class searchRoutesView extends javax.swing.JFrame {
                 .addComponent(searchroute)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fromTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(from))
+                    .addComponent(from)
+                    .addComponent(fromBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(to)
-                    .addComponent(toTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(toBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchRoutesButt)
                     .addComponent(findBSLabel))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,10 +198,6 @@ public class searchRoutesView extends javax.swing.JFrame {
         new findBusStopView(language).setVisible(true);
     }//GEN-LAST:event_findBSLabelMouseClicked
 
-    private void fromTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fromTxtActionPerformed
-
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         this.dispose();
         new resultView().setVisible(true);
@@ -156,10 +206,10 @@ public class searchRoutesView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel findBSLabel;
     private javax.swing.JLabel from;
-    private javax.swing.JTextField fromTxt;
+    private javax.swing.JComboBox<String> fromBox;
     private javax.swing.JButton searchRoutesButt;
     private javax.swing.JLabel searchroute;
     private javax.swing.JLabel to;
-    private javax.swing.JTextField toTxt;
+    private javax.swing.JComboBox<String> toBox;
     // End of variables declaration//GEN-END:variables
 }

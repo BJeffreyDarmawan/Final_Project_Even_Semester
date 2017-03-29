@@ -38,18 +38,18 @@
                                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="fromTxt" min="-2" pref="241" max="-2" attributes="0"/>
-                              <Component id="toTxt" min="-2" pref="241" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="fromBox" max="32767" attributes="0"/>
+                              <Component id="toBox" pref="241" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="findBSLabel" min="-2" pref="178" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="35" max="32767" attributes="0"/>
                           <Component id="searchRoutesButt" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="searchroute" min="-2" max="-2" attributes="0"/>
+                  <Component id="searchroute" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
@@ -62,20 +62,20 @@
               <Component id="searchroute" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fromTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="from" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fromBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="to" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="toTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="toBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="searchRoutesButt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="findBSLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,11 +89,6 @@
         <Property name="text" type="java.lang.String" value="From"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="fromTxt">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fromTxtActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="to">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -101,8 +96,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="To"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="toTxt">
     </Component>
     <Component class="javax.swing.JLabel" name="searchroute">
       <Properties>
@@ -133,6 +126,26 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="findBSLabelMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="fromBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="toBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

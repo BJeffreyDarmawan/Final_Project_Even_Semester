@@ -39,18 +39,18 @@ public class findBusStopView extends javax.swing.JFrame {
             String[] a = {"Jakarta Pusat", "Jakarta Barat", "Jakarta Utara", "Jakarta Timur", "Jakarta Selatan"};
             regionBox.setModel(new DefaultComboBoxModel(a));
             regionBox.setSelectedIndex(0);
-            jLabel1.setText("LOKASI SEKARANG");
-            jLabel2.setText("Wilayah");
-            jLabel3.setText("Tempat Terdekat");
-            jLabel4.setText("Halte Terdekat");
+            titleLabel.setText("LOKASI SEKARANG");
+            regionLabel.setText("Wilayah");
+            nearbyLabel.setText("Tempat Terdekat");
+            nearestLabel.setText("Halte Terdekat");
             findBSButt.setText("Cari");
             searchRoutesButt.setText("Cari Rute");            
         } else{
             regionBox.setSelectedIndex(0);
-            jLabel1.setText("CURRENT LOCATION");
-            jLabel2.setText("Region");
-            jLabel3.setText("Nearby Place");            
-            jLabel4.setText("Nearest Bus Stop");
+            titleLabel.setText("CURRENT LOCATION");
+            regionLabel.setText("Region");
+            nearbyLabel.setText("Nearby Place");            
+            nearestLabel.setText("Nearest Bus Stop");
             findBSButt.setText("Find");
             searchRoutesButt.setText("Search Routes");            
             }
@@ -96,22 +96,22 @@ public class findBusStopView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
+        regionLabel = new javax.swing.JLabel();
         regionBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        nearbyLabel = new javax.swing.JLabel();
         nearbyBox = new javax.swing.JComboBox<>();
         findBSButt = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        nearestLabel = new javax.swing.JLabel();
         nearestBSLabel = new javax.swing.JLabel();
         searchRoutesButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("CURRENT LOCATION");
+        titleLabel.setText("CURRENT LOCATION");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel2.setText("Region");
+        regionLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        regionLabel.setText("Region");
 
         regionBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         regionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Central Jakarta", "North Jakarta", "South Jakarta", "East Jakarta", "West Jakarta" }));
@@ -121,8 +121,8 @@ public class findBusStopView extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel3.setText("Nearby Place");
+        nearbyLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        nearbyLabel.setText("Nearby Place");
 
         nearbyBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
 
@@ -133,8 +133,8 @@ public class findBusStopView extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel4.setText("Nearest Bus Stop: ");
+        nearestLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        nearestLabel.setText("Nearest Bus Stop: ");
 
         nearestBSLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
@@ -155,10 +155,10 @@ public class findBusStopView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(nearestLabel)
                                 .addGap(38, 38, 38)
                                 .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1))
+                            .addComponent(titleLabel))
                         .addContainerGap(133, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -167,8 +167,8 @@ public class findBusStopView extends javax.swing.JFrame {
                                 .addComponent(searchRoutesButt))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(regionLabel)
+                                    .addComponent(nearbyLabel))
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(regionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -181,19 +181,19 @@ public class findBusStopView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(regionLabel)
                     .addComponent(regionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(nearbyLabel)
                     .addComponent(nearbyBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(findBSButt))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(nearestLabel)
                     .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(searchRoutesButt)
@@ -236,13 +236,13 @@ public class findBusStopView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JComboBox<String> nearbyBox;
+    private javax.swing.JLabel nearbyLabel;
     private javax.swing.JLabel nearestBSLabel;
+    private javax.swing.JLabel nearestLabel;
     private javax.swing.JComboBox<String> regionBox;
+    private javax.swing.JLabel regionLabel;
     private javax.swing.JButton searchRoutesButt;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
