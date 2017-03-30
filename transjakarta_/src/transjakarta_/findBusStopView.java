@@ -40,10 +40,8 @@ public class findBusStopView extends javax.swing.JFrame {
             regionBox.setSelectedIndex(0);
         } else {
             regionBox.setSelectedIndex(0);
-            
             }
             displayNearby();
-        
     }
     
     public void displayNearby(){
@@ -63,14 +61,12 @@ public class findBusStopView extends javax.swing.JFrame {
             findLoc user = new findLoc();
             ArrayList<String> abcdefghi = user.getNearby(weh);
             String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
-            //System.out.println(abc[0]);
             nearbyBox.setModel(new DefaultComboBoxModel(abc));
         } else {
             String weh = (String)regionBox.getSelectedItem();
             findLoc user = new findLoc();
             ArrayList<String> abcdefghi = user.getNearby(weh);
             String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
-            //System.out.println(abc[0]);
             nearbyBox.setModel(new DefaultComboBoxModel(abc));
         }
     }

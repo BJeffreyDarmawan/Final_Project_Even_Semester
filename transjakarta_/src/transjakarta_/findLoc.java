@@ -30,6 +30,8 @@ public class findLoc {
     private int indx;
     private String corridor;
     private boolean gotBusStop = false;
+    private ArrayList<String> corridors = new ArrayList();
+    private ArrayList<Integer> indxs = new ArrayList();
     
     Connection con;
     Statement stmt;
@@ -37,7 +39,13 @@ public class findLoc {
     
     findLoc(){
         connectDB();
-        findBusStop();
+        //findBusStop();
+    }
+    
+    findLoc(String busStop){
+        this.busStop = busStop;
+        connectDB();
+        findCorridor();
     }
     
     findLoc(String region, String location){
@@ -45,6 +53,8 @@ public class findLoc {
         this.location = location;
         connectDB();
         findBusStop();
+        findCorridor();
+        //chooseCorridor();
     }
     
     public int getIndex(){
@@ -54,11 +64,32 @@ public class findLoc {
     public String getCorridor(){
         return corridor;
     }
-        
+    
+    public String getBusStop(){
+        return this.busStop;
+    }
+    
+    public ArrayList<String> getCorridors(){
+        return corridors;
+    }
+    
+    public void chooseCorridor(ArrayList<String> b){
+        int i = 0;System.out.println(b.size() + " findLoc line 77"); System.out.println("INDEXES " + this.indxs);
+        for(String a : corridors){
+            if(b.get(i).equals(a)){ 
+                this.corridor = b.get(i);
+                this.indx = this.indxs.get(i); System.out.println(this.indx);
+                return;
+            }
+        }
+        corridor = this.corridors.get(0);
+        indx = this.indxs.get(0);
+    }
+    
     public final void connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/tj?zeroDateTimeBehavior=convertToNull", user = "root", password = "";
+            String url = "jdbc:mysql://localhost:3306/transjakarta", user = "root", password = "";
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "select * from tj";
@@ -87,8 +118,7 @@ public class findLoc {
                     for(int i = 0; i < nearBys.length; i++){
                         if(location.equals(nearBys[i])){
                             this.busStop = rs.getString("halte");
-                            this.corridor = rs.getString("corridor");
-                            this.indx = rs.getInt("index");
+                            findCorridor();
                             gotBusStop = true;
                             break;
                         }
@@ -98,10 +128,6 @@ public class findLoc {
         } catch (SQLException e){
             System.out.println(e);
         }
-    }
-    
-    public String getBusStop(){
-        return this.busStop;
     }
 
     public ArrayList getNearby(String reg)
@@ -124,15 +150,17 @@ public class findLoc {
         }
         return nearBys;
     }
-
     
-    public int getIndex(){
-        return rs.getInt("index");
-    }
-    
-    public String getCorridor(){
-        return rs.getString("corridor");
+    public void findCorridor(){
+        try{System.out.println("findCorridor"); System.out.println(this.busStop);
+            //boolean gotCorridor = false;
+            rs = stmt.executeQuery("select * from tj where halte = '" + this.busStop + "'"); //System.out.println(rs.getString("corridor"));
+            while(rs.next()){
+                this.corridors.add(rs.getString("corridor"));
+                this.indxs.add(rs.getInt("index"));
+            }
+        }catch(SQLException e){
+            
+        }
     }
 }
-
-   
