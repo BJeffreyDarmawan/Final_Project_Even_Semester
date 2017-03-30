@@ -17,14 +17,13 @@ import javax.swing.JOptionPane;
 public class openingView extends javax.swing.JFrame {
 
     String language, color;
-    
  
     
     public openingView() {
         initComponents();
         language = "english";
         color = "default";
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);        
     }
     
     public openingView(String languages, String color) {

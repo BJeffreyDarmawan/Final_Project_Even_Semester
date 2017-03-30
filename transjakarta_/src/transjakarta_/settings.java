@@ -5,6 +5,7 @@
  */
 package transjakarta_;
 
+import java.time.LocalTime;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -24,19 +25,22 @@ public class settings extends javax.swing.JFrame {
         this.languages = language;        
         initComponents();
         Languages();
-        //JOptionPane.showMessageDialog(this, colors);
+        //JOptionPane.showMessageDialog(this, LocalTime);
         colours();
         this.setLocationRelativeTo(null);
     }
     
     public void ID(){
         ENG.setEnabled(true);
+        //ENG.setBackground(Color.red);
+        //languages_txt.setBackground(Color.red);
+        //gray.setForeground(Color.red);
         languages_txt.setText("Bahasa");
         openingView.setText("Menu Utama");
         color.setText("Warna");
         gray.setText("Abu-abu");
         pink.setText("Merah Jambu");
-        setasdefault.setText("Settingan semula");
+        setasdefault.setText("Pengaturan awal");
         ID.setEnabled(false);
         languages = "indo";
     }
@@ -55,8 +59,12 @@ public class settings extends javax.swing.JFrame {
     
     public void pink(){
         gray.setEnabled(true);
-        this.getContentPane().setBackground( Color.PINK );
+        this.getContentPane().setBackground( Color.PINK );        
         pink.setEnabled(false);
+        //gray.setBackground(Color.white);
+        //openingView.setBackground(Color.white);
+        //setasdefault.setBackground(Color.white);
+        //ID.setBackground(Color.white);
         colors = "pink";       
     }
     
@@ -176,7 +184,7 @@ public class settings extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(languages_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(color, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(color, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ENG, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
