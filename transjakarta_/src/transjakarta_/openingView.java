@@ -7,6 +7,12 @@ package transjakarta_;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,8 +23,6 @@ import javax.swing.JOptionPane;
 public class openingView extends javax.swing.JFrame {
 
     String language, color;
-    
- 
     
     public openingView() {
         initComponents();
@@ -35,6 +39,16 @@ public class openingView extends javax.swing.JFrame {
         colours();
         this.setLocationRelativeTo(null);
         
+    }
+    
+    public void openBrowser() throws IOException
+    {
+        try {
+            Desktop d = Desktop.getDesktop();
+            d.browse(new URI("http://transjakarta.co.id/peta-rute/"));
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void languages(){
@@ -79,6 +93,7 @@ public class openingView extends javax.swing.JFrame {
         findBusStopButt = new javax.swing.JButton();
         sRoutesButt = new javax.swing.JButton();
         Settings = new javax.swing.JButton();
+        mapButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +140,13 @@ public class openingView extends javax.swing.JFrame {
             }
         });
 
+        mapButt.setText("Map");
+        mapButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mapButtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,10 +163,12 @@ public class openingView extends javax.swing.JFrame {
                         .addComponent(sRoutesButt)
                         .addGap(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(mapButt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Settings)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +180,9 @@ public class openingView extends javax.swing.JFrame {
                     .addComponent(findBusStopButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sRoutesButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Settings)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Settings)
+                    .addComponent(mapButt))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -179,6 +205,15 @@ public class openingView extends javax.swing.JFrame {
         this.dispose();
         new settings(language, color).setVisible(true);
     }//GEN-LAST:event_SettingsActionPerformed
+
+    private void mapButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtActionPerformed
+        try {
+            // TODO add your handling code here:
+            openBrowser();
+        } catch (IOException ex) {
+            Logger.getLogger(openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mapButtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +255,7 @@ public class openingView extends javax.swing.JFrame {
     private javax.swing.JButton findBusStopButt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton mapButt;
     private javax.swing.JButton sRoutesButt;
     // End of variables declaration//GEN-END:variables
 }
