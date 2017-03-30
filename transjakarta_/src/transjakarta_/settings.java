@@ -5,6 +5,8 @@
  */
 package transjakarta_;
 
+import java.time.LocalTime;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,17 +18,95 @@ public class settings extends javax.swing.JFrame {
     /**
      * Creates new form settings
      */
-    String languages;
-    public settings() {
+   // Color defaultColor = panel.getBackground();
+    String languages = "english", colors = "default";
+    public settings(String language, String colors) {
+        this.colors= colors;
+        this.languages = language;        
         initComponents();
+        Languages();
+        //JOptionPane.showMessageDialog(this, LocalTime);
+        colours();
         this.setLocationRelativeTo(null);
-        ENG.setEnabled(false);
     }
     
-    public String changeLang(){
-        this.setVisible(true);
-        return languages;
+    public void ID(){
+        ENG.setEnabled(true);
+        //ENG.setBackground(Color.red);
+        //languages_txt.setBackground(Color.red);
+        //gray.setForeground(Color.red);
+        languages_txt.setText("Bahasa");
+        openingView.setText("Menu Utama");
+        color.setText("Warna");
+        gray.setText("Abu-abu");
+        pink.setText("Merah Jambu");
+        setasdefault.setText("Pengaturan awal");
+        ID.setEnabled(false);
+        languages = "indo";
     }
+    
+    public void ENG(){
+        ID.setEnabled(true);
+        languages_txt.setText("Languages");
+        openingView.setText("Main Menu");
+        color.setText("Color");
+        gray.setText("Gray");
+        pink.setText("Pink");
+        setasdefault.setText("Set as Default");
+        ENG.setEnabled(false);
+        languages= "english";  
+    }
+    
+    public void pink(){
+        gray.setEnabled(true);
+        this.getContentPane().setBackground( Color.PINK );        
+        pink.setEnabled(false);
+        //gray.setBackground(Color.white);
+        //openingView.setBackground(Color.white);
+        //setasdefault.setBackground(Color.white);
+        //ID.setBackground(Color.white);
+        colors = "pink";       
+    }
+    
+    public void gray(){
+        pink.setEnabled(true);
+        this.getContentPane().setBackground( Color.LIGHT_GRAY );
+        gray.setEnabled(false);
+        colors="gray";        
+    }
+    
+    public void Languages(){
+        if(languages.equals("indo"))
+        {
+            ID();
+            ID.setEnabled(false);
+        } else {
+            ENG();
+            ENG.setEnabled(false);
+        }
+    }
+    
+    public void colours(){   
+        switch (colors) {
+            case "pink":
+                pink();
+                break;
+            case "gray":
+                gray();
+                break;
+            case "default":
+                this.getContentPane().setBackground(null);
+                break;
+            default:
+                this.getContentPane().setBackground(null);
+                break;
+        }
+    }
+    
+    //public String changeLang(){
+       //this.setVisible(true);
+        //return languages;
+    //}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,6 +121,10 @@ public class settings extends javax.swing.JFrame {
         ENG = new javax.swing.JButton();
         ID = new javax.swing.JButton();
         openingView = new javax.swing.JButton();
+        gray = new javax.swing.JButton();
+        pink = new javax.swing.JButton();
+        color = new javax.swing.JLabel();
+        setasdefault = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +151,29 @@ public class settings extends javax.swing.JFrame {
             }
         });
 
+        gray.setText("Gray");
+        gray.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grayActionPerformed(evt);
+            }
+        });
+
+        pink.setText("Pink");
+        pink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pinkActionPerformed(evt);
+            }
+        });
+
+        color.setText("Color");
+
+        setasdefault.setText("Set as Default");
+        setasdefault.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setasdefaultActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,13 +182,23 @@ public class settings extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(languages_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ENG, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ID))
-                    .addComponent(openingView))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(languages_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(color, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ENG, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                            .addComponent(gray, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(openingView)
+                        .addGap(85, 85, 85)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(setasdefault)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,8 +208,15 @@ public class settings extends javax.swing.JFrame {
                     .addComponent(languages_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ENG)
                     .addComponent(ID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(openingView)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gray)
+                    .addComponent(pink)
+                    .addComponent(color))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(openingView)
+                    .addComponent(setasdefault))
                 .addContainerGap())
         );
 
@@ -100,65 +224,46 @@ public class settings extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
-        ENG.setEnabled(true);
-        languages_txt.setText("Bahasa");
-        openingView.setText("Kembali");
-        ID.setEnabled(false);
-        languages = "indo";
+        ID();
+        JOptionPane.showMessageDialog(this, "Bahasa Diganti!");
     }//GEN-LAST:event_IDActionPerformed
 
     private void ENGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ENGActionPerformed
-        ID.setEnabled(true);
-        languages_txt.setText("Languages");
-        openingView.setText("Back");
-        ENG.setEnabled(false);
-        languages= "english";
+        ENG();      
+        JOptionPane.showMessageDialog(this, "Language Changed!");
     }//GEN-LAST:event_ENGActionPerformed
 
     private void openingViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openingViewActionPerformed
         this.dispose();
-        new openingView(languages).setVisible(true);
+        new openingView(languages, colors).setVisible(true);       
     }//GEN-LAST:event_openingViewActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(settings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(settings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(settings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(settings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void pinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinkActionPerformed
+        pink();
+    }//GEN-LAST:event_pinkActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new settings().setVisible(true);
-            }
-        });
-    }
+    private void grayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grayActionPerformed
+        gray();
+    }//GEN-LAST:event_grayActionPerformed
+
+    private void setasdefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setasdefaultActionPerformed
+        pink.setEnabled(true);
+        gray.setEnabled(true);
+        this.getContentPane().setBackground(null);
+        ENG();
+        colors = "default";
+        JOptionPane.showMessageDialog(this, "Set as default!");
+    }//GEN-LAST:event_setasdefaultActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ENG;
     private javax.swing.JButton ID;
+    private javax.swing.JLabel color;
+    private javax.swing.JButton gray;
     private javax.swing.JLabel languages_txt;
     private javax.swing.JButton openingView;
+    private javax.swing.JButton pink;
+    private javax.swing.JButton setasdefault;
     // End of variables declaration//GEN-END:variables
 }

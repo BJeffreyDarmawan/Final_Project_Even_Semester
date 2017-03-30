@@ -88,13 +88,14 @@ public class findLoc {
     
     public final void connectDB(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/transjakarta", user = "root", password = "";
-            con = DriverManager.getConnection(url, user, password);
+            //singleton
+            con = ConnectionConfig.createConnection();
+                    
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "select * from tj";
             rs = stmt.executeQuery(query);
             rs.next();
+            
         }catch(SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(this, e.getMessage());
@@ -102,6 +103,7 @@ public class findLoc {
             //JOptionPane.showMessageDialog(this, ex.getMessage());
             //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //ConnectionConfig.closeConnection();
     }
     
     public void findBusStop(){

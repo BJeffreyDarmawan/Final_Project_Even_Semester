@@ -52,9 +52,8 @@ public class generateRoute {
     
     public final void connectDB(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/transjakarta", user = "root", password = "";
-            con = DriverManager.getConnection(url, user, password);
+            //singleton
+            con = ConnectionConfig.createConnection();
             stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         }catch(SQLException e){

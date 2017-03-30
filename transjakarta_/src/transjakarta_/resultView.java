@@ -5,6 +5,10 @@
  */
 package transjakarta_;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Wilson Fransicius
@@ -17,8 +21,23 @@ public class resultView extends javax.swing.JFrame {
     public resultView() {
         initComponents();
         this.setLocationRelativeTo(null);
+        System.out.print(getPrice());
     }
    
+    public String getPrice(){
+        Date time = new Date();
+        String price;
+        if(time.getHours()>=5 && time.getHours()<7)
+        {
+            price = "2000";
+        }
+        else
+        {
+            price = "3500";
+        }
+        return price;
+    }
+            
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,7 +51,6 @@ public class resultView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        shortest_txt = new javax.swing.JLabel();
         repeat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,8 +60,6 @@ public class resultView extends javax.swing.JFrame {
         jLabel2.setText("Alternative Route");
 
         jLabel3.setText("Alternative Route");
-
-        shortest_txt.setText("jLabel4");
 
         repeat.setText("Do again?");
         repeat.addActionListener(new java.awt.event.ActionListener() {
@@ -62,11 +78,9 @@ public class resultView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(shortest_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                        .addGap(14, 14, 14))
+                        .addGap(14, 303, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(repeat)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -75,10 +89,8 @@ public class resultView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(shortest_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addGap(14, 14, 14)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,6 +112,5 @@ public class resultView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton repeat;
-    private javax.swing.JLabel shortest_txt;
     // End of variables declaration//GEN-END:variables
 }

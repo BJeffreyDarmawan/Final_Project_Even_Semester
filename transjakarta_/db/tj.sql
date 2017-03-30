@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2017 at 04:53 AM
+-- Generation Time: Mar 30, 2017 at 10:12 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `test2`
+-- Database: `transjakarta`
 --
 
 -- --------------------------------------------------------
@@ -140,7 +140,28 @@ INSERT INTO `tj` (`index`, `halte`, `corridor`, `nearby`, `region`) VALUES
 (18, 'Pondok Indah 2', '8', 'Pondok Indah Mall 2, Masjid Raya Pondok Indah ', 'South Jakarta'),
 (19, 'Pondok Indah 1', '8', 'Pondok Indah Mall 1, Pondok Indah Apartment, Pondok Indah Golf and Country Cluc ', 'South Jakarta'),
 (20, 'Pondok Pinang', '8', 'Madrasah Aliyah Negri 4 Jakarta, Pondok Pinang ', 'South Jakarta'),
-(21, 'Lebak Bulus', '8', 'Terminal Lebak Bulus, Carrefour Lebak Bulus, Poins Square, SMK Grafika Yayasan Lektur', 'Sputh Jakarta');
+(21, 'Lebak Bulus', '8', 'Terminal Lebak Bulus, Carrefour Lebak Bulus, Poins Square, SMK Grafika Yayasan Lektur', 'South Jakarta'),
+(1, 'Penjaringan', '12', '0', 'North Jakarta'),
+(2, 'Landmark Auto Plaza', '12', '0', 'North Jakarta'),
+(3, 'Pakin', '12', '0', 'North Jakarta'),
+(4, 'Gedong Panjang', '12', '0', 'North Jakarta'),
+(5, 'Museum Fatahilah', '12', '0', 'West Jakarta'),
+(6, 'Kota', '12', '0', 'West Jakarta'),
+(7, 'Pangeran Jayakarta', '12', '0', 'Central Jakarta'),
+(8, 'Mangga Dua', '12', '0', 'North Jakarta'),
+(9, 'Gunung Sahari Mangga Dua', '12', '0', 'North Jakarta'),
+(10, 'Jembatan Merah', '12', '0', 'Central Jakarta'),
+(11, 'Kemayoran', '12', '0', 'Central Jakarta'),
+(12, 'Danau Agung', '12', '0', 'North Jakarta'),
+(13, 'SMP 140', '12', '0', 'North Jakarta'),
+(14, 'Sunter Karya', '12', '0', 'North Jakarta'),
+(15, 'Sunter Boulevard Barat', '12', '0', 'North Jakarta'),
+(16, 'Sunter Kelapa Gading', '12', 'Mall Of Indonesia, Mall Artha Gading, Perkantoran Danau Sunter', 'North Jakarta'),
+(17, 'Plumpang Pertamina', '12', 'Taman Plumpang, Pasar Pelita', 'North Jakarta'),
+(18, 'Walikota  Jakarta Utara', '12', 'Gelanggang Remaja Kotamadya Jakarta Utara, SMAN 13 Jakarta, Badan Pertahanan Nasional', 'North Jakarta'),
+(19, 'Permai Koja', '12', 'Pasar Permai, Pasar Ular', 'North Jakarta'),
+(20, 'Enggano', '12', 'PORT Medical Center, Puskopal Kolinlamil', 'North Jakarta'),
+(21, 'Tanjung Priok', '12', 'St. Tanjung Priuk, OLIA Medical Center', 'North Jakarta');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
