@@ -28,7 +28,7 @@ public class openingView extends javax.swing.JFrame {
         initComponents();
         language = "english";
         color = "default";
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);        
     }
     
     public openingView(String languages, String color) {
