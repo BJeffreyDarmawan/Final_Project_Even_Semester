@@ -48,15 +48,15 @@ public class searchRoutesView extends javax.swing.JFrame {
             rs = stmt.executeQuery("select * from tj order by halte");
             while(rs.next()){ 
                 allHalte.add(rs.getString("halte"));
-            }
-            for (int i = 0; i<allHalte.size(); i++)
-            {
-                if(allHalte.get(i).equals(allHalte.get(i++)))
-                {
-                    allHalte.remove(i); 
-                    i--;
+                
+            //check after the first data is the same as the next one
+            if(allHalte.size()!= 1){
+                //remove the data with the same value
+                if(allHalte.get(allHalte.size()-1).equals(allHalte.get(allHalte.size()-2))){
+                    allHalte.remove(allHalte.size()-1);
                 }
             }
+        }
         }catch(SQLException e)
         {
            System.out.println(e);
