@@ -5,6 +5,10 @@
  */
 package transjakarta_;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Wilson Fransicius
@@ -17,8 +21,23 @@ public class resultView extends javax.swing.JFrame {
     public resultView() {
         initComponents();
         this.setLocationRelativeTo(null);
+        System.out.print(getPrice());
     }
    
+    public String getPrice(){
+        Date time = new Date();
+        String price;
+        if(time.getHours()>=5 && time.getHours()<7)
+        {
+            price = "2000";
+        }
+        else
+        {
+            price = "3500";
+        }
+        return price;
+    }
+            
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -43,12 +43,19 @@ public class searchRoutesView extends javax.swing.JFrame {
     {
         ArrayList<String> allHalte = new ArrayList();
         String halte;
-        String[] sHalte = null; int a = 0;
+        String[] sHalte = null;
         try{
             rs = stmt.executeQuery("select * from tj order by halte");
-            while(rs.next()){
-                 allHalte.add(rs.getString("halte")); 
-                
+            while(rs.next()){ 
+                allHalte.add(rs.getString("halte"));
+            }
+            for (int i = 0; i<allHalte.size(); i++)
+            {
+                if(allHalte.get(i).equals(allHalte.get(i++)))
+                {
+                    allHalte.remove(i); 
+                    i--;
+                }
             }
         }catch(SQLException e)
         {
@@ -108,7 +115,7 @@ public class searchRoutesView extends javax.swing.JFrame {
             con = ConnectionConfig.createConnection();
             
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "SELECT * FROM tj";
+            String query = "SELECT * FROM tj order by halte";
             rs = stmt.executeQuery(query);
             rs.next();
         }catch(SQLException e){
