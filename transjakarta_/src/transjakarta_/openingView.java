@@ -33,6 +33,7 @@ public class openingView extends javax.swing.JFrame {
     
     public openingView() {
         try {
+            this.setTitle("VIEW OPENIGIN BEGINI");
             initComponents();
             language = "english";
             color = "default";
