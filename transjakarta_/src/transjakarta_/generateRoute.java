@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -28,7 +29,7 @@ public class generateRoute {
     Connection con;
     Statement stmt1, stmt2;
     ResultSet rs1, rs2;
-    String[] arrCorridorsList = {"1", "4C", "2", "8", "10"};
+    String[] arrCorridorsList = {"1", "4C", "2", "8", "10", "12"};
     
     ArrayList<String> haltePoints = new ArrayList();
     ArrayList<findLoc> Transit = new ArrayList();
@@ -88,10 +89,10 @@ public class generateRoute {
             rs1.first(); rs1.previous();//System.out.print(haltePoints.get(i));System.out.println(i);
             while(true){
                 rs1.next();
-                if(rs1.getString("halte").equals(haltePoints.get(i))){System.out.println(" line 92");
+                if(rs1.getString("halte").equals(haltePoints.get(i))){System.out.println(haltePoints.get(i) + " line 92");
                     break;
                 } 
-            }System.out.println(haltePoints.get(i) + " line 95");
+            }System.out.println(haltePoints.get(i) + " line 95 " + rs1.getInt("index"));
         }catch(SQLException ex){
             //JOptionPane.showMessageDialog(this, ex.getMessage());
         }
@@ -106,11 +107,9 @@ public class generateRoute {
     public void gataunimethodapa(){
         try{
             if(Departure.getCorridor().equals(Destination.getCorridor())){
-                //iArrCorridorPassed = Departure.getCorridor();
-                //System.out.println(Departure.getCorridor());
                 
                 rs1 = stmt1.executeQuery("select * from tj where corridor = '" + Departure.getCorridor() + "'");
-                goToRS(0); //System.out.println("yey");
+                goToRS(0); 
                 halteRoute.add(rs1.getString("halte"));
                 if(Departure.getIndex() < Destination.getIndex()){
                     while(rs1.next()){
@@ -131,17 +130,18 @@ public class generateRoute {
                 //gotors departure, loop, add busstops
             } else {
                 haltePoints.add(Departure.getBusStop()); Transit.add(new findLoc(Departure.getBusStop()));
-                findCorridorAndTransit(Departure.getCorridor(), Destination.getCorridor()); System.out.println(Transit.get(0).getBusStop());showTransits();//System.out.println(haltePoints);
+                findCorridorAndTransit(Departure.getCorridor(), Destination.getCorridor()); System.out.println(Transit.get(0).getBusStop());showTransits(); System.out.println("INI CORRIDOR PASSED" + corridorPassed);//System.out.println(haltePoints);
                 for(int i = 0; i < corridorPassed.size(); i++){System.out.println(corridorPassed.size() + " line 136");
-                    rs1 = stmt1.executeQuery("select * from tj where corridor = '" + corridorPassed.get(i) + "'"); System.out.println(" line 159"); 
-                    goToRS(i); 
-                    halteRoute.add(rs1.getString("halte")); System.out.println(Transit.get(i+1).getCorridors());
-                    if(Transit.get(i+1) != null){ Transit.get(i+1).chooseCorridor(Transit.get(i).getCorridors());
-                        Transit.get(i).chooseCorridor(Transit.get(i+1).getCorridors());//System.out.println(Transit.get(i).getIndex() + " line 160 " + i + " " + Transit.size());
-                    }else 
-                        return;   
-                    System.out.println(rs1.getInt("index") + "sini" +Transit.get(i+1).getIndex());
-                    if(rs1.getInt("index") < Transit.get(i+1).getIndex()){System.out.println(rs1.getInt("index") + " " + Transit.get(i).getIndex());
+                    rs1 = stmt1.executeQuery("select * from tj where corridor = '" + corridorPassed.get(i) + "'");  
+                    goToRS(i);
+                    halteRoute.add(rs1.getString("halte")); //System.out.println(Transit.get(i+1).getCorridors());
+                    System.out.println(corridorPassed.get(i) + " line 159");
+                    Transit.get(i+1).chooseCorridor(new ArrayList<String>(Arrays.asList(corridorPassed.get(i))));System.out.println(Transit.get(i+1).getCorridor());
+                    Transit.get(i).chooseCorridor(new ArrayList<String>(Arrays.asList(corridorPassed.get(i))));//System.out.println(Transit.get(i).getIndex() + " line 160 " + i + " " + Transit.size());
+                    
+                    System.out.println(haltePoints.get(i) + "  " + rs1.getInt("index") + " berangkat ::" + Transit.get(i).getIndex() + " brenti : " +Transit.get(i+1).getIndex());
+                    //System.out.println(rs1.getInt("index") + "sini" +Transit.get(i+1).getIndex());
+                    if(rs1.getInt("index") < Transit.get(i+1).getIndex()){
                         while(rs1.next()){
                             halteRoute.add(rs1.getString("halte"));
                             if(rs1.getString("halte").equals(Transit.get(i+1).getBusStop())){
@@ -170,22 +170,30 @@ public class generateRoute {
     public void findCorridorAndTransit(String corridorA, String corridorB){
         try{System.out.println("findCorridorAndTransiit");
         
-            if(doWeHaveSameStops(corridorA, corridorB)){ 
-                Transit.add(new findLoc(rs1.getString("halte")));//System.out.println(rs1.getString("halte")+ "passed halte");
+            if(doWeHaveSameStops(corridorA, corridorB) && !corridorB.equals(corridorA)){ 
+                Transit.add(new findLoc(rs1.getString("halte")));
                 haltePoints.add(rs1.getString("halte"));
                 corridorPassed.add(rs1.getString("corridor"));
-                if(corridorB.equals(Destination.getCorridor())){ //System.out.println(Transit.get(0).getBusStop());
+                if(corridorB.equals(Destination.getCorridor())){ 
                     corridorPassed.add(Destination.getCorridor());  Transit.add(new findLoc(Destination.getBusStop()));
                     haltePoints.add(Destination.getBusStop());System.out.println(corridorPassed + "line 198");
                     return;
                 } else {
-                    findCorridorAndTransit(corridorB, arrCorridorsList[a++]);
+                    System.out.println("UNFORTINATELY IT GOES HERE");
+                    findCorridorAndTransit(corridorB, arrCorridorsList[a++]); //dia muter2 disini
                 }
             } else {
-                findCorridorAndTransit(corridorA, arrCorridorsList[a++]);
+                System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
+                if (!corridorB.equals(Departure.getCorridor()) && !corridorB.equals(arrCorridorsList[a])) {
+                    findCorridorAndTransit(corridorA, arrCorridorsList[a++]);
+                } else {
+                    a++;
+                    findCorridorAndTransit(corridorA, arrCorridorsList[a++]);
+
+                }
+                
+                
             }
-        
-        
         } catch (SQLException e){
             System.out.println("Error at findCorridorAndTransit");
         }
@@ -196,14 +204,6 @@ public class generateRoute {
         return halteRoute;
     }
     
-    /*
-    public void makeLeRoute(){
-        boolean niga = false;
-        while(rs.next()){
-            if
-        }
-        
-    }*/
     
     public void showTransits(){
         for(findLoc a : Transit){
@@ -216,11 +216,12 @@ public class generateRoute {
         abc.connectDB();
         findLoc Departure = new findLoc("South Jakarta", "Fx Sudirman");
         //findLoc Destination = new findLoc("Central Jakarta", "Atma Jaya");
-        findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
+        //findLoc Destination = new findLoc("West Jakarta", "Apartment Kedoya Elok");
+        //findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
+        findLoc Destination = new findLoc("East Jakarta", "PGC");
         generateRoute WEH = new generateRoute(Departure, Destination);
         System.out.println(Departure.getCorridor());
         System.out.println(Destination.getCorridor());
-        //WEH.showTransits();
         System.out.println(WEH.getRoute());
         if(abc.doWeHaveSameStops("1", "8")){
             System.out.println("abc");
