@@ -8,12 +8,19 @@ package transjakarta_;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,22 +32,55 @@ public class openingView extends javax.swing.JFrame {
     String language, color;
     
     public openingView() {
-        initComponents();
-        language = "english";
-        color = "default";
-        this.setLocationRelativeTo(null);        
+        try {
+            this.setTitle("VIEW OPENIGIN BEGINI");
+            initComponents();
+            language = "english";
+            color = "default";
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);        
+            this.setLocationRelativeTo(null);
+        } catch (SQLException ex) {
+            Logger.getLogger(openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public openingView(String languages, String color) {
-        this.color = color;
-        this.language = languages;
-        initComponents();
-        languages(); 
-        colours();
-        this.setLocationRelativeTo(null);
+        try {
+            this.color = color;
+            this.language = languages;
+            initComponents();
+            languages();
+            colours();
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
+            this.setLocationRelativeTo(null);
+        } catch (SQLException ex) {
+            Logger.getLogger(openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
-    
+    //show image
+    public static void showImage(String image, JLabel label) throws SQLException
+    {
+        try
+        {
+            File f = new File(image);
+            
+            //temporary storage for the image
+            BufferedImage bi = ImageIO.read(f);
+            
+            //to make the image fit with the image label
+            Image newbi = bi.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+            
+            label.setIcon(new ImageIcon(newbi));
+            
+            //in case something wrong when setting the icon
+            label.revalidate();
+            label.repaint();
+        }catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
     public void openBrowser() throws IOException
     {
         try {
@@ -53,13 +93,13 @@ public class openingView extends javax.swing.JFrame {
     
     public void languages(){
          if ("indo".equals(language)){
-            jLabel1.setText("Hai");
+            //jLabel1.setText("Hai");
             findBusStopButt.setText("Cari Halte");
             sRoutesButt.setText("Cari Rute");
             Settings.setText("Pengaturan");
         }
         else{
-            jLabel1.setText("Welcome!");
+            //jLabel1.setText("Welcome!");
             findBusStopButt.setText("Find Bus Stop");
             sRoutesButt.setText("Find Route");
             Settings.setText("Settings");
@@ -88,34 +128,13 @@ public class openingView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         findBusStopButt = new javax.swing.JButton();
         sRoutesButt = new javax.swing.JButton();
         Settings = new javax.swing.JButton();
         mapButt = new javax.swing.JButton();
+        logoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 2, 48)); // NOI18N
-        jLabel1.setText("Welcome!");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
 
         findBusStopButt.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         findBusStopButt.setText("Find Bus Stop");
@@ -151,31 +170,28 @@ public class openingView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(findBusStopButt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sRoutesButt)
-                        .addGap(0, 17, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(mapButt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Settings)
                 .addGap(53, 53, 53))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(findBusStopButt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sRoutesButt)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(33, 33, 33)
+                .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(findBusStopButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sRoutesButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,8 +269,7 @@ public class openingView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Settings;
     private javax.swing.JButton findBusStopButt;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel logoLabel;
     private javax.swing.JButton mapButt;
     private javax.swing.JButton sRoutesButt;
     // End of variables declaration//GEN-END:variables

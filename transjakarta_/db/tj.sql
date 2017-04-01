@@ -2,10 +2,10 @@
 -- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 30, 2017 at 10:12 AM
+-- Host: 127.0.0.1
+-- Generation Time: Mar 31, 2017 at 10:35 AM
 -- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -103,7 +103,7 @@ INSERT INTO `tj` (`index`, `halte`, `corridor`, `nearby`, `region`) VALUES
 (3, 'Permai Koja', '10', 'Pasar Permai, Pasar Ular', 'North Jakarta'),
 (4, 'Walikota Jakarta Utara', '10', 'Gelanggang Remaja Kotamadya Jakarta Utara, SMAN 13 Jakarta, Badan Pertahanan Nasional', 'North Jakarta'),
 (5, 'Plumpang Pertamina', '10', 'Taman Plumpang, Pasar Pelita', 'North Jakarta'),
-(6, 'Sunter Kelapa Gading', '10', 'Mall Of Indonesia, Mall Artha Gading, Perkantoran Danau Sunter', 'North Jakarta'),
+(6, 'Sunter Kelapa Gading', '10', 'Mall Artha Gading, AUTO 2000 Kelapa Gading', 'North Jakarta'),
 (7, 'Yos Sudarso Kodamar', '10', 'SMAN 72 Jakarta, SMP Hang Tuah 3', 'North Jakarta'),
 (8, 'Cempaka Mas 2', '10', 'ITC Cempaka Mas, Transmart Cempaka Putih', 'North Jakarta'),
 (9, 'Cempaka Putih', '10', 'RS. Pertamina Jaya, Graha Dwi Yani', 'East Jakarta'),
@@ -130,7 +130,7 @@ INSERT INTO `tj` (`index`, `halte`, `corridor`, `nearby`, `region`) VALUES
 (8, 'Duri Kepa', '8', 'Graha Technosoft Informatika, BNI Graha Elok Mas, Plaza Kedoya Elok, Apartment Kedoya Elok, GKI Kedoya, FedEx Duri Kepa ', 'West Jakarta'),
 (9, 'Kebon Jeruk', '8', 'Indosiar Television Tower, SMPN 75, Wisma Akr, Auto Bild Indonesia ', 'West Jakarta'),
 (10, 'Kelapa Dua SasakPos Pengumben', '8', 'Indomobil Nissan Datsun Kebon Jeruk, SMPN 189, SMP Al-Huda, Jalan Sasak ', 'West Jakarta'),
-(11, 'Pos Pengumben', '8', 'Masjid Jami Al-Anwar, ', 'West Jakarta'),
+(11, 'Pos Pengumben', '8', 'Masjid Jami Al-Anwar', 'West Jakarta'),
 (12, 'Permata Hijau RS. Medika', '8', 'RS Medika Permata Hijau ', 'West Jakarta'),
 (13, 'Permata Hijau', '8', 'The Bellezza Shopping Arcade, Permata Hijau Residence, Halte Simprug 2   ', 'South Jakarta'),
 (14, 'Simprug', '8', 'Binus School Simprug, Gedung Hyundai Indoensia ', 'South Jakarta'),
@@ -141,22 +141,22 @@ INSERT INTO `tj` (`index`, `halte`, `corridor`, `nearby`, `region`) VALUES
 (19, 'Pondok Indah 1', '8', 'Pondok Indah Mall 1, Pondok Indah Apartment, Pondok Indah Golf and Country Cluc ', 'South Jakarta'),
 (20, 'Pondok Pinang', '8', 'Madrasah Aliyah Negri 4 Jakarta, Pondok Pinang ', 'South Jakarta'),
 (21, 'Lebak Bulus', '8', 'Terminal Lebak Bulus, Carrefour Lebak Bulus, Poins Square, SMK Grafika Yayasan Lektur', 'South Jakarta'),
-(1, 'Penjaringan', '12', '0', 'North Jakarta'),
-(2, 'Landmark Auto Plaza', '12', '0', 'North Jakarta'),
-(3, 'Pakin', '12', '0', 'North Jakarta'),
-(4, 'Gedong Panjang', '12', '0', 'North Jakarta'),
-(5, 'Museum Fatahilah', '12', '0', 'West Jakarta'),
-(6, 'Kota', '12', '0', 'West Jakarta'),
-(7, 'Pangeran Jayakarta', '12', '0', 'Central Jakarta'),
-(8, 'Mangga Dua', '12', '0', 'North Jakarta'),
-(9, 'Gunung Sahari Mangga Dua', '12', '0', 'North Jakarta'),
-(10, 'Jembatan Merah', '12', '0', 'Central Jakarta'),
-(11, 'Kemayoran', '12', '0', 'Central Jakarta'),
-(12, 'Danau Agung', '12', '0', 'North Jakarta'),
-(13, 'SMP 140', '12', '0', 'North Jakarta'),
-(14, 'Sunter Karya', '12', '0', 'North Jakarta'),
-(15, 'Sunter Boulevard Barat', '12', '0', 'North Jakarta'),
-(16, 'Sunter Kelapa Gading', '12', 'Mall Of Indonesia, Mall Artha Gading, Perkantoran Danau Sunter', 'North Jakarta'),
+(1, 'Penjaringan', '12', 'Pluit Village, SMP Tarakanita 2 Pluit, GKY Pluit', 'North Jakarta'),
+(2, 'Landmark Auto Plaza', '12', 'Bina Tunas Bangsa School, RS Pluit, POLSEK Penjaringan', 'North Jakarta'),
+(3, 'Pakin', '12', 'SPBU Pertamina Pluit Raya, Indomaret Pakin', 'North Jakarta'),
+(4, 'Gedong Panjang', '12', 'Masjid Penjaringan, Panasonic Service Center 123, Jl. Gedong Panjang I', 'North Jakarta'),
+(5, 'Museum Fatahilah', '12', 'Museum Fatahilah, Taman Fatahilah, Cafe Batavia, Colosseum Jakarta, Kantorpos Mandiri Kota', 'West Jakarta'),
+(6, 'Kota', '12', 'Kota Tua, Alun-Alun, Stasiun Kota, Museum Bank Indonesia', 'West Jakarta'),
+(7, 'Pangeran Jayakarta', '12', 'Gereja Sion, Trans Mangga Dua, Auto 2000 Jayakarta', 'Central Jakarta'),
+(8, 'Mangga Dua', '12', 'ITC Mangga Dua, Mangga Dua Mall, Pasar Pagi', 'North Jakarta'),
+(9, 'Gunung Sahari Mangga Dua', '12', 'Mangga Dua Square, Hotel Neo Mangga Dua Square, Bali Jimbaran Mangga Dua', 'North Jakarta'),
+(10, 'Jembatan Merah', '12', 'Pasar Jembatan Merah, The Media Hotel', 'Central Jakarta'),
+(11, 'Kemayoran', '12', 'Gandhi Memorial School, RS Mitra Kemayoran', 'Central Jakarta'),
+(12, 'Danau Agung', '12', 'Papa Jack Kopitiam Sunter, d\'Cost Sunter, Holiday Inn Sunter, Ruko Puri Mutiara Sunter, Food Centrum Sunter', 'North Jakarta'),
+(13, 'SMP 140', '12', 'RS Satya Negara, SMAN 15 Jakarta, ACE Hardware', 'North Jakarta'),
+(14, 'Sunter Karya', '12', 'Sunter Mall, Pasar Sunter, Sinotif Sunter', 'North Jakarta'),
+(15, 'Sunter Boulevard Barat', '12', 'Mall Of Indonesia, Shell Kelapa Gading, Perkantoran Danau Sunter', 'North Jakarta'),
+(16, 'Sunter Kelapa Gading', '12', 'Mall Artha Gading, AUTO 2000 Kelapa Gading', 'North Jakarta'),
 (17, 'Plumpang Pertamina', '12', 'Taman Plumpang, Pasar Pelita', 'North Jakarta'),
 (18, 'Walikota  Jakarta Utara', '12', 'Gelanggang Remaja Kotamadya Jakarta Utara, SMAN 13 Jakarta, Badan Pertahanan Nasional', 'North Jakarta'),
 (19, 'Permai Koja', '12', 'Pasar Permai, Pasar Ular', 'North Jakarta'),

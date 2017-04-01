@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author Home
  */
-public class searchRoutesView extends javax.swing.JFrame {
+public class searchRoutesView extends javax.swing.JFrame implements Language {
 
     /**
      * Creates new form searchRoutesView
@@ -48,15 +48,15 @@ public class searchRoutesView extends javax.swing.JFrame {
             rs = stmt.executeQuery("select * from tj order by halte");
             while(rs.next()){ 
                 allHalte.add(rs.getString("halte"));
-            }
-            for (int i = 0; i<allHalte.size(); i++)
-            {
-                if(allHalte.get(i).equals(allHalte.get(i++)))
-                {
-                    allHalte.remove(i); 
-                    i--;
+                
+            //check after the first data is the same as the next one
+            if(allHalte.size()!= 1){
+                //remove the data with the same value
+                if(allHalte.get(allHalte.size()-1).equals(allHalte.get(allHalte.size()-2))){
+                    allHalte.remove(allHalte.size()-1);
                 }
             }
+        }
         }catch(SQLException e)
         {
            System.out.println(e);
@@ -93,20 +93,12 @@ public class searchRoutesView extends javax.swing.JFrame {
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
     }
     public void displayMe(){
-         if ("indo".equals(language)){
-            From_label.setText("Dari");
-            to.setText("Ke");
-            searchroute.setText("CARI RUTE");
-            searchRoutesButt.setText("Cari");
-            findBSLabel.setText("Cari Halte?");
+        if ("indo".equals(language)){
+            changeToIndo();
         }
-         else if("english".equals(language)){
-            From_label.setText("From");
-            to.setText("To");
-            searchroute.setText("SEARCH ROUTES");
-            searchRoutesButt.setText("Search");
-            findBSLabel.setText("Find bus stop?");
-         }
+        else if("english".equals(language)){
+            changeToEng();
+        }
     }
 
     public final void connectDB(){
@@ -277,4 +269,24 @@ public class searchRoutesView extends javax.swing.JFrame {
     private javax.swing.JLabel to;
     private javax.swing.JComboBox<String> toBox;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void changeToIndo() {
+        From_label.setText("Dari");
+        to.setText("Ke");
+        searchroute.setText("CARI RUTE");
+        searchRoutesButt.setText("Cari");
+        findBSLabel.setText("Cari Halte?");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToEng() {
+        From_label.setText("From");
+        to.setText("To");
+        searchroute.setText("SEARCH ROUTES");
+        searchRoutesButt.setText("Search");
+        findBSLabel.setText("Find bus stop?");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
