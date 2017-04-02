@@ -92,7 +92,7 @@ public class openingView extends javax.swing.JFrame {
     }
     
     public void languages(){
-         if ("indo".equals(language)){
+        if ("indo".equals(language)){
             //jLabel1.setText("Hai");
             findBusStopButt.setText("Cari Halte");
             sRoutesButt.setText("Cari Rute");

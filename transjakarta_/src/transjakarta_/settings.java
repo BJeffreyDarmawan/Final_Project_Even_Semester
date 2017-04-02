@@ -32,9 +32,6 @@ public class settings extends javax.swing.JFrame {
     
     public void ID(){
         ENG.setEnabled(true);
-        //ENG.setBackground(Color.red);
-        //languages_txt.setBackground(Color.red);
-        //gray.setForeground(Color.red);
         languages_txt.setText("Bahasa");
         openingView.setText("Menu Utama");
         color.setText("Warna");
@@ -61,10 +58,6 @@ public class settings extends javax.swing.JFrame {
         gray.setEnabled(true);
         this.getContentPane().setBackground( Color.PINK );        
         pink.setEnabled(false);
-        //gray.setBackground(Color.white);
-        //openingView.setBackground(Color.white);
-        //setasdefault.setBackground(Color.white);
-        //ID.setBackground(Color.white);
         colors = "pink";       
     }
     

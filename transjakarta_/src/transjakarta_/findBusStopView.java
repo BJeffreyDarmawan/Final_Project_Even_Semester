@@ -58,7 +58,6 @@ public class findBusStopView extends javax.swing.JFrame {
             findBSButt.setText("Find");
             searchRoutesButt.setText("Search Routes");  
             mainmenu.setText("Main Menu");
-
             }
             displayNearby();
     }
