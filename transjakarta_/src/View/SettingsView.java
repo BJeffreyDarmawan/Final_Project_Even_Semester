@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class SettingsView extends javax.swing.JFrame {
     
-    String language = "eng";
-    String color = "pink"; //should be default
+    String language;
+    String color;
     JLabel langLabel;
     JLabel colorLabel;
     JFrame frame;
@@ -135,29 +135,29 @@ public class SettingsView extends javax.swing.JFrame {
         ChangeSettings cs = new ChangeSettings();
         if(engButton.isSelected())
         {
-            language = "eng";
+            this.language = "eng";
         }
         else if(indoButton.isSelected())
         {
-            language = "indo";
+            this.language = "indo";
         }
         else{
             if(this.language.equals("eng")){
-                languageGroup.setSelected((ButtonModel) engButton, true);
+                languageGroup.setSelected(engButton.getModel(), true);
             }
-                else{
-                    languageGroup.setSelected((ButtonModel) indoButton, true);
-                    }
+            else{
+                languageGroup.setSelected(indoButton.getModel(), true);
+            }
         }
         
         if(pinkButton.isSelected())
-            {
-                color = "pink";
-            }
+        {
+            color = "pink";
+        }
         else if(grayButton.isSelected())
-            {
-                color = "gray";
-            }
+        {
+            color = "gray";
+        }
         
         frame = this;
         langLabel = languageLabel;

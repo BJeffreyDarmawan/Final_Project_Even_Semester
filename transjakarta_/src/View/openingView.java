@@ -19,6 +19,8 @@ public class openingView extends javax.swing.JFrame {
      * Creates new form openingView
      */
     public openingView() {
+        this.language = "eng";
+        this.color = "gray";
         initComponents();
     }
 
