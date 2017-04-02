@@ -85,7 +85,7 @@ public class generateRoute {
     }
     
     public void goToRS(int i){
-        try{
+        try{ 
             rs1.first(); rs1.previous();//System.out.print(haltePoints.get(i));System.out.println(i);
             while(true){
                 rs1.next();
@@ -107,7 +107,7 @@ public class generateRoute {
     public void gataunimethodapa(){
         try{
             if(Departure.getCorridor().equals(Destination.getCorridor())){
-                
+                haltePoints.add(Departure.getBusStop());
                 rs1 = stmt1.executeQuery("select * from tj where corridor = '" + Departure.getCorridor() + "'");
                 goToRS(0); 
                 halteRoute.add(rs1.getString("halte"));
@@ -221,11 +221,11 @@ public class generateRoute {
     public static void main(String[] args) {
         generateRoute abc = new generateRoute();
         abc.connectDB();
-        findLoc Departure = new findLoc("South Jakarta", "Fx Sudirman");
+        //findLoc Departure = new findLoc("South Jakarta", "Fx Sudirman");
         //findLoc Destination = new findLoc("Central Jakarta", "Atma Jaya");
         //findLoc Destination = new findLoc("West Jakarta", "Apartment Kedoya Elok");
         //findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
-        //findLoc Destination = new findLoc("East Jakarta", "PGC");
+        findLoc Departure = new findLoc("East Jakarta", "PGC");
         findLoc Destination = new findLoc("Central Jakarta", "Tugu Monas");
         generateRoute WEH = new generateRoute(Departure, Destination);
         System.out.println(Departure.getCorridor());

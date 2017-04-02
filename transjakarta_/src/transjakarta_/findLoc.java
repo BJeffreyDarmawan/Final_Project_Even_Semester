@@ -76,7 +76,6 @@ public class findLoc {
     public void chooseCorridor(ArrayList<String> b){
         System.out.println(b.size() + " findLoc line 77"); System.out.println("INDEXES " + this.indxs + " " + this.corridors);int i = 0;
         for(String a : corridors){
-            
             for(String c : b){
                 if(c.equals(a)){ 
                     this.corridor = a;
@@ -103,18 +102,14 @@ public class findLoc {
         try{
             //singleton
             con = ConnectionConfig.createConnection();
-                    
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            
-            
         }catch(SQLException e){
+            System.out.println("Errot at findLoc.connectDB()");
             System.out.println(e);
-            //JOptionPane.showMessageDialog(this, e.getMessage());
         }catch (ClassNotFoundException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
-            //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error at findLoc.connectDB()");
+            System.out.println(ex);
         }
-        //ConnectionConfig.closeConnection();
     }
     
     public void findBusStop(){
