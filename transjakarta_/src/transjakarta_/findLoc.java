@@ -105,9 +105,7 @@ public class findLoc {
             con = ConnectionConfig.createConnection();
                     
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "select * from tj";
-            rs = stmt.executeQuery(query);
-            rs.next();
+            
             
         }catch(SQLException e){
             System.out.println(e);
@@ -123,6 +121,7 @@ public class findLoc {
         String[] nearBys;
         String nearBy;
         try{
+            rs = stmt.executeQuery("select * from tj");
             rs.beforeFirst();
             while(!gotBusStop){
                 rs.next();
