@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Model;
+
+import javax.swing.JFrame;
 
 /**
  *
@@ -12,7 +14,7 @@ package Controller;
 public interface Language_Color {
     public void changeToIndo();
     public void changeToEng();
-    public void changePink();
-    public void changeGray();
+    public void changePink(JFrame frame);
+    public void changeGray(JFrame frame);
     public void changeDefault();
 }
