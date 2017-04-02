@@ -5,12 +5,16 @@
  */
 package View;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Mikha Putri
  */
 public class openingView extends javax.swing.JFrame {
 
+    String language, color;
+    JLabel langLabel, colorLabel;
     /**
      * Creates new form openingView
      */
@@ -122,7 +126,7 @@ public class openingView extends javax.swing.JFrame {
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
         this.dispose();
-        new settings(language, color).setVisible(true);
+        new SettingsView(language, color, langLabel, colorLabel).setVisible(true);
     }//GEN-LAST:event_SettingsActionPerformed
 
     private void mapButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtActionPerformed

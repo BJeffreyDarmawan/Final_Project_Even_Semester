@@ -4,90 +4,60 @@
  * and open the template in the editor.
  */
 package Controller;
+import Model.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import View.*;
 /**
  *
  * @author Mikha Putri
+ * @author Wilson too HEHE
  */
 
-public class ChangeSettings implements Language_Color {
-    public String language;
-    public String color;
+public class ChangeSettings {
+    
+    String language;
+    String color;
+    JLabel langLabel;
+    JLabel colorLabel;
+    JFrame frame;
 
     public ChangeSettings() {
     }
 
-    public ChangeSettings(String language, String color) {
+    public ChangeSettings(String language, String color, JLabel langLabel, JLabel colorLabel, JFrame frame) {
         this.language = language;
         this.color = color;
+        this.langLabel = langLabel;
+        this.colorLabel = colorLabel;
+        this.frame = frame;
     }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
+    
+    public void change(String language, String color, JLabel langLabel, JLabel colorLabel, JFrame frame)
+    {
         this.language = language;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
         this.color = color;
-        if ("gray".equals(color)){
-            
+        this.langLabel = langLabel;
+        this.frame = frame;
+        Settings sc = new Settings(language, color, langLabel, colorLabel);
+        SettingsView s = new SettingsView(language, color, langLabel, colorLabel);
+        
+        if(language.equals("eng"))
+        {
+            sc.changeToEng();
+            if(color.equals("pink"))
+                sc.changePink(frame);
+            else if(color.equals("gray"))
+                sc.changeGray(frame);
+        }
+        else if(language.equals("indo"))
+        {
+            sc.changeToIndo();
+            if(color.equals("pink"))
+                sc.changePink(frame);
+            else if(color.equals("gray"))
+                sc.changeGray(frame);
         }
     }
-
-    @Override
-    public void changeToIndo() {
-        settingsView sv = null;
-        sv.ENG.setEnabled(true);
-        //ENG.setBackground(Color.red);
-        //languages_txt.setBackground(Color.red);
-        //gray.setForeground(Color.red);
-        sv.languages_txt.setText("Bahasa");
-        sv.openingView.setText("Menu Utama");
-        sv.color.setText("Warna");
-        sv.gray.setText("Abu-abu");
-        sv.pink.setText("Merah Jambu");
-        sv.setasdefault.setText("Pengaturan awal");
-        sv.ID.setEnabled(false);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeToEng() {
-        settingsView sv = new settingsView();
-        sv.ID.setEnabled(true);
-        sv.languages_txt.setText("Languages");
-        sv.openingView.setText("Main Menu");
-        sv.color.setText("Color");
-        sv.gray.setText("Gray");
-        sv.pink.setText("Pink");
-        sv.setasdefault.setText("Set as Default");
-        sv.ENG.setEnabled(false); 
-        //languages_txt.setText("Languages");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changePink() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeGray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
 }
+

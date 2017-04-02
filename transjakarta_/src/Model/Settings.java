@@ -5,36 +5,59 @@
  */
 package Model;
 
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Mikha Putri
  */
-public class Settings{
-    public String language;
-    public String color;
+public class Settings implements Language_Color{
+    String language;
+    String color;
+    JLabel langLabel;
+    JLabel colorLabel;
+   
+
+    public Settings(String language, String color, JLabel langLabel, JLabel colorLabel) {
+        this.language = language;
+        this.color = color;
+        this.langLabel = langLabel;
+        this.colorLabel = colorLabel;
+    }
 
     public Settings() {
     }
 
-    public Settings(String language, String color) {
-        this.language = language;
-        this.color = color;
+    @Override
+    public void changePink(JFrame frame) {
+        frame.getContentPane().setBackground(Color.pink);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getLanguage() {
-        return language;
+    @Override
+    public void changeGray(JFrame frame) {
+        frame.getContentPane().setBackground(Color.GRAY);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    @Override
+    public void changeToIndo() {
+        this.langLabel.setText("bahasa");
+        this.colorLabel.setText("warna");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getColor() {
-        return color;
+    @Override
+    public void changeToEng() {
+        this.langLabel.setText("language");
+        this.colorLabel.setText("color");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    @Override
+    public void changeDefault() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-  
 }
