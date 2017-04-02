@@ -2,10 +2,10 @@
 -- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 30, 2017 at 10:44 AM
+-- Host: 127.0.0.1
+-- Generation Time: Mar 31, 2017 at 10:35 AM
 -- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -130,7 +130,7 @@ INSERT INTO `tj` (`index`, `halte`, `corridor`, `nearby`, `region`) VALUES
 (8, 'Duri Kepa', '8', 'Graha Technosoft Informatika, BNI Graha Elok Mas, Plaza Kedoya Elok, Apartment Kedoya Elok, GKI Kedoya, FedEx Duri Kepa ', 'West Jakarta'),
 (9, 'Kebon Jeruk', '8', 'Indosiar Television Tower, SMPN 75, Wisma Akr, Auto Bild Indonesia ', 'West Jakarta'),
 (10, 'Kelapa Dua SasakPos Pengumben', '8', 'Indomobil Nissan Datsun Kebon Jeruk, SMPN 189, SMP Al-Huda, Jalan Sasak ', 'West Jakarta'),
-(11, 'Pos Pengumben', '8', 'Masjid Jami Al-Anwar, ', 'West Jakarta'),
+(11, 'Pos Pengumben', '8', 'Masjid Jami Al-Anwar', 'West Jakarta'),
 (12, 'Permata Hijau RS. Medika', '8', 'RS Medika Permata Hijau ', 'West Jakarta'),
 (13, 'Permata Hijau', '8', 'The Bellezza Shopping Arcade, Permata Hijau Residence, Halte Simprug 2   ', 'South Jakarta'),
 (14, 'Simprug', '8', 'Binus School Simprug, Gedung Hyundai Indoensia ', 'South Jakarta'),

@@ -53,7 +53,7 @@ public class findLoc {
         this.location = location;
         connectDB();
         findBusStop();
-        findCorridor();
+        //findCorridor();
         //chooseCorridor();
     }
     
@@ -74,12 +74,25 @@ public class findLoc {
     }
     
     public void chooseCorridor(ArrayList<String> b){
-        int i = 0;System.out.println(b.size() + " findLoc line 77"); System.out.println("INDEXES " + this.indxs);
+        System.out.println(b.size() + " findLoc line 77"); System.out.println("INDEXES " + this.indxs + " " + this.corridors);int i = 0;
         for(String a : corridors){
-            if(b.get(i).equals(a)){ 
-                this.corridor = b.get(i);
-                this.indx = this.indxs.get(i); System.out.println(this.indx);
-                return;
+            
+            for(String c : b){
+                if(c.equals(a)){ 
+                    this.corridor = a;
+                    this.indx = this.indxs.get(i);// System.out.println(this.indx);
+                    return;
+                }
+            }i++;
+        } 
+        i = 0;
+        for(String a : corridors){
+            for(String c : b){
+                if (doWeHaveSameStops(a, c) ){
+                    this.corridor = a;
+                    this.indx = this.indxs.get(i);// System.out.println(this.indx);
+                    return;
+                }
             }
         }
         corridor = this.corridors.get(0);
@@ -115,7 +128,7 @@ public class findLoc {
                 rs.next();
                 if(this.region.equals(rs.getString("region"))){
                     nearBy = rs.getString("nearby");
-			
+                    
                     nearBys = nearBy.split(",\\s");
                     for(int i = 0; i < nearBys.length; i++){
                         if(location.equals(nearBys[i])){
@@ -159,10 +172,32 @@ public class findLoc {
             rs = stmt.executeQuery("select * from tj where halte = '" + this.busStop + "'"); //System.out.println(rs.getString("corridor"));
             while(rs.next()){
                 this.corridors.add(rs.getString("corridor"));
-                this.indxs.add(rs.getInt("index"));
+                this.indxs.add(rs.getInt("index")); System.out.println(this.indxs);
             }
         }catch(SQLException e){
             
+        }
+    }
+    
+    public boolean doWeHaveSameStops(String a, String b){
+        try{System.out.println(a + "     " + b);
+            Statement stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs1 = stmt1.executeQuery("select * from tj where corridor = '" + a + "'");
+            ResultSet rs2 = stmt2.executeQuery("select * from tj where corridor = '" + b + "'");
+            while(true){
+                rs1.next();
+                rs2.beforeFirst();
+                while(rs2.next()){
+                    if(rs1.getString("halte").equals(rs2.getString("halte"))){
+                        //System.out.println(rs1.getString("halte"));//haltePoints.add(rs1.getString("halte"));
+                        return true;
+                    }
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
         }
     }
 }
