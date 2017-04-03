@@ -5,29 +5,157 @@
  */
 package View;
 
+import Controller.*;
+import Model.*;
 import javax.swing.JLabel;
-
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Mikha Putri
  */
-public class openingView extends javax.swing.JFrame {
+public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
-    String language, color;
+    Settings Preferences;
+    
     JLabel langLabel, colorLabel;
+    JFrame frame;
+    JButton back;
     /**
      * Creates new form openingView
      */
-    public openingView() {
-        this.language = "eng";
-        this.color = "gray";
-        initComponents();
+    /*public OpeningView() {
+        try {
+            this.setTitle("VIEW OPENIGIN BEGINI");
+            initComponents();
+            this.Preferences = new Settings("eng", "gray");
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);        
+            this.setLocationRelativeTo(null);
+        } catch (SQLException ex) {
+            Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+
+    public OpeningView(Settings Set){
+        try {
+            this.Preferences = Set;
+            this.setLocationRelativeTo(null);
+            ChangeSettings cs = new ChangeSettings();
+            initComponents();
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
+            apply();
+            //cs.ChangeOpeningView(language, color, findBusStopButt, sRoutesButt, Settings, mapButt);
+        } catch (SQLException ex) {
+            Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public OpeningView(String language, String color) {
+        try {
+            this.Preferences = new Settings(language, color);
+            this.setLocationRelativeTo(null);
+            ChangeSettings cs = new ChangeSettings();
+            initComponents();
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
+            //cs.ChangeOpeningView(language, color, findBusStopButt, sRoutesButt, Settings, mapButt);
+        } catch (SQLException ex) {
+            Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    openingView(String languages, String colors) {
+    public static void showImage(String image, JLabel label) throws SQLException
+    {
+        try
+        {
+            File f = new File(image);
+            
+            //temporary storage for the image
+            BufferedImage bi = ImageIO.read(f);
+            
+            //to make the image fit with the image label
+            Image newbi = bi.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+            
+            label.setIcon(new ImageIcon(newbi));
+            
+            //in case something wrong when setting the icon
+            label.revalidate();
+            label.repaint();
+        }catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    @Override
+    public void apply(){
+        if(this.Preferences.getLanguage().equals("eng"))
+            changeToEng();
+        else
+            changeToIndo();
+        
+        if(this.Preferences.getColor().equals("pink"))
+            changePink();
+        else
+            changeGray();
+    }
+    
+    @Override
+    public void changeToIndo() {
+        findBusStopButt.setText("Cari Halte");
+        sRoutesButt.setText("Cari Rute");
+        mapButt.setText("Peta");
+        settings.setText("Pengaturan");
+        //gitulah...
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToEng() {
+        findBusStopButt.setText("Find Bus Stop");
+        sRoutesButt.setText("Search Routes");
+        mapButt.setText("Map");
+        settings.setText("Settings");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changePink() {
+        this.getContentPane().setBackground(Color.PINK);
+    }
+
+    @Override
+    public void changeGray() {
+        this.getContentPane().setBackground(Color.GRAY);
+    }
+
+    @Override
+    public void changeDefault() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void changeToIndoOpeningView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +168,7 @@ public class openingView extends javax.swing.JFrame {
         logoLabel = new javax.swing.JLabel();
         findBusStopButt = new javax.swing.JButton();
         sRoutesButt = new javax.swing.JButton();
-        Settings = new javax.swing.JButton();
+        settings = new javax.swing.JButton();
         mapButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,10 +189,10 @@ public class openingView extends javax.swing.JFrame {
             }
         });
 
-        Settings.setText("Settings");
-        Settings.addActionListener(new java.awt.event.ActionListener() {
+        settings.setText("Settings");
+        settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsActionPerformed(evt);
+                settingsActionPerformed(evt);
             }
         });
 
@@ -83,7 +211,7 @@ public class openingView extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addComponent(mapButt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Settings)
+                .addComponent(settings)
                 .addGap(53, 53, 53))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
@@ -106,7 +234,7 @@ public class openingView extends javax.swing.JFrame {
                     .addComponent(sRoutesButt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Settings)
+                    .addComponent(settings)
                     .addComponent(mapButt))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -117,19 +245,19 @@ public class openingView extends javax.swing.JFrame {
     private void findBusStopButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBusStopButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new findBusStopView(language, color).setVisible(true);
+        new FindBusStopView(Preferences).setVisible(true);
     }//GEN-LAST:event_findBusStopButtActionPerformed
 
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView(language, color).setVisible(true);
+        new SearchRoutesView(Preferences).setVisible(true);
     }//GEN-LAST:event_sRoutesButtActionPerformed
 
-    private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
+    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
         this.dispose();
-        new SettingsView(language, color, langLabel, colorLabel).setVisible(true);
-    }//GEN-LAST:event_SettingsActionPerformed
+        new SettingsView(Preferences).setVisible(true);
+    }//GEN-LAST:event_settingsActionPerformed
 
     private void mapButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtActionPerformed
         try {
@@ -157,29 +285,31 @@ public class openingView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(openingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpeningView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(openingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpeningView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(openingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpeningView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(openingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpeningView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new openingView().setVisible(true);
+                new OpeningView(new Settings()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Settings;
     private javax.swing.JButton findBusStopButt;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton mapButt;
     private javax.swing.JButton sRoutesButt;
+    private javax.swing.JButton settings;
     // End of variables declaration//GEN-END:variables
+
+    
 }

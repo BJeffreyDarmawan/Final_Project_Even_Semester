@@ -5,19 +5,69 @@
  */
 package View;
 
+import Model.*;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Mikha Putri
  */
-public class searchRoutesView extends javax.swing.JFrame {
+public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settings{
 
     /**
      * Creates new form searchRoutesView
      */
-    public searchRoutesView() {
+    
+    Settings Preferences;
+    
+    String language;
+    String color;
+    public SearchRoutesView() {
         initComponents();
     }
 
+    public SearchRoutesView(String language, String color) {
+        initComponents();
+        this.Preferences = new Settings(language, color);
+    }
+    
+    public SearchRoutesView(Settings set){
+        initComponents();
+        this.Preferences = set;
+    }
+    
+    @Override
+    public void changeToIndo(){
+        
+    }
+    
+    @Override
+    public void changeToEng(){
+        
+    }
+    
+    @Override
+    public void changePink(JFrame frame){
+        
+    }
+    
+    @Override
+    public void changeGray(JFrame frame){
+        
+    }
+    
+    @Override
+    public void changeDefault(){
+        
+    }
+    
+    @Override
+    public void changeToIndoOpeningView(){
+        
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,7 +182,7 @@ public class searchRoutesView extends javax.swing.JFrame {
     private void findBSLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findBSLabelMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new findBusStopView(language, color).setVisible(true);
+        new FindBusStopView(language, color).setVisible(true);
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
@@ -146,7 +196,7 @@ public class searchRoutesView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    //public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -171,12 +221,12 @@ public class searchRoutesView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new searchRoutesView().setVisible(true);
-            }
-        });
-    }
+        //java.awt.EventQueue.invokeLater(new Runnable() {
+            //public void run() {
+                //new searchRoutesView().setVisible(true);
+            //}
+        //});
+    //}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel From_label;

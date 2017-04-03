@@ -5,17 +5,57 @@
  */
 package View;
 
+import javax.swing.JFrame;
+import Model.*;
+
 /**
  *
  * @author Mikha Putri
  */
-public class resultView extends javax.swing.JFrame {
+public class resultView extends javax.swing.JFrame implements Apply_Settings{
 
     /**
      * Creates new form resultView
      */
+    
+    Settings Preferences;
+    
     public resultView() {
         initComponents();
+    }
+    
+    public resultView(Settings set){
+        this.Preferences = set;
+    }
+    
+    @Override
+    public void changeToIndo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToEng() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changePink(JFrame frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeGray(JFrame frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeDefault() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToIndoOpeningView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -126,4 +166,6 @@ public class resultView extends javax.swing.JFrame {
     private javax.swing.JButton repeat1;
     private javax.swing.JButton repeat2;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -4,20 +4,68 @@
  * and open the template in the editor.
  */
 package View;
-
+import Controller.*;
+import Model.*;
+import javax.swing.JFrame;
 /**
  *
  * @author Mikha Putri
  */
-public class findBusStopView extends javax.swing.JFrame {
+public class FindBusStopView extends javax.swing.JFrame implements Apply_Settings{
 
     /**
      * Creates new form findBusStopView
      */
-    public findBusStopView() {
+    
+    Settings Preferences;
+    
+    String language;
+    String color;
+    
+    public FindBusStopView() {
         initComponents();
     }
+    
+    public FindBusStopView(Settings set){
+        initComponents();
+        this.Preferences = set;
+    }
 
+    public FindBusStopView(String language, String color) {
+        initComponents();
+        this.Preferences = new Settings(language, color);
+    }
+    
+    @Override
+    public void changeToIndo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToEng() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changePink(JFrame frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeGray(JFrame frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeDefault() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToIndoOpeningView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,13 +226,13 @@ public class findBusStopView extends javax.swing.JFrame {
 
     private void mainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenuActionPerformed
         this.dispose();
-        new openingView(languages, color).setVisible(true);
+        new OpeningView(Preferences).setVisible(true);
     }//GEN-LAST:event_mainmenuActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    //public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -209,12 +257,12 @@ public class findBusStopView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new findBusStopView().setVisible(true);
-            }
-        });
-    }
+        //java.awt.EventQueue.invokeLater(new Runnable() {
+            //public void run() {
+                //new findBusStopView().setVisible(true);
+            //}
+        //});
+    //}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;
@@ -228,4 +276,21 @@ public class findBusStopView extends javax.swing.JFrame {
     private javax.swing.JButton searchRoutesButt;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void apply() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changePink() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeGray() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

@@ -11,10 +11,12 @@ import javax.swing.JFrame;
  *
  * @author Mikha Putri
  */
-public interface Language_Color {
+public interface Apply_Settings {
+    public void apply();
     public void changeToIndo();
     public void changeToEng();
-    public void changePink(JFrame frame);
-    public void changeGray(JFrame frame);
+    public void changePink();
+    public void changeGray();
     public void changeDefault();
+    public void changeToIndoOpeningView();
 }
