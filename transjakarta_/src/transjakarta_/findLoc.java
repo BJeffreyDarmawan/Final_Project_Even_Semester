@@ -79,7 +79,7 @@ public class findLoc {
             for(String c : b){
                 if(c.equals(a)){ 
                     this.corridor = a;
-                    this.indx = this.indxs.get(i);// System.out.println(this.indx);
+                    this.indx = this.indxs.get(i); System.out.println("chosen index " + this.indx);
                     return;
                 }
             }i++;
@@ -89,13 +89,14 @@ public class findLoc {
             for(String c : b){
                 if (doWeHaveSameStops(a, c) ){
                     this.corridor = a;
-                    this.indx = this.indxs.get(i);// System.out.println(this.indx);
+                    this.indx = this.indxs.get(i);System.out.println("chosen index " + this.indx);
                     return;
                 }
             }
         }
         corridor = this.corridors.get(0);
         indx = this.indxs.get(0);
+         System.out.println("chosen corridor " + this.corridor + " index " + this.indx);
     }
     
     public final void connectDB(){
@@ -169,7 +170,7 @@ public class findLoc {
                 this.indxs.add(rs.getInt("index")); System.out.println(this.indxs);
             }
         }catch(SQLException e){
-            
+            System.out.println(e);
         }
     }
     

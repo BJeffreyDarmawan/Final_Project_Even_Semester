@@ -40,14 +40,11 @@ public class generateRoute {
         
     }
     
-    generateRoute(int a){
-        
-    }
-    
     generateRoute(findLoc Departure, findLoc Destination){
         this.Departure = Departure;
-        this.Destination = Destination;
-        Departure.chooseCorridor(Destination.getCorridors()); Destination.chooseCorridor(Departure.getCorridors());
+        this.Destination = Destination;System.out.println(Destination.getCorridors() + " " + Departure.getCorridors());
+        Departure.chooseCorridor(Destination.getCorridors()); 
+        Destination.chooseCorridor(Departure.getCorridors());
         connectDB();
     }
     
@@ -68,16 +65,16 @@ public class generateRoute {
         try{
             rs1 = stmt1.executeQuery("select * from tj where corridor = '" + a + "'");
             rs2 = stmt2.executeQuery("select * from tj where corridor = '" + b + "'");
-            while(true){
-                rs1.next();
+            while(rs1.next()){
+                //System.out.println(rs1.getString("halte"));
                 rs2.beforeFirst();
-                while(rs2.next()){
+                while(rs2.next()){//System.out.println(rs2.getString("halte"));
                     if(rs1.getString("halte").equals(rs2.getString("halte"))){
                         //System.out.println(rs1.getString("halte"));//haltePoints.add(rs1.getString("halte"));
                         return true;
                     }
                 }
-            }
+            }System.out.println("SAME STOP NOT FOUND");return false;
         }catch(SQLException e){
             System.out.println(e);
             return false;
@@ -171,7 +168,7 @@ public class generateRoute {
     public void findCorridorAndTransit(String corridorA, String corridorB){
         try{System.out.println("findCorridorAndTransiit");
         
-            if(doWeHaveSameStops(corridorA, corridorB) && !corridorB.equals(corridorA)){ 
+            if(doWeHaveSameStops(corridorA, corridorB) && !corridorB.equals(corridorA)){ System.out.println("HERE GOES SEMIFINAL");
                 Transit.add(new findLoc(rs1.getString("halte")));
                 haltePoints.add(rs1.getString("halte"));
                 corridorPassed.add(rs1.getString("corridor"));System.out.println(haltePoints);
@@ -195,11 +192,18 @@ public class generateRoute {
                     a++;
                 }*/
                 //findCorridorAndTransit(corridorA, arrCorridorsList[a++]);
-                for(int i = 0; i < arrCorridorsList.length; i++){
+                for(int i = 0; i < arrCorridorsList.length; i++){System.out.println(arrCorridorsList[i] + "  " + corridorA);
                     if(doWeHaveSameStops(corridorA, arrCorridorsList[i]) && doWeHaveSameStops(arrCorridorsList[i], corridorB)){
-                        findCorridorAndTransit(corridorA, arrCorridorsList[i]);
+                        findCorridorAndTransit(corridorA, arrCorridorsList[i]); System.out.println(corridorB);
                     }
                 }
+                /*
+                for(int i = 0; i < arrCorridorsList.length; i++){
+                    if(doWeHaveSameStops(corridorA, arrCorridorsList[i])){
+                        findCorridorAndTransit(corridorA, arrCorridorsList[i]); System.out.println(corridorB);
+                    }
+                }*/
+                System.out.println("did it go here?");
             }
         } catch (SQLException e){
             System.out.println("Error at findCorridorAndTransit");
@@ -223,17 +227,16 @@ public class generateRoute {
         abc.connectDB();
         //findLoc Departure = new findLoc("South Jakarta", "Fx Sudirman");
         //findLoc Destination = new findLoc("Central Jakarta", "Atma Jaya");
-        //findLoc Destination = new findLoc("West Jakarta", "Apartment Kedoya Elok");
+        //findLoc Departure = new findLoc("West Jakarta", "Apartment Kedoya Elok");
         //findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
-        findLoc Departure = new findLoc("East Jakarta", "PGC");
-        findLoc Destination = new findLoc("Central Jakarta", "Tugu Monas");
+        findLoc Departure = new findLoc("North Jakarta", "Mall Artha Gading");
+        findLoc Destination = new findLoc("West Jakarta", "Apartment Kedoya Elok");
         generateRoute WEH = new generateRoute(Departure, Destination);
         System.out.println(Departure.getCorridor());
         System.out.println(Destination.getCorridor());
         System.out.println(WEH.getRoute());
-        if(abc.doWeHaveSameStops("1", "8")){
+        /*if(abc.doWeHaveSameStops("1", "8")){
             System.out.println("abc");
-        }
+        }*/
     }
-   
 }
