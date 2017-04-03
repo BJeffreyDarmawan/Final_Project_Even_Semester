@@ -30,7 +30,7 @@ public class Settings implements Apply_Settings{
     
     public Settings() {
         this.language = "eng";
-        this.color = "gray";
+        this.color = "default";
     }
     
     public Settings(String language, String color){

@@ -20,62 +20,65 @@ import javax.swing.JOptionPane;
  */
 public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     
-    Settings Preferences;
-    
-    String language, currLanguage;
-    String color, currColor;
-    JLabel langLabel, colorLabel;
-    JButton back;
-    JFrame frame;
-    ChangeSettings controller;
-    String languages, colors;
-    
-    public SettingsView(String language, String color, JLabel langLabel, JLabel colorLabel, JButton back) throws HeadlessException {
-    this.language = language;
-    this.color = color;
-    this.langLabel = langLabel;
-    this.colorLabel = colorLabel;
-    this.back = back;
-    initComponents();
-    }
-    
-    public SettingsView() {
-        //currLanguage = language;
-        //currColor = color;
-        language = "eng";
-        color = "gray";
-        initComponents();
-    }
+    Settings Preferences;    
     
     public SettingsView(Settings set){
-        initComponents();
         this.Preferences = set;
+        initComponents();     
+        apply();
+    }
+    
+    @Override
+    public void apply() {
+        if(this.Preferences.getLanguage().equals("eng"))
+            changeToEng();
+        else if (this.Preferences.getLanguage().equals("indo"))
+            changeToIndo();
+        
+        if(this.Preferences.getColor().equals("pink"))
+            changePink();
+        else if (this.Preferences.getColor().equals("gray"))
+            changeGray();
+        else
+            changeDefault();
     }
     
     @Override
     public void changeToIndo() {
-        
+        languageLabel.setText("Bahasa");
+        colorsLabel.setText("Warna");
+        backButton.setText("Menu Utama");
+        defaultButt.setText("Pengaturan Awal");
+        okButton.setText("Ok");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeToEng() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        languageLabel.setText("Language");
+        colorsLabel.setText("Color");
+        backButton.setText("Main Menu");
+        defaultButt.setText("Set as Default");
+        okButton.setText("Ok");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changePink() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(Color.PINK);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeGray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(Color.GRAY);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(null);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -102,23 +105,24 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton = new javax.swing.JRadioButton();
         colorsLabel = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
+        defaultButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         colorGroup.add(pinkButton);
-        pinkButton.setText("pink");
+        pinkButton.setText("Pink");
 
         colorGroup.add(grayButton);
-        grayButton.setText("gray");
+        grayButton.setText("Gray");
 
-        okButton.setText("ok");
+        okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
-        languageLabel.setText("language");
+        languageLabel.setText("Language");
 
         languageGroup.add(engButton);
         engButton.setText("English");
@@ -131,12 +135,19 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         languageGroup.add(indoButton);
         indoButton.setText("Indonesia");
 
-        colorsLabel.setText("color");
+        colorsLabel.setText("Color");
 
-        backButton.setText("back");
+        backButton.setText("Main Menu");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
+            }
+        });
+
+        defaultButt.setText("Set default");
+        defaultButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                defaultButtActionPerformed(evt);
             }
         });
 
@@ -145,25 +156,31 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(languageLabel)
-                    .addComponent(colorsLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(languageLabel)
+                            .addComponent(colorsLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(backButton)))
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(engButton)
-                    .addComponent(pinkButton))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grayButton)
-                    .addComponent(indoButton))
-                .addContainerGap(59, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(okButton)
-                .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(defaultButt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(okButton)
+                        .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(engButton)
+                            .addComponent(pinkButton))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(grayButton)
+                            .addComponent(indoButton))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +198,8 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
-                    .addComponent(backButton))
+                    .addComponent(backButton)
+                    .addComponent(defaultButt))
                 .addGap(21, 21, 21))
         );
 
@@ -194,37 +212,25 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         if(engButton.isSelected())
         {
             this.Preferences.setLanguage("eng");
-            languageLabel.setText("language");
-            colorsLabel.setText("color");
         }
         else if(indoButton.isSelected())
         {
             this.Preferences.setLanguage("indo");
-            languageLabel.setText("bahasa");
-            colorsLabel.setText("warna");
         }
         else{
-            /*if(this.Preferences.getLanguage().equals("eng")){
-                languageGroup.setSelected(engButton.getModel(), true);
-            }
-            else{
-                languageGroup.setSelected(indoButton.getModel(), true);
-            }*/
         }
         
         if(pinkButton.isSelected())
         {
             this.Preferences.setColor("pink");
-            this.getContentPane().setBackground(Color.PINK);
         }
         else if(grayButton.isSelected())
         {
             this.Preferences.setColor("gray");
-            this.getContentPane().setBackground(Color.GRAY);
         }
         else{
-            //JOptionPane.showMessageDialog(this, color);
         }
+        apply();
         /*
         frame = this;
         langLabel = languageLabel;
@@ -240,9 +246,17 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        new OpeningView(Preferences).setVisible(true);
         this.dispose();
+        new OpeningView(Preferences).setVisible(true);        
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void defaultButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultButtActionPerformed
+        this.Preferences.setColor("default");
+        this.Preferences.setLanguage("eng");
+        apply();
+        languageGroup.setSelected((ButtonModel)engButton, true);
+        colorGroup.clearSelection();
+    }//GEN-LAST:event_defaultButtActionPerformed
 
     /*
      * @param args the command line arguments
@@ -252,6 +266,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     public javax.swing.JButton backButton;
     private javax.swing.ButtonGroup colorGroup;
     public javax.swing.JLabel colorsLabel;
+    private javax.swing.JButton defaultButt;
     public javax.swing.JRadioButton engButton;
     public javax.swing.JRadioButton grayButton;
     public javax.swing.JRadioButton indoButton;
@@ -261,10 +276,4 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     public javax.swing.JRadioButton pinkButton;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void apply() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
 }

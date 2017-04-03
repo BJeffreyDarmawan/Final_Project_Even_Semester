@@ -55,8 +55,8 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     public OpeningView(Settings Set){
         try {
             this.Preferences = Set;
-            this.setLocationRelativeTo(null);
-            ChangeSettings cs = new ChangeSettings();
+            //this.setLocationRelativeTo(null);
+            //ChangeSettings cs = new ChangeSettings();
             initComponents();
             showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
             apply();
@@ -108,13 +108,15 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     public void apply(){
         if(this.Preferences.getLanguage().equals("eng"))
             changeToEng();
-        else
+        else if(this.Preferences.getLanguage().equals("indo"))
             changeToIndo();
         
         if(this.Preferences.getColor().equals("pink"))
             changePink();
-        else
+        else if(this.Preferences.getColor().equals("gray"))
             changeGray();
+        else
+            changeDefault();
     }
     
     @Override
@@ -148,7 +150,8 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(null);        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
