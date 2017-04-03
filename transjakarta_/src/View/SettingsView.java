@@ -5,8 +5,11 @@
  */
 package View;
 import Controller.*;
+import Model.*;
+import java.awt.Color;
 import java.awt.HeadlessException;
 import javax.swing.ButtonModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,26 +18,69 @@ import javax.swing.JOptionPane;
  *
  * @author Mikha Putri
  */
-public class SettingsView extends javax.swing.JFrame {
+public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     
-    String language;
-    String color;
-    JLabel langLabel;
-    JLabel colorLabel;
+    Settings Preferences;
+    
+    String language, currLanguage;
+    String color, currColor;
+    JLabel langLabel, colorLabel;
+    JButton back;
     JFrame frame;
     ChangeSettings controller;
     String languages, colors;
     
-    public SettingsView(String language, String color, JLabel langLabel, JLabel colorLabel) throws HeadlessException {
+    public SettingsView(String language, String color, JLabel langLabel, JLabel colorLabel, JButton back) throws HeadlessException {
     this.language = language;
     this.color = color;
     this.langLabel = langLabel;
     this.colorLabel = colorLabel;
+    this.back = back;
     initComponents();
     }
     
     public SettingsView() {
+        //currLanguage = language;
+        //currColor = color;
+        language = "eng";
+        color = "gray";
         initComponents();
+    }
+    
+    public SettingsView(Settings set){
+        initComponents();
+        this.Preferences = set;
+    }
+    
+    @Override
+    public void changeToIndo() {
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToEng() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changePink() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeGray() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeDefault() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToIndoOpeningView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -55,6 +101,7 @@ public class SettingsView extends javax.swing.JFrame {
         engButton = new javax.swing.JRadioButton();
         indoButton = new javax.swing.JRadioButton();
         colorsLabel = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +133,13 @@ public class SettingsView extends javax.swing.JFrame {
 
         colorsLabel.setText("color");
 
+        backButton.setText("back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +159,9 @@ public class SettingsView extends javax.swing.JFrame {
                     .addComponent(indoButton))
                 .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addComponent(backButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(okButton)
                 .addGap(37, 37, 37))
         );
@@ -123,7 +179,9 @@ public class SettingsView extends javax.swing.JFrame {
                     .addComponent(pinkButton)
                     .addComponent(grayButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(okButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okButton)
+                    .addComponent(backButton))
                 .addGap(21, 21, 21))
         );
 
@@ -132,87 +190,81 @@ public class SettingsView extends javax.swing.JFrame {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         // TODO add your handling code here:
-        ChangeSettings cs = new ChangeSettings();
+        
         if(engButton.isSelected())
         {
-            this.language = "eng";
+            this.Preferences.setLanguage("eng");
+            languageLabel.setText("language");
+            colorsLabel.setText("color");
         }
         else if(indoButton.isSelected())
         {
-            this.language = "indo";
+            this.Preferences.setLanguage("indo");
+            languageLabel.setText("bahasa");
+            colorsLabel.setText("warna");
         }
         else{
-            if(this.language.equals("eng")){
+            /*if(this.Preferences.getLanguage().equals("eng")){
                 languageGroup.setSelected(engButton.getModel(), true);
             }
             else{
                 languageGroup.setSelected(indoButton.getModel(), true);
-            }
+            }*/
         }
         
         if(pinkButton.isSelected())
         {
-            color = "pink";
+            this.Preferences.setColor("pink");
+            this.getContentPane().setBackground(Color.PINK);
         }
         else if(grayButton.isSelected())
         {
-            color = "gray";
+            this.Preferences.setColor("gray");
+            this.getContentPane().setBackground(Color.GRAY);
         }
-        
+        else{
+            //JOptionPane.showMessageDialog(this, color);
+        }
+        /*
         frame = this;
         langLabel = languageLabel;
         colorLabel = colorsLabel;
-        cs.change(language, color, languageLabel, colorsLabel, frame);
+        back = backButton;
+        ChangeSettings cs = new ChangeSettings();
+        cs.change(language, color, langLabel, colorLabel, frame, back);*/
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void engButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_engButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_engButtonActionPerformed
 
-    /**
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        new OpeningView(Preferences).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    /*
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SettingsView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton backButton;
     private javax.swing.ButtonGroup colorGroup;
-    private javax.swing.JLabel colorsLabel;
-    private javax.swing.JRadioButton engButton;
-    private javax.swing.JRadioButton grayButton;
-    private javax.swing.JRadioButton indoButton;
+    public javax.swing.JLabel colorsLabel;
+    public javax.swing.JRadioButton engButton;
+    public javax.swing.JRadioButton grayButton;
+    public javax.swing.JRadioButton indoButton;
     private javax.swing.ButtonGroup languageGroup;
-    private javax.swing.JLabel languageLabel;
-    private javax.swing.JButton okButton;
-    private javax.swing.JRadioButton pinkButton;
+    public javax.swing.JLabel languageLabel;
+    public javax.swing.JButton okButton;
+    public javax.swing.JRadioButton pinkButton;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void apply() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

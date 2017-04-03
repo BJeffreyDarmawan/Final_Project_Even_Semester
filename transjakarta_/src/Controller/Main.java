@@ -6,11 +6,12 @@
 package Controller;
 
 import View.*;
+import Model.*;
 
 // Start program
 public class Main {
     public static void main(String[] args) {
-        openingView start = new openingView();
+        OpeningView start = new OpeningView(new Settings());
         start.setVisible(true);
     }
 }
