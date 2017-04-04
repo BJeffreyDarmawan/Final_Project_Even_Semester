@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import Controller.*;
 
 /**
@@ -30,6 +31,7 @@ public class FindLocation implements IRegardingCorridors{
     Connection con;
     Statement stmt;
     ResultSet rs;
+    
     
     public FindLocation(){
         connectDB();
@@ -189,17 +191,31 @@ public class FindLocation implements IRegardingCorridors{
         String[] test;
         //System.out.println(reg);
         try{
-            rs = stmt.executeQuery("select * from tj where region = '" + reg + "'");
+            rs = stmt.executeQuery("select * from tj where region = '" + reg + "' order by nearby");
             while(rs.next()){
                 nearBy = rs.getString("nearby");
                 test = nearBy.split(",\\s");
                 ArrayList<String> list = new ArrayList(Arrays.asList(test));
                 nearBys.addAll(list);
+                
+                
+            }
+            Collections.sort(nearBys);
+            for(int i = 0; i < nearBys.size(); i++){
+                if(nearBys.get(i).equals(null))
+                    break;
+                if(i != 0){
+                    //remove the data with the same value
+                    if(nearBys.get(i).equals(nearBys.get(i-1))){
+                        nearBys.remove(i);
+                    }
+                }
             }
         }catch(SQLException e)
         {
            System.out.println(e);
         }
+        
         return nearBys;
     }
     

@@ -8,6 +8,8 @@ package View;
 import Model.*;
 import Controller.*;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +29,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
      */
     
     Settings Preferences;
+    String fromidk, toidk;
     User guest;
     String fromidk;
     Connection con;
@@ -42,9 +45,18 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         initComponents();
         connectDB();
         apply();
+        this.fromidk = "";
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
-        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        redisplay();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        fromBox.setPreferredSize(new Dimension(52, 27));
+        toBox.setPreferredSize(new Dimension(52, 27));
+        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(fromBox);
+        getContentPane().add(toBox);
+        getContentPane().add(searchRoutesButt);
     }
     
     public SearchRoutesView(User s)
@@ -67,6 +79,14 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         fromBox.setSelectedItem(from);
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        fromBox.setPreferredSize(new Dimension(52, 27));
+        toBox.setPreferredSize(new Dimension(52, 27));
+        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(fromBox);
+        getContentPane().add(toBox);
+        getContentPane().add(searchRoutesButt);
     }
    
     public final void connectDB(){
@@ -84,6 +104,23 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         }catch (ClassNotFoundException ex) {
             //JOptionPane.showMessageDialog(this, ex.getMessage());
             //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void redisplay(){
+        //fromBox.removeAllItems();
+        toBox.removeAllItems();
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        if(fromidk.equals(""))
+            fromBox.setSelectedIndex(0);
+        //else
+            //fromBox.setSelectedItem(fromidk);
+        for(int i = 0; i < toBox.getModel().getSize(); i++)
+        {
+            if(fromBox.getSelectedItem().equals(toBox.getItemAt(i))){
+                toBox.removeItemAt(i);
+                break;
+            }  
         }
     }
     
@@ -163,6 +200,11 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 fromBoxItemStateChanged(evt);
             }
         });
+        fromBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fromBoxActionPerformed(evt);
+            }
+        });
 
         toBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -179,21 +221,21 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(from)
-                                    .addGap(26, 26, 26))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(to)
-                                    .addGap(44, 44, 44)))
+                                    .addComponent(from, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(to, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(fromBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(toBox, 0, 241, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(findBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                             .addComponent(searchRoutesButt)))
-                    .addComponent(searchroute))
+                    .addComponent(searchroute, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -232,12 +274,22 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
-        fromidk = (String) fromBox.getSelectedItem();
+        //if(evt.getStateChange() == ItemEvent.SELECTED){
+            this.fromidk = (String) fromBox.getSelectedItem();System.out.println(fromBox.getSelectedItem() + " " + fromidk);
+        //}    
+        redisplay();
+        
     }//GEN-LAST:event_fromBoxItemStateChanged
 
     private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
         // to = (String) toBox.getSelectedItem();
+        toidk= (String) toBox.getSelectedItem();
+        //redisplay();
     }//GEN-LAST:event_toBoxItemStateChanged
+
+    private void fromBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fromBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,7 +367,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     @Override
     public void changeToEng() {
-        searchroute.setText("Search Routes");
+        searchroute.setText("SEARCH ROUTES");
         from.setText("From");
         to.setText("To");
         findBSLabel.setText("Find bus stop?");
