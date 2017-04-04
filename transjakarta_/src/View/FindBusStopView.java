@@ -6,6 +6,9 @@
 package View;
 import Controller.*;
 import Model.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 /**
  *
@@ -19,41 +22,66 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
     
     Settings Preferences;
     
-    String language;
-    String color;
-    
     public FindBusStopView() {
         initComponents();
     }
     
     public FindBusStopView(Settings set){
-        initComponents();
         this.Preferences = set;
-    }
-
-    public FindBusStopView(String language, String color) {
         initComponents();
-        this.Preferences = new Settings(language, color);
+        apply();
+        this.setLocationRelativeTo(null);
+    }
+    
+    @Override
+    public void apply() {
+        if(this.Preferences.getLanguage().equals("eng"))
+            changeToEng();
+        else
+            changeToIndo();
+        
+        if(this.Preferences.getColor().equals("pink"))
+            changePink();
+        else
+            changeGray();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
     public void changeToIndo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[] a = {"Jakarta Pusat", "Jakarta Barat", "Jakarta Utara", "Jakarta Timur", "Jakarta Selatan"};
+        regionBox.setModel(new DefaultComboBoxModel(a));
+        titleLabel.setText("POSISI SEKARANG");
+        regionLabel.setText("Wilayah");
+        nearbyLabel.setText("Tempat Terdekat");
+        nearestLabel.setText("Halte terdekat");
+        searchRoutesButt.setText("Cari Rute");
+        mainmenu.setText("Menu Utama");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeToEng() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        regionBox.setSelectedIndex(0);
+        titleLabel.setText("CURRENT POSITION");
+        regionLabel.setText("Region");
+        nearbyLabel.setText("Nearby Place");
+        nearestLabel.setText("Nearest Bus Stop");
+        searchRoutesButt.setText("Search Routes");
+        mainmenu.setText("Main Menu");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void changePink(JFrame frame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void changePink() {
+        this.getContentPane().setBackground(Color.pink);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void changeGray(JFrame frame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void changeGray() {
+        this.getContentPane().setBackground(Color.GRAY);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -61,11 +89,32 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void changeToIndoOpeningView() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void displayNearby(){
+        if(Preferences.getLanguage().equals("indo")){
+            //System.out.println(regionBox.getSelectedItem());
+            String weh = (String)regionBox.getSelectedItem();
+                if(weh.equals("Jakarta Pusat"))
+                    weh = "Central Jakarta";
+                else if(weh.equals("Jakarta Barat"))
+                    weh = "West Jakarta";
+                else if(weh.equals("Jakarta Timur"))
+                    weh = "East Jakarta";
+                else if(weh.equals("Jakarta Selatan"))
+                    weh = "South Jakarta";
+                else if(weh.equals("Jakarta Utara"))
+                    weh = "North Jakarta";
+            FindLocation user = new FindLocation();
+            ArrayList<String> abcdefghi = user.getNearby(weh);
+            String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
+            nearbyBox.setModel(new DefaultComboBoxModel(abc));
+        } else {
+            String weh = (String)regionBox.getSelectedItem();
+            FindLocation user = new FindLocation();
+            ArrayList<String> abcdefghi = user.getNearby(weh);
+            String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
+            nearbyBox.setModel(new DefaultComboBoxModel(abc));
+        }
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,14 +262,14 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         region = "North Jakarta";
         String nearby = (String) nearbyBox.getSelectedItem();
 
-        findLoc user = new findLoc(region, nearby);
+        FindLocation user = new FindLocation(region, nearby);
         nearestBSLabel.setText(user.getBusStop());
     }//GEN-LAST:event_findBSButtActionPerformed
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new searchRoutesView(languages, color, nearestBSLabel.getText()).setVisible(true);
+        new SearchRoutesView(Preferences, nearestBSLabel.getText()).setVisible(true);
         //nearestBSLabel.getText();
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
@@ -237,7 +286,7 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -262,7 +311,7 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
                 //new findBusStopView().setVisible(true);
             //}
         //});
-    //}
+    //}*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;
@@ -277,20 +326,6 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void apply() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changePink() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeGray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     
 }

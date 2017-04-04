@@ -22,64 +22,75 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     
     Settings Preferences;
     
-    String language, currLanguage;
-    String color, currColor;
+    String language,color;
     JLabel langLabel, colorLabel;
     JButton back;
     JFrame frame;
-    ChangeSettings controller;
     String languages, colors;
-    
-    public SettingsView(String language, String color, JLabel langLabel, JLabel colorLabel, JButton back) throws HeadlessException {
-    this.language = language;
-    this.color = color;
-    this.langLabel = langLabel;
-    this.colorLabel = colorLabel;
-    this.back = back;
-    initComponents();
-    }
-    
+
     public SettingsView() {
-        //currLanguage = language;
-        //currColor = color;
         language = "eng";
         color = "gray";
         initComponents();
+        this.setLocationRelativeTo(null);
+        //apply();
     }
     
     public SettingsView(Settings set){
         initComponents();
         this.Preferences = set;
+        this.setLocationRelativeTo(null);
+        apply();
     }
     
     @Override
     public void changeToIndo() {
+        this.Preferences.setLanguage("indo");
+        languageLabel.setText("bahasa");
+        colorsLabel.setText("warna");
+        backButton.setText("kembali");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void apply() {
+        if(this.Preferences.getLanguage().equals("eng"))
+            changeToEng();
+        else
+            changeToIndo();
         
+        if(this.Preferences.getColor().equals("pink"))
+            changePink();
+        else
+            changeGray();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void changeToEng() {
+        this.Preferences.setLanguage("eng");
+        languageLabel.setText("language");
+        colorsLabel.setText("color");
+        backButton.setText("back");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void changeToEng() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void changePink() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.Preferences.setColor("pink");
+        this.getContentPane().setBackground(Color.PINK);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeGray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.Preferences.setColor("gray");
+        this.getContentPane().setBackground(Color.GRAY);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeToIndoOpeningView() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -193,15 +204,11 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         
         if(engButton.isSelected())
         {
-            this.Preferences.setLanguage("eng");
-            languageLabel.setText("language");
-            colorsLabel.setText("color");
+            changeToEng();
         }
         else if(indoButton.isSelected())
         {
-            this.Preferences.setLanguage("indo");
-            languageLabel.setText("bahasa");
-            colorsLabel.setText("warna");
+            changeToIndo();
         }
         else{
             /*if(this.Preferences.getLanguage().equals("eng")){
@@ -214,13 +221,11 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         
         if(pinkButton.isSelected())
         {
-            this.Preferences.setColor("pink");
-            this.getContentPane().setBackground(Color.PINK);
+            changePink();
         }
         else if(grayButton.isSelected())
         {
-            this.Preferences.setColor("gray");
-            this.getContentPane().setBackground(Color.GRAY);
+            changeGray();
         }
         else{
             //JOptionPane.showMessageDialog(this, color);
@@ -261,10 +266,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     public javax.swing.JRadioButton pinkButton;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void apply() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     
 }

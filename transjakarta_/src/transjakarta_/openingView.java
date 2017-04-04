@@ -219,7 +219,7 @@ public class openingView extends javax.swing.JFrame {
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
         this.dispose();
-        new SettingsView(language, color).setVisible(true);
+        new settings(language, color).setVisible(true);
     }//GEN-LAST:event_SettingsActionPerformed
 
     private void mapButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtActionPerformed

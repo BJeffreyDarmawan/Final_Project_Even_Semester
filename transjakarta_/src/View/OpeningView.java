@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,8 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 /**
@@ -33,10 +32,7 @@ import javax.swing.JOptionPane;
 public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     Settings Preferences;
-    
-    JLabel langLabel, colorLabel;
-    JFrame frame;
-    JButton back;
+
     /**
      * Creates new form openingView
      */
@@ -52,33 +48,21 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         }
     }*/
 
-    public OpeningView(Settings Set){
+    public OpeningView(Settings set){
         try {
-            this.Preferences = Set;
-            this.setLocationRelativeTo(null);
-            ChangeSettings cs = new ChangeSettings();
+            this.Preferences = set;
             initComponents();
             showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
             apply();
+            this.setLocationRelativeTo(null);
+            this.setResizable(false);
+            findBusStopButt.setPreferredSize(new Dimension(150, 29));
+            sRoutesButt.setPreferredSize(new Dimension(150, 29));
             //cs.ChangeOpeningView(language, color, findBusStopButt, sRoutesButt, Settings, mapButt);
         } catch (SQLException ex) {
             Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-    
-    public OpeningView(String language, String color) {
-        try {
-            this.Preferences = new Settings(language, color);
-            this.setLocationRelativeTo(null);
-            ChangeSettings cs = new ChangeSettings();
-            initComponents();
-            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
-            //cs.ChangeOpeningView(language, color, findBusStopButt, sRoutesButt, Settings, mapButt);
-        } catch (SQLException ex) {
-            Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public static void showImage(String image, JLabel label) throws SQLException
@@ -104,6 +88,16 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         }
     }
     
+    public void openBrowser() throws IOException
+    {
+        try {
+            Desktop d = Desktop.getDesktop();
+            d.browse(new URI("http://transjakarta.co.id/peta-rute/"));
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(OpeningView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void apply(){
         if(this.Preferences.getLanguage().equals("eng"))
@@ -123,7 +117,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         sRoutesButt.setText("Cari Rute");
         mapButt.setText("Peta");
         settings.setText("Pengaturan");
-        //gitulah...
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -151,10 +144,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void changeToIndoOpeningView() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -221,7 +210,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
                         .addComponent(findBusStopButt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sRoutesButt)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +253,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
             // TODO add your handling code here:
             openBrowser();
         } catch (IOException ex) {
-            Logger.getLogger(openingView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OpeningView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mapButtActionPerformed
 
