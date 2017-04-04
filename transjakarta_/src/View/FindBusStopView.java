@@ -33,6 +33,15 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         initComponents();
         apply();
         this.setLocationRelativeTo(null);
+        regionBox.setPreferredSize(new Dimension(157, 27));
+        nearbyBox.setPreferredSize(new Dimension(157, 27));
+        mainmenu.setPreferredSize(new Dimension(150, 29));
+        searchRoutesButt.setPreferredSize(new Dimension(150, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(regionBox);
+        getContentPane().add(nearbyBox);
+        getContentPane().add(mainmenu);
+        getContentPane().add(searchRoutesButt);
         displayNearby();
     }
     
@@ -55,22 +64,22 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
     
     @Override
     public void apply() {
-        if(this.Preferences.getLanguage().equals("eng")){
+        if(this.guest.getSettings().getLanguage().equals("eng")){
             changeToEng();
         }        
-        else if (this.Preferences.getLanguage().equals("indo")){
+        else if (this.guest.getSettings().getLanguage().equals("indo")){
             changeToIndo();
         }
-        if(this.Preferences.getColor().equals("pink")){
+        if(this.guest.getSettings().getColor().equals("pink")){
             changePink();
         }
-        else if (this.Preferences.getColor().equals("gray")){
+        else if (this.guest.getSettings().getColor().equals("gray")){
             changeGray();
         }
         else{
             changeDefault();
         }
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     @Override
@@ -119,7 +128,7 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
     }
 
     public void displayNearby(){
-        if(Preferences.getLanguage().equals("indo")){
+        if(this.guest.getSettings().getLanguage().equals("indo")){
             //System.out.println(regionBox.getSelectedItem());
             String weh = (String)regionBox.getSelectedItem();
                 if(weh.equals("Jakarta Pusat"))
@@ -293,31 +302,33 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         // TODO add your handling code here:
         String region = (String) regionBox.getSelectedItem();
         if(region.equals("Jakarta Pusat"))
-        region = "Central Jakarta";
+            region = "Central Jakarta";
         else if(region.equals("Jakarta Barat"))
-        region = "West Jakarta";
+            region = "West Jakarta";
         else if(region.equals("Jakarta Timur"))
-        region = "East Jakarta";
+            region = "East Jakarta";
         else if(region.equals("Jakarta Selatan"))
-        region = "South Jakarta";
+            region = "South Jakarta";
         else if(region.equals("Jakarta Utara"))
-        region = "North Jakarta";
+            region = "North Jakarta";
         String nearby = (String) nearbyBox.getSelectedItem();
 
         FindLocation user = new FindLocation(region, nearby);
         nearestBSLabel.setText(user.getBusStop());
+        this.guest.setDeparture(nearestBSLabel.getText());
     }//GEN-LAST:event_findBSButtActionPerformed
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new SearchRoutesView(Preferences, nearestBSLabel.getText()).setVisible(true);
+        this.guest.openSearchRoutesView();
+        //new SearchRoutesView(Preferences, nearestBSLabel.getText()).setVisible(true);
         //nearestBSLabel.getText();
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void mainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenuActionPerformed
         this.dispose();
-        new OpeningView(Preferences).setVisible(true);
+        this.guest.openOpeningView();
     }//GEN-LAST:event_mainmenuActionPerformed
 
     /**

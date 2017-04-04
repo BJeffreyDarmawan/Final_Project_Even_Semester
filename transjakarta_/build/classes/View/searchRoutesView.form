@@ -45,7 +45,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="findBSLabel" min="-2" pref="178" max="-2" attributes="0"/>
-                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                          <EmptySpace pref="60" max="32767" attributes="0"/>
                           <Component id="searchRoutesButt" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>

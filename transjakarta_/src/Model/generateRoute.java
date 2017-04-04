@@ -34,8 +34,9 @@ public class generateRoute implements IRegardingCorridors{
     ArrayList<String> corridorPassed = new ArrayList();
     ArrayList<FindLocation> BusStopPassed = new ArrayList();
     
-    generateRoute(){
-        
+    public generateRoute(){
+        this.Departure = new FindLocation("");
+        this.Destination = new FindLocation("");
     }
     
     public generateRoute(FindLocation Departure, FindLocation Destination){
@@ -136,7 +137,7 @@ public class generateRoute implements IRegardingCorridors{
                     if(rs1.getInt("index") < Transit.get(i+1).getIndex()){
                         while(rs1.next()){
                             halteRoute.add(rs1.getString("halte"));
-                            if(rs1.getString("halte").equals(Transit.get(i+1).getBusStop())){
+                            if(rs1.getString("halte").equals(Transit.get(i+1).getBusStop())){ System.out.println("END OF THIS");
                                 break;
                             }
                         }
@@ -234,4 +235,17 @@ public class generateRoute implements IRegardingCorridors{
         System.out.println(Destination.getCorridor());
         System.out.println(WEH.getRoute());
     }
+    
+    public void setDeparture(String A){
+        this.Departure = new FindLocation(A);
+    }
+    
+    public FindLocation getDeparture(){
+        return Departure;
+    }
+    
+    public ArrayList<String> getCorridorsPassed(){
+        return corridorPassed;
+    }
+            
 }

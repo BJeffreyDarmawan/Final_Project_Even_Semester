@@ -11,8 +11,6 @@ import Model.*;
 // Start program
 public class Main {
     public static void main(String[] args) {
-        //OpeningView start = new OpeningView(new Settings());
-        //start.setVisible(true);
         new OpeningView(new User()).setVisible(true);
     }
 }

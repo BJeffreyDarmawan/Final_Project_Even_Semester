@@ -8,6 +8,7 @@ package View;
 import javax.swing.JFrame;
 import Model.*;
 import Controller.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -23,12 +24,14 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     Settings Preferences;
     private User guest;
     private ArrayList<String> BusStops = new ArrayList();
+    private ArrayList<String> CorridorsPassed = new ArrayList();
     
     public ResultView() {
         initComponents();
     }
     
     public ResultView(Settings set){
+        initComponents();
         this.Preferences = set;
         apply();
         this.setLocationRelativeTo(null);
@@ -36,22 +39,25 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     
     public ResultView(User s){
         this.guest = s;
-        this.BusStops.add(this.guest.getJourney());
+        this.BusStops.addAll(this.guest.getBusStopList());
+        this.CorridorsPassed.addAll(this.guest.getCorridorsPassed());
+        initComponents();
+        apply();
         display();
     }
     
     @Override
     public void apply() {
-        if(this.Preferences.getLanguage().equals("eng")){
+        if(this.guest.getSettings().getLanguage().equals("eng")){
             changeToEng();
         }        
-        else if (this.Preferences.getLanguage().equals("indo")){
+        else if (this.guest.getSettings().getLanguage().equals("indo")){
             changeToIndo();
         }
-        if(this.Preferences.getColor().equals("pink")){
+        if(this.guest.getSettings().getColor().equals("pink")){
             changePink();
         }
-        else if (this.Preferences.getColor().equals("gray")){
+        else if (this.guest.getSettings().getColor().equals("gray")){
             changeGray();
         }
         else{
@@ -71,21 +77,44 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
 
     @Override
     public void changePink() {
-        
+        this.getContentPane().setBackground(Color.PINK);
     }
 
     @Override
     public void changeGray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(Color.GRAY);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(null);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    int index = 0;
     public void display(){
-        apply();
+        lblCurrentCorridor.setText(CorridorsPassed.get(index));
+        
+        String text = "";
+        for(String each : BusStops){
+            if(each.equals(BusStops.get(0))){
+                if(each.equals(BusStops.get(index)))
+                    text += "<html><b>" + each + "</b><html>";
+                else
+                    text += each;
+            }
+            else{
+                if(each.equals(BusStops.get(index)))
+                    text += " - <html><b>" + each +"</b></html>";
+                else
+                    text += " - " + each;
+            }
+        }
+        
+        ROUTE.setText(text);
+        
+        index++;
     }
     
     /**
@@ -114,6 +143,12 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
             }
         });
 
+        ROUTE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ROUTEMouseClicked(evt);
+            }
+        });
+
         lblCorridor.setText("Current Corridor:");
 
         lblCurrentCorridor.setText("jLabel4");
@@ -133,10 +168,10 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCorridor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblCorridor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCurrentCorridor)))
-                        .addGap(0, 190, Short.MAX_VALUE)))
+                        .addGap(0, 170, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -162,6 +197,11 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
         this.dispose();
         new OpeningView(Preferences).setVisible(true);
     }//GEN-LAST:event_repeat2ActionPerformed
+
+    private void ROUTEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROUTEMouseClicked
+        // TODO add your handling code here:
+        display();
+    }//GEN-LAST:event_ROUTEMouseClicked
 
     /**
      * @param args the command line arguments

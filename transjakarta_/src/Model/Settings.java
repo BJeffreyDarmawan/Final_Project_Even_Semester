@@ -19,7 +19,6 @@ public class Settings{
     String language;
     String color;
 
-    
     public Settings() {
         this.language = "eng";
         this.color = "default";

@@ -7,6 +7,7 @@ package Controller;
 
 import Model.*;
 import View.*;
+import java.util.ArrayList;
 /**
  *
  * @author Lenovo
@@ -16,8 +17,8 @@ public class User {
     private generateRoute Journey;
     
     public User(){
-        this.Preferences.setColor("default");
-        this.Preferences.setLanguage("eng");
+        this.Preferences = new Settings();
+        this.Journey = new generateRoute();
     }
     
     public void openSettingsView(){
@@ -45,16 +46,38 @@ public class User {
         s.setVisible(true);
     }
     
-    public void change(){
-        
+    
+    public void changeSettings(String lang, String color){
+        this.Preferences.setColor(color);
+        this.Preferences.setLanguage(lang);
     }
     
-    public void setJourney(String A, String B){
-        this.Journey = new generateRoute(new FindLocation(A), new FindLocation(B));
+    public void setJourney(String A, String B){System.out.println(A + " " + B);
+        this.Journey = new generateRoute(new FindLocation(A), new FindLocation(B)); 
+    }
+    
+    public void setDeparture(String A){
+        this.Journey.setDeparture(A);
+    }
+    
+    public String getDeparture(){
+        return this.Journey.getDeparture().getBusStop();
     }
     
     public generateRoute getJourney(){
         return this.Journey;
+    }
+    
+    public ArrayList<String> getBusStopList(){
+        return this.Journey.getRoute();
+    }
+    
+    public ArrayList<String> getCorridorsPassed(){
+        return this.Journey.getCorridorsPassed();
+    }
+    
+    public Settings getSettings(){
+        return this.Preferences;
     }
     
 }

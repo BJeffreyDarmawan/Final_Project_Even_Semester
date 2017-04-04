@@ -33,10 +33,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     Settings Preferences;
     User guest;
-
-    /**
-     * Creates new form openingView
-     */
    
     public OpeningView(Settings set){
         try {
@@ -59,7 +55,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         } catch (SQLException ex) {
             Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public OpeningView(User s){
@@ -72,6 +67,13 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
             this.setResizable(false);
             findBusStopButt.setPreferredSize(new Dimension(150, 29));
             sRoutesButt.setPreferredSize(new Dimension(150, 29));
+            mapButt.setPreferredSize(new Dimension(95, 29));
+            settings.setPreferredSize(new Dimension(95,29));
+            getContentPane().setLayout(null);
+            getContentPane().add(findBusStopButt);
+            getContentPane().add(sRoutesButt);
+            getContentPane().add(mapButt);
+            getContentPane().add(settings);
         } catch (SQLException ex) {
             Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,14 +114,14 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     
     @Override
     public void apply(){
-        if(this.Preferences.getLanguage().equals("eng"))
+        if(this.guest.getSettings().getLanguage().equals("eng"))
             changeToEng();
-        else if(this.Preferences.getLanguage().equals("indo"))
+        else if(this.guest.getSettings().getLanguage().equals("indo"))
             changeToIndo();
         
-        if(this.Preferences.getColor().equals("pink"))
+        if(this.guest.getSettings().getColor().equals("pink"))
             changePink();
-        else if(this.Preferences.getColor().equals("gray"))
+        else if(this.guest.getSettings().getColor().equals("gray"))
             changeGray();
         else
             changeDefault();
@@ -266,18 +268,18 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     private void findBusStopButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBusStopButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new FindBusStopView(Preferences).setVisible(true);
+        this.guest.openFindBusStopView();
     }//GEN-LAST:event_findBusStopButtActionPerformed
 
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new SearchRoutesView(Preferences).setVisible(true);
+        this.guest.openSearchRoutesView();
     }//GEN-LAST:event_sRoutesButtActionPerformed
 
     private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
         this.dispose();
-        new SettingsView(Preferences).setVisible(true);
+        this.guest.openSettingsView();
     }//GEN-LAST:event_settingsActionPerformed
 
     private void mapButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtActionPerformed
@@ -291,7 +293,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     private void adminButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtActionPerformed
         this.dispose();
-        new LoginForm(Preferences).setVisible(true);
+        new LoginForm(this.guest.getSettings()).setVisible(true);
     }//GEN-LAST:event_adminButtActionPerformed
 
     /**

@@ -29,15 +29,31 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
      */
     
     Settings Preferences;
-    String fromidk, toidk;
+    String departure, destination;
     User guest;
-    String fromidk;
     Connection con;
     Statement stmt;
     ResultSet rs;
     
-    public SearchRoutesView() {
+    public SearchRoutesView(User s) {
+        this.guest = s;
         initComponents();
+        connectDB();
+        apply();
+        System.out.println(this.guest.getDeparture());
+        this.departure = this.guest.getDeparture();
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        fromBox.setSelectedItem(this.departure);
+        redisplay();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        fromBox.setPreferredSize(new Dimension(52, 27));
+        toBox.setPreferredSize(new Dimension(52, 27));
+        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(fromBox);
+        getContentPane().add(toBox);
+        getContentPane().add(searchRoutesButt);
     }
 
     public SearchRoutesView(Settings set) {
@@ -45,7 +61,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         initComponents();
         connectDB();
         apply();
-        this.fromidk = "";
+        this.departure = "";
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
         redisplay();
         this.setLocationRelativeTo(null);
@@ -59,19 +75,9 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         getContentPane().add(searchRoutesButt);
     }
     
-    public SearchRoutesView(User s)
-    {
-        this.guest = s;
-        initComponents();
-        connectDB();
-        apply();
-        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
-        toBox.setModel(new DefaultComboBoxModel(getHalte()));
-        this.setLocationRelativeTo(null);
-    }
     public SearchRoutesView(Settings set, String from){
         this.Preferences = set;
-        this.fromidk = from;
+        this.departure = from;
         initComponents();
         connectDB();
         apply();
@@ -111,7 +117,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         //fromBox.removeAllItems();
         toBox.removeAllItems();
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
-        if(fromidk.equals(""))
+        if(departure.equals(""))
             fromBox.setSelectedIndex(0);
         //else
             //fromBox.setSelectedItem(fromidk);
@@ -264,18 +270,20 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         //JOptionPane.showMessageDialog(this, from);
         this.dispose();
-        new ResultView(Preferences).setVisible(true);
+        //new ResultView(Preferences).setVisible(true);
+        this.guest.setJourney(departure, destination);
+        this.guest.openResultView();
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void findBSLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findBSLabelMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new FindBusStopView(Preferences).setVisible(true);
+        this.guest.openFindBusStopView();
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
         //if(evt.getStateChange() == ItemEvent.SELECTED){
-            this.fromidk = (String) fromBox.getSelectedItem();System.out.println(fromBox.getSelectedItem() + " " + fromidk);
+            this.departure = (String) fromBox.getSelectedItem();System.out.println(fromBox.getSelectedItem() + " " + departure);
         //}    
         redisplay();
         
@@ -283,7 +291,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
         // to = (String) toBox.getSelectedItem();
-        toidk= (String) toBox.getSelectedItem();
+        this.destination= (String) toBox.getSelectedItem();
         //redisplay();
     }//GEN-LAST:event_toBoxItemStateChanged
 
@@ -338,16 +346,16 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     @Override
     public void apply() {
-        if(this.Preferences.getLanguage().equals("eng")){
+        if(this.guest.getSettings().getLanguage().equals("eng")){
             changeToEng();
         }        
-        else if (this.Preferences.getLanguage().equals("indo")){
+        else if (this.guest.getSettings().getLanguage().equals("indo")){
             changeToIndo();
         }
-        if(this.Preferences.getColor().equals("pink")){
+        if(this.guest.getSettings().getColor().equals("pink")){
             changePink();
         }
-        else if (this.Preferences.getColor().equals("gray")){
+        else if (this.guest.getSettings().getColor().equals("gray")){
             changeGray();
         }
         else{

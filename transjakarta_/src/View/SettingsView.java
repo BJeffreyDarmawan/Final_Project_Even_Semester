@@ -48,23 +48,37 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         initComponents();     
         apply();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        okButton.setPreferredSize(new Dimension(130,29));
+        backButton.setPreferredSize(new Dimension(130,29));
+        defaultButt.setPreferredSize(new Dimension(130,29));
+        pinkButton.setPreferredSize(new Dimension(60, 29));
+        grayButton.setPreferredSize(new Dimension(60, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(okButton);
+        getContentPane().add(backButton);
+        getContentPane().add(defaultButt);
+        getContentPane().add(pinkButton);
+        getContentPane().add(grayButton);
     }
     
+    // Apply_Settings methods
     @Override
     public void apply() {
-        if(this.Preferences.getLanguage().equals("eng")){
-            changeToEng();
+        if(this.guest.getSettings().getLanguage().equals("eng")){
+            changeToEng(); System.out.println("default");
             languageGroup.setSelected(engButton.getModel(), true);
         }
-        else if (this.Preferences.getLanguage().equals("indo")){
+        else if (this.guest.getSettings().getLanguage().equals("indo")){
             changeToIndo();
             languageGroup.setSelected(indoButton.getModel(), true);
-        }
-        if(this.Preferences.getColor().equals("pink")){
+        }else System.out.println("went here");
+        
+        if(this.guest.getSettings().getColor().equals("pink")){
             changePink();
             colorGroup.setSelected(pinkButton.getModel(), true);
         }
-        else if (this.Preferences.getColor().equals("gray")){
+        else if (this.guest.getSettings().getColor().equals("gray")){
             changeGray();
             colorGroup.setSelected(grayButton.getModel(), true);
         }
@@ -113,18 +127,30 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     @Override
     public void changePink() {
         this.getContentPane().setBackground(Color.PINK);
+        engButton.setBackground(Color.PINK);
+        indoButton.setBackground(Color.PINK);
+        pinkButton.setBackground(Color.PINK);
+        grayButton.setBackground(Color.PINK);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeGray() {
         this.getContentPane().setBackground(Color.GRAY);
+        engButton.setBackground(Color.GRAY);
+        indoButton.setBackground(Color.GRAY);
+        pinkButton.setBackground(Color.GRAY);
+        grayButton.setBackground(Color.GRAY);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
         this.getContentPane().setBackground(null);
+        engButton.setBackground(null);
+        indoButton.setBackground(null);
+        pinkButton.setBackground(null);
+        grayButton.setBackground(null);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -150,7 +176,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         defaultButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(414, 150));
         setMinimumSize(new java.awt.Dimension(414, 150));
@@ -280,21 +305,22 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         // TODO add your handling code here:
-        
+        String lang, color;
         if(engButton.isSelected())
         {
-            this.Preferences.setLanguage("eng");
+            lang = "eng";
         }
         else if(indoButton.isSelected())
         {
-            this.Preferences.setLanguage("indo");
+            lang = "indo";
         }
         else{
+            lang = "eng";
         }
         
         if(pinkButton.isSelected())
         {
-            this.Preferences.setColor("pink");
+            color = "pink";
             if(engButton.isSelected()){
                 JOptionPane.showMessageDialog(this, "Updated!");
             }
@@ -304,8 +330,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         }
         else if(grayButton.isSelected())
         {
-            this.Preferences.setColor("gray");
-            
+            color = "gray";
                 if(engButton.isSelected()){
                 JOptionPane.showMessageDialog(this, "Updated!");
                 }
@@ -314,7 +339,9 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
                 }
         }
         else{
+            color = " ";
         }        
+        this.guest.changeSettings(lang, color);
         apply();
         /*
         frame = this;
@@ -332,18 +359,21 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new OpeningView(Preferences).setVisible(true);        
+        this.guest.openOpeningView();
+        //new OpeningView(this.guest).setVisible(true);        
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void defaultButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultButtActionPerformed
-        this.Preferences.setColor("default");
-        this.Preferences.setLanguage("eng");
+        //this.guest.getSettings().setColor("default");
+        //this.guest.getSettings().setLanguage("eng");
+        this.guest.changeSettings("eng", "default"); //System.out.println(this.guest.getSettings().getColor() + this.guest.getSettings().getLanguage());
         apply();
         //languageGroup.setSelected((ButtonModel)engButton, true);
         languageGroup.setSelected(engButton.getModel(), true);
         //languageGroup.clearSelection();
         colorGroup.clearSelection();
         defaultButt.setEnabled(false);
+        //JOptionPane.showMessageDialog(this, "Changed to default settings.");
     }//GEN-LAST:event_defaultButtActionPerformed
 
     private void indoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_indoButtonActionPerformed

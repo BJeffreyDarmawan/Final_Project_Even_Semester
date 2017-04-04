@@ -115,7 +115,7 @@ public class FindLocation implements IRegardingCorridors{
             }
             i++;
         }
-        
+        System.out.println("IT WENT HERE");
         // OR if possible, 3 transits
         i = 0;
         for(String a : corridors){
