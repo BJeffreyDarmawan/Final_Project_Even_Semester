@@ -7,6 +7,7 @@ package View;
 import Controller.*;
 import Model.*;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -31,6 +32,15 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         initComponents();
         apply();
         this.setLocationRelativeTo(null);
+        regionBox.setPreferredSize(new Dimension(157, 27));
+        nearbyBox.setPreferredSize(new Dimension(157, 27));
+        mainmenu.setPreferredSize(new Dimension(150, 29));
+        searchRoutesButt.setPreferredSize(new Dimension(150, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(regionBox);
+        getContentPane().add(nearbyBox);
+        getContentPane().add(mainmenu);
+        getContentPane().add(searchRoutesButt);
         displayNearby();
     }
     
@@ -61,8 +71,9 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         titleLabel.setText("POSISI SEKARANG");
         regionLabel.setText("Wilayah");
         nearbyLabel.setText("Tempat Terdekat");
-        nearestLabel.setText("Halte terdekat");
+        nearestLabel.setText("Halte Terdekat:");
         searchRoutesButt.setText("Cari Rute");
+        findBSButt.setText("Cari");
         mainmenu.setText("Menu Utama");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -73,8 +84,9 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         titleLabel.setText("CURRENT POSITION");
         regionLabel.setText("Region");
         nearbyLabel.setText("Nearby Place");
-        nearestLabel.setText("Nearest Bus Stop");
+        nearestLabel.setText("Nearest Bus Stop:");
         searchRoutesButt.setText("Search Routes");
+        findBSButt.setText("Find");
         mainmenu.setText("Main Menu");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -147,6 +159,7 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
 
         regionBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         regionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Central Jakarta", "North Jakarta", "South Jakarta", "East Jakarta", "West Jakarta" }));
+        regionBox.setMaximumSize(new java.awt.Dimension(157, 27));
         regionBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 regionBoxItemStateChanged(evt);
@@ -157,6 +170,9 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         nearbyLabel.setText("Nearby Place");
 
         nearbyBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        nearbyBox.setMaximumSize(new java.awt.Dimension(157, 27));
+        nearbyBox.setMinimumSize(new java.awt.Dimension(157, 27));
+        nearbyBox.setPreferredSize(new java.awt.Dimension(157, 27));
 
         findBSButt.setText("Find");
         findBSButt.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +187,9 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         nearestBSLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
         searchRoutesButt.setText("Search Routes");
+        searchRoutesButt.setMaximumSize(new java.awt.Dimension(150, 29));
+        searchRoutesButt.setMinimumSize(new java.awt.Dimension(150, 29));
+        searchRoutesButt.setPreferredSize(new java.awt.Dimension(150, 29));
         searchRoutesButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchRoutesButtActionPerformed(evt);
@@ -178,16 +197,23 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         });
 
         mainmenu.setText("Main Menu");
+        mainmenu.setMaximumSize(new java.awt.Dimension(150, 29));
+        mainmenu.setMinimumSize(new java.awt.Dimension(150, 29));
+        mainmenu.setPreferredSize(new java.awt.Dimension(150, 29));
         mainmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mainmenuActionPerformed(evt);
             }
         });
 
+        titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         titleLabel.setText("CURRENT LOCATION");
 
         regionLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         regionLabel.setText("Region");
+        regionLabel.setMaximumSize(new java.awt.Dimension(87, 17));
+        regionLabel.setMinimumSize(new java.awt.Dimension(87, 17));
+        regionLabel.setPreferredSize(new java.awt.Dimension(87, 17));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,28 +225,27 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(nearestLabel)
-                                .addGap(38, 38, 38)
+                                .addComponent(nearestLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                .addGap(21, 21, 21)
                                 .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(titleLabel))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(102, 102, 102))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(mainmenu)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchRoutesButt))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(regionLabel)
-                                    .addComponent(nearbyLabel))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(regionBox, 0, 1, Short.MAX_VALUE)
-                                    .addComponent(nearbyBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(findBSButt)))
-                        .addGap(45, 45, 45))))
+                        .addComponent(mainmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchRoutesButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nearbyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(regionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(regionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nearbyBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addComponent(findBSButt)
+                        .addGap(17, 17, 17))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +254,7 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(regionLabel)
+                    .addComponent(regionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(regionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -242,9 +267,9 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
                     .addComponent(nearestBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchRoutesButt)
-                    .addComponent(mainmenu))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(searchRoutesButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  *
@@ -132,7 +133,7 @@ public class FindLocation {
         String[] test;
         //System.out.println(reg);
         try{
-            rs = stmt.executeQuery("select * from tj where region = '" + reg + "'");
+            rs = stmt.executeQuery("select * from tj where region = '" + reg + "' order by nearby");
             while(rs.next()){
                 nearBy = rs.getString("nearby");
                 test = nearBy.split(",\\s");
@@ -143,6 +144,7 @@ public class FindLocation {
         {
            System.out.println(e);
         }
+        Collections.sort(nearBys);
         return nearBys;
     }
     

@@ -7,6 +7,7 @@ package View;
 import Controller.*;
 import Model.*;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
@@ -27,6 +28,18 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         initComponents();     
         apply();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        okButton.setPreferredSize(new Dimension(130,29));
+        backButton.setPreferredSize(new Dimension(130,29));
+        defaultButt.setPreferredSize(new Dimension(130,29));
+        pinkButton.setPreferredSize(new Dimension(60, 29));
+        grayButton.setPreferredSize(new Dimension(60, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(okButton);
+        getContentPane().add(backButton);
+        getContentPane().add(defaultButt);
+        getContentPane().add(pinkButton);
+        getContentPane().add(grayButton);
     }
     
     @Override
@@ -58,7 +71,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         colorsLabel.setText("Warna");
         backButton.setText("Menu Utama");
         defaultButt.setText("Pengaturan Awal");
-        okButton.setText("Ok");
+        okButton.setText("Simpan");
         engButton.setText("Inggris");
         indoButton.setText("Bahasa");
         pinkButton.setText("Merah Muda");
@@ -71,8 +84,8 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         languageLabel.setText("Language");
         colorsLabel.setText("Color");
         backButton.setText("Main Menu");
-        defaultButt.setText("Set as Default");
-        okButton.setText("Ok");
+        defaultButt.setText("Set Default");
+        okButton.setText("Save");
         engButton.setText("English");
         indoButton.setText("Indonesia");
         pinkButton.setText("Pink");
@@ -122,26 +135,30 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(370, 200));
-        setMinimumSize(new java.awt.Dimension(370, 200));
-        setPreferredSize(new java.awt.Dimension(370, 200));
+        setMaximumSize(new java.awt.Dimension(414, 150));
+        setMinimumSize(new java.awt.Dimension(414, 150));
+        setPreferredSize(new java.awt.Dimension(414, 150));
         setResizable(false);
-        setSize(new java.awt.Dimension(370, 200));
+        setSize(new java.awt.Dimension(414, 150));
 
         colorGroup.add(pinkButton);
         pinkButton.setText("Pink");
+        pinkButton.setPreferredSize(new java.awt.Dimension(60, 23));
 
         colorGroup.add(grayButton);
         grayButton.setText("Gray");
 
-        okButton.setText("Ok");
+        okButton.setText("Save");
+        okButton.setMaximumSize(new java.awt.Dimension(112, 29));
+        okButton.setMinimumSize(new java.awt.Dimension(112, 29));
+        okButton.setPreferredSize(new java.awt.Dimension(112, 29));
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
-        languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        languageLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         languageLabel.setText("Language");
         languageLabel.setToolTipText("");
         languageLabel.setMaximumSize(new java.awt.Dimension(70, 15));
@@ -160,8 +177,13 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton.setText("Indonesia");
         indoButton.setAlignmentY(0.0F);
         indoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        indoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                indoButtonActionPerformed(evt);
+            }
+        });
 
-        colorsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        colorsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         colorsLabel.setText("Color");
         colorsLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorsLabel.setMaximumSize(new java.awt.Dimension(70, 15));
@@ -176,7 +198,9 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
             }
         });
 
-        defaultButt.setText("Set default");
+        defaultButt.setText("Set Default");
+        defaultButt.setMaximumSize(new java.awt.Dimension(112, 29));
+        defaultButt.setMinimumSize(new java.awt.Dimension(112, 29));
         defaultButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 defaultButtActionPerformed(evt);
@@ -188,49 +212,50 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(defaultButt, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(148, 148, 148)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(engButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pinkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(grayButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(indoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(colorsLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(languageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(engButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pinkButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(indoButton)
-                            .addComponent(grayButton))
-                        .addGap(8, 8, 8))
+                            .addComponent(languageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(okButton)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(defaultButt, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(languageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(engButton))
-                    .addComponent(indoButton, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(23, 23, 23)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(languageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(engButton)
+                    .addComponent(indoButton))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(colorsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pinkButton)
+                    .addComponent(pinkButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(grayButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backButton)
-                    .addComponent(okButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(defaultButt)
-                .addGap(21, 21, 21))
+                    .addComponent(defaultButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,6 +328,10 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         colorGroup.clearSelection();
         
     }//GEN-LAST:event_defaultButtActionPerformed
+
+    private void indoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_indoButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_indoButtonActionPerformed
 
     /*
      * @param args the command line arguments

@@ -7,6 +7,7 @@ package View;
 
 import Model.*;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,6 +44,14 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        fromBox.setPreferredSize(new Dimension(52, 27));
+        toBox.setPreferredSize(new Dimension(52, 27));
+        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(fromBox);
+        getContentPane().add(toBox);
+        getContentPane().add(searchRoutesButt);
     }
     
     public SearchRoutesView(Settings set, String from){
@@ -55,6 +64,14 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         fromBox.setSelectedItem(from);
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        fromBox.setPreferredSize(new Dimension(52, 27));
+        toBox.setPreferredSize(new Dimension(52, 27));
+        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
+        getContentPane().setLayout(null);
+        getContentPane().add(fromBox);
+        getContentPane().add(toBox);
+        getContentPane().add(searchRoutesButt);
     }
    
     public final void connectDB(){
@@ -167,21 +184,21 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(from)
-                                    .addGap(26, 26, 26))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(to)
-                                    .addGap(44, 44, 44)))
+                                    .addComponent(from, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(to, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(fromBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(toBox, 0, 241, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(findBSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                             .addComponent(searchRoutesButt)))
-                    .addComponent(searchroute))
+                    .addComponent(searchroute, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -303,7 +320,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     @Override
     public void changeToEng() {
-        searchroute.setText("Search Routes");
+        searchroute.setText("SEARCH ROUTES");
         from.setText("From");
         to.setText("To");
         findBSLabel.setText("Find bus stop?");
