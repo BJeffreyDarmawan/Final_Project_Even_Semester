@@ -3,44 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package transjakarta_;
+package Model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Model.*;
+
 /**
  *
  * @author Lenovo
  */
-public class generateRoute {
-    //private generateRoute fastest = new generateRoute();
-    //private generateRoute shortest = new generateRoute();
+public class generateRoute implements IRegardingCorridors{
     
-    findLoc Departure;
-    findLoc Destination;
-    
+    FindLocation Departure;
+    FindLocation Destination;
     
     
     Connection con;
     Statement stmt1, stmt2;
     ResultSet rs1, rs2;
-    String[] arrCorridorsList = {"1", "4C", "2", "8", "10", "12"};
     
     ArrayList<String> haltePoints = new ArrayList();
-    ArrayList<findLoc> Transit = new ArrayList();
+    ArrayList<FindLocation> Transit = new ArrayList();
     ArrayList<String> halteRoute = new ArrayList();
     ArrayList<String> corridorPassed = new ArrayList();
+    ArrayList<FindLocation> BusStopPassed = new ArrayList();
     
     generateRoute(){
         
     }
     
-    generateRoute(findLoc Departure, findLoc Destination){
+    public generateRoute(FindLocation Departure, FindLocation Destination){
         this.Departure = Departure;
         this.Destination = Destination;System.out.println(Destination.getCorridors() + " " + Departure.getCorridors());
         Departure.chooseCorridor(Destination.getCorridors()); 
@@ -123,7 +121,7 @@ public class generateRoute {
                 }
             } else {
                 haltePoints.add(Departure.getBusStop()); 
-                Transit.add(new findLoc(Departure.getBusStop()));
+                Transit.add(new FindLocation(Departure.getBusStop()));
                 findCorridorAndTransit(Departure.getCorridor(), Destination.getCorridor()); System.out.println(Transit.get(0).getBusStop());showTransits(); System.out.println("INI CORRIDOR PASSED" + corridorPassed);//System.out.println(haltePoints);
                 for(int i = 0; i < corridorPassed.size(); i++){System.out.println(corridorPassed.size() + " line 136");
                     rs1 = stmt1.executeQuery("select * from tj where corridor = '" + corridorPassed.get(i) + "'");  
@@ -165,7 +163,7 @@ public class generateRoute {
         try{System.out.println("findCorridorAndTransiit");
         
             if(doWeHaveSameStops(corridorA, corridorB) && !corridorB.equals(corridorA)){ System.out.println("HERE GOES SEMIFINAL");
-                Transit.add(new findLoc(rs1.getString("halte")));
+                Transit.add(new FindLocation(rs1.getString("halte")));
                 haltePoints.add(rs1.getString("halte"));
                 corridorPassed.add(rs1.getString("corridor"));System.out.println(haltePoints);
                 if(corridorB.equals(Destination.getCorridor())){ 
@@ -179,7 +177,7 @@ public class generateRoute {
                     return;
                 }
             } else {
-                System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
+                //System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
                 ArrayList<String> possibleCorridorsA = findPossibleCorridors(corridorA);
                     ArrayList<String> possibleCorridorsB = findPossibleCorridors(corridorB);
                     for(String a : possibleCorridorsA){
@@ -217,7 +215,7 @@ public class generateRoute {
     }
     
     public void showTransits(){
-        for(findLoc a : Transit){
+        for(FindLocation a : Transit){
             System.out.println("Transits: " + a.getBusStop() + " " + a.getCorridors());
         }
     }
@@ -229,8 +227,8 @@ public class generateRoute {
         //findLoc Destination = new findLoc("Central Jakarta", "Atma Jaya");
         //findLoc Departure = new findLoc("West Jakarta", "Apartment Kedoya Elok");
         //findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
-        findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
-        findLoc Departure = new findLoc("West Jakarta", "Apartment Kedoya Elok");
+        FindLocation Destination = new FindLocation("North Jakarta", "Mall Of Indonesia");
+        FindLocation Departure = new FindLocation("West Jakarta", "Apartment Kedoya Elok");
         generateRoute WEH = new generateRoute(Departure, Destination);
         System.out.println(Departure.getCorridor());
         System.out.println(Destination.getCorridor());
