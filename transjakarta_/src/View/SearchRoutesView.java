@@ -274,16 +274,21 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     @Override
     public void apply() {
-        if(this.Preferences.getLanguage().equals("eng"))
+        if(this.Preferences.getLanguage().equals("eng")){
             changeToEng();
-        else
+        }        
+        else if (this.Preferences.getLanguage().equals("indo")){
             changeToIndo();
-        
-        if(this.Preferences.getColor().equals("pink"))
+        }
+        if(this.Preferences.getColor().equals("pink")){
             changePink();
-        else
+        }
+        else if (this.Preferences.getColor().equals("gray")){
             changeGray();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        else{
+            changeDefault();
+        }
     }
 
     @Override
@@ -320,7 +325,8 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(null);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

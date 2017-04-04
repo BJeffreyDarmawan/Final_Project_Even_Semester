@@ -31,19 +31,26 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         initComponents();
         apply();
         this.setLocationRelativeTo(null);
+        displayNearby();
     }
     
     @Override
     public void apply() {
-        if(this.Preferences.getLanguage().equals("eng"))
+        if(this.Preferences.getLanguage().equals("eng")){
             changeToEng();
-        else
+        }        
+        else if (this.Preferences.getLanguage().equals("indo")){
             changeToIndo();
-        
-        if(this.Preferences.getColor().equals("pink"))
+        }
+        if(this.Preferences.getColor().equals("pink")){
             changePink();
-        else
+        }
+        else if (this.Preferences.getColor().equals("gray")){
             changeGray();
+        }
+        else{
+            changeDefault();
+        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -86,7 +93,8 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getContentPane().setBackground(null);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void displayNearby(){
