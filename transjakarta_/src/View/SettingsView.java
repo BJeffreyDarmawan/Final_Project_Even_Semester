@@ -64,7 +64,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         grayButton.setText("Kelabu");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void changeToEng() {
         languageLabel.setText("Language");
@@ -95,11 +95,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     public void changeDefault() {
         this.getContentPane().setBackground(null);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeToIndoOpeningView() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

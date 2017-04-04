@@ -17,8 +17,8 @@ import java.util.Arrays;
  * @author Mikha Putri
  */
 public class FindLocation {
-        private String region;
-    private String location;
+    public static String region;
+    public static String location;
     private String busStop;
     private int indx;
     private String corridor;
@@ -30,18 +30,18 @@ public class FindLocation {
     Statement stmt;
     ResultSet rs;
     
-    FindLocation(){
+    public FindLocation(){
         connectDB();
         //findBusStop();
     }
     
-    FindLocation(String busStop){
+    public FindLocation(String busStop){
         this.busStop = busStop;
         connectDB();
         findCorridor();
     }
     
-    FindLocation(String region, String location){
+    public FindLocation(String region, String location){
         this.region = region;
         this.location = location;
         connectDB();
@@ -82,7 +82,7 @@ public class FindLocation {
     public final void connectDB(){
         try{
             //singleton
-            con = transjakarta_.ConnectionConfig.createConnection();
+            con = ConnectionConfig.createConnection();
                     
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "select * from tj";
