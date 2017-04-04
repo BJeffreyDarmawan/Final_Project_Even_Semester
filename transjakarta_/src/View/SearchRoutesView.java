@@ -6,6 +6,7 @@
 package View;
 
 import Model.*;
+import Controller.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -29,6 +30,8 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     
     Settings Preferences;
     String fromidk, toidk;
+    User guest;
+    String fromidk;
     Connection con;
     Statement stmt;
     ResultSet rs;
@@ -56,6 +59,16 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         getContentPane().add(searchRoutesButt);
     }
     
+    public SearchRoutesView(User s)
+    {
+        this.guest = s;
+        initComponents();
+        connectDB();
+        apply();
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        this.setLocationRelativeTo(null);
+    }
     public SearchRoutesView(Settings set, String from){
         this.Preferences = set;
         this.fromidk = from;

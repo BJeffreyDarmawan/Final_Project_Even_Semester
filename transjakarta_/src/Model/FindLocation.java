@@ -12,12 +12,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import Controller.*;
 
 /**
  *
  * @author Mikha Putri
  */
-public class FindLocation {
+public class FindLocation implements IRegardingCorridors{
     public static String region;
     public static String location;
     private String busStop;
@@ -48,8 +49,6 @@ public class FindLocation {
         this.location = location;
         connectDB();
         findBusStop();
-        findCorridor();
-        //chooseCorridor();
     }
     
     public int getIndex(){
@@ -69,13 +68,75 @@ public class FindLocation {
     }
     
     public void chooseCorridor(ArrayList<String> b){
-        int i = 0;System.out.println(b.size() + " findLoc line 77"); System.out.println("INDEXES " + this.indxs);
+        int i = 0;
+        
+        // if possible, choose corridor where we can move within 1 corridor
         for(String a : corridors){
-            if(b.get(i).equals(a)){ 
-                this.corridor = b.get(i);
-                this.indx = this.indxs.get(i); System.out.println(this.indx);
-                return;
+            for(String c : b){
+                if(c.equals(a)){ 
+                    this.corridor = a;
+                    this.indx = this.indxs.get(i); 
+                    return;
+                }
+            }i++;
+        } 
+        
+        // OR if possible, 1 transit
+        i = 0;
+        for(String a : corridors){
+            for(String c : b){
+                if (doWeHaveSameStops(a, c) ){
+                    this.corridor = a;
+                    this.indx = this.indxs.get(i);
+                    return;
+                }
             }
+        }
+        
+        // OR if possible, 2 transits
+        i = 0;
+        for(String a : corridors){
+            
+            ArrayList<String> possibleCorridorsA = findPossibleCorridors(a);
+            
+            for(String c : b){
+                
+                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
+                
+                for(String possa : possibleCorridorsA){
+                    for(String possb : possibleCorridorsB){
+                        if(possa.equals(possb)){
+                            this.corridor = a;
+                            this.indx = this.indxs.get(i);
+                            return;
+                        }
+                    }
+                }
+            }
+            i++;
+        }
+        
+        // OR if possible, 3 transits
+        i = 0;
+        for(String a : corridors){
+            
+            ArrayList<String> possibleCorridorsA = findPossibleCorridors(a);
+            
+            for(String c : b){
+                
+                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
+                
+                for(String possa : possibleCorridorsA){
+                    for(String possb : possibleCorridorsB){
+                        if(doWeHaveSameStops(possa, possb)){
+                            this.corridor = a;
+                            this.indx = this.indxs.get(i);
+                            return;
+                        }
+                    }
+                }
+            }
+            i++;
         }
         corridor = this.corridors.get(0);
         indx = this.indxs.get(0);
@@ -85,26 +146,21 @@ public class FindLocation {
         try{
             //singleton
             con = ConnectionConfig.createConnection();
-                    
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "select * from tj";
-            rs = stmt.executeQuery(query);
-            rs.next();
-            
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         }catch(SQLException e){
+            System.out.println("Errot at findLoc.connectDB()");
             System.out.println(e);
-            //JOptionPane.showMessageDialog(this, e.getMessage());
         }catch (ClassNotFoundException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
-            //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error at findLoc.connectDB()");
+            System.out.println(ex);
         }
-        //ConnectionConfig.closeConnection();
     }
     
     public void findBusStop(){
         String[] nearBys;
         String nearBy;
         try{
+            rs = stmt.executeQuery("select * from tj");
             rs.beforeFirst();
             while(!gotBusStop){
                 rs.next();
@@ -124,6 +180,7 @@ public class FindLocation {
             }
         } catch (SQLException e){
             System.out.println(e);
+            System.out.println("Error at findBusStop");
         }
     }
 
@@ -171,7 +228,41 @@ public class FindLocation {
                 this.indxs.add(rs.getInt("index"));
             }
         }catch(SQLException e){
-            
+            System.out.println(e);
+            System.out.println("Error at findCorridor");
         }
+    }
+    
+    @Override
+    public boolean doWeHaveSameStops(String a, String b){
+        try{System.out.println(a + "     " + b);
+            Statement stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs1 = stmt1.executeQuery("select * from tj where corridor = '" + a + "'");
+            ResultSet rs2 = stmt2.executeQuery("select * from tj where corridor = '" + b + "'");
+            while(true){
+                rs1.next();
+                rs2.beforeFirst();
+                while(rs2.next()){
+                    if(rs1.getString("halte").equals(rs2.getString("halte"))){
+                        //System.out.println(rs1.getString("halte"));//haltePoints.add(rs1.getString("halte"));
+                        return true;
+                    }
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    @Override
+    public ArrayList<String> findPossibleCorridors(String corridorX){
+        ArrayList<String> possibleCorridors = new ArrayList();
+        for(int i = 0; i < arrCorridorsList.length; i++){
+            if(doWeHaveSameStops(corridorX, arrCorridorsList[i]))
+                possibleCorridors.add(arrCorridorsList[i]);
+        }
+        return possibleCorridors;
     }
 }

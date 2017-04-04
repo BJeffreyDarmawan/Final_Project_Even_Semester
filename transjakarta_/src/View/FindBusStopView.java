@@ -22,9 +22,18 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
      */
     
     Settings Preferences;
+    private User guest;
     
-    public FindBusStopView() {
+    public FindBusStopView(){
         initComponents();
+    }
+    
+    public FindBusStopView(User s){
+        this.guest = s;
+        initComponents();
+        apply();
+        this.setLocationRelativeTo(null);
+        displayNearby();
     }
     
     public FindBusStopView(Settings set){

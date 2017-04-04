@@ -105,6 +105,7 @@ public class findLoc implements IRegardingCorridors{
             for(String c : b){
                 
                 ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
+                
                 for(String possa : possibleCorridorsA){
                     for(String possb : possibleCorridorsB){
                         if(possa.equals(possb)){
@@ -140,7 +141,7 @@ public class findLoc implements IRegardingCorridors{
         }
         corridor = this.corridors.get(0);
         indx = this.indxs.get(0);
-         System.out.println("chosen corridor " + this.corridor + " index " + this.indx);
+        System.out.println("chosen corridor " + this.corridor + " index " + this.indx);
     }
     
     public final void connectDB(){
