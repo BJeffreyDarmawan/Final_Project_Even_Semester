@@ -6,7 +6,6 @@
 package Controller;
 
 import View.*;
-import Model.*;
 
 // Start program
 public class Main {

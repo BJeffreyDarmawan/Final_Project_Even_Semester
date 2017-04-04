@@ -195,7 +195,8 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
 
     private void repeat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeat2ActionPerformed
         this.dispose();
-        new OpeningView(Preferences).setVisible(true);
+        //new OpeningView(Preferences).setVisible(true);
+        this.guest.openOpeningView();
     }//GEN-LAST:event_repeat2ActionPerformed
 
     private void ROUTEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROUTEMouseClicked

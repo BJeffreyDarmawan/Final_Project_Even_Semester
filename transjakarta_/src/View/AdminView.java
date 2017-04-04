@@ -196,7 +196,6 @@ public class AdminView extends javax.swing.JFrame {
         deleteButt.setMaximumSize(new java.awt.Dimension(94, 29));
         deleteButt.setMinimumSize(new java.awt.Dimension(94, 29));
         deleteButt.setPreferredSize(new java.awt.Dimension(94, 29));
-        deleteButt.setSize(new java.awt.Dimension(94, 29));
         deleteButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtActionPerformed(evt);
@@ -208,7 +207,6 @@ public class AdminView extends javax.swing.JFrame {
         saveButt.setMaximumSize(new java.awt.Dimension(94, 29));
         saveButt.setMinimumSize(new java.awt.Dimension(94, 29));
         saveButt.setPreferredSize(new java.awt.Dimension(94, 29));
-        saveButt.setSize(new java.awt.Dimension(94, 29));
         saveButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtActionPerformed(evt);
@@ -220,7 +218,6 @@ public class AdminView extends javax.swing.JFrame {
         cancelButt.setMaximumSize(new java.awt.Dimension(94, 29));
         cancelButt.setMinimumSize(new java.awt.Dimension(94, 29));
         cancelButt.setPreferredSize(new java.awt.Dimension(94, 29));
-        cancelButt.setSize(new java.awt.Dimension(94, 29));
         cancelButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtActionPerformed(evt);
@@ -258,7 +255,7 @@ public class AdminView extends javax.swing.JFrame {
                         .addComponent(deleteButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(saveButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(doneButt)
@@ -268,9 +265,6 @@ public class AdminView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -299,7 +293,10 @@ public class AdminView extends javax.swing.JFrame {
                             .addComponent(deleteButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(saveButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(doneButt)
-                            .addComponent(cancelButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cancelButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 

@@ -61,7 +61,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         try {
             this.guest = s;
             initComponents();
-            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
+            showImage("C:\\Users\\Wilson Fransicius\\Desktop\\FinalProject_TJ\\Final_Project_Even_Semester\\transjakarta_\\logotransjakarta.png", logoLabel);
             apply();
             this.setLocationRelativeTo(null);
             this.setResizable(false);
@@ -326,7 +326,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OpeningView(new Settings()).setVisible(true);
+                new OpeningView(new User()).setVisible(true);
             }
         });
     }

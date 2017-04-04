@@ -52,7 +52,8 @@ public class User {
         this.Preferences.setLanguage(lang);
     }
     
-    public void setJourney(String A, String B){System.out.println(A + " " + B);
+    public void setJourney(String A, String B){
+        System.out.println(A + " " + B);
         this.Journey = new generateRoute(new FindLocation(A), new FindLocation(B)); 
     }
     
