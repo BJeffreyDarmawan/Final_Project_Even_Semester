@@ -158,6 +158,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         sRoutesButt = new javax.swing.JButton();
         settings = new javax.swing.JButton();
         mapButt = new javax.swing.JButton();
+        adminButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -193,6 +194,13 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
             }
         });
 
+        adminButt.setText("Admin");
+        adminButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminButtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,6 +221,10 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
                             .addComponent(sRoutesButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 19, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(adminButt)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +239,9 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(settings)
                     .addComponent(mapButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(adminButt)
+                .addContainerGap())
         );
 
         pack();
@@ -258,6 +272,11 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
             Logger.getLogger(OpeningView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mapButtActionPerformed
+
+    private void adminButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtActionPerformed
+        this.dispose();
+        new LoginForm(Preferences).setVisible(true);
+    }//GEN-LAST:event_adminButtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,6 +314,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adminButt;
     private javax.swing.JButton findBusStopButt;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton mapButt;

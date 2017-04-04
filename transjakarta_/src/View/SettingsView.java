@@ -62,7 +62,16 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         }
         else{
             changeDefault();
+        }        
+        //batas
+        if(indoButton.isSelected() || pinkButton.isSelected() || grayButton.isSelected())
+        {
+            defaultButt.setEnabled(true);
         }
+        else{
+            defaultButt.setEnabled(false);
+        }
+        
     }
     
     @Override
@@ -326,7 +335,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         languageGroup.setSelected(engButton.getModel(), true);
         //languageGroup.clearSelection();
         colorGroup.clearSelection();
-        
+        defaultButt.setEnabled(false);
     }//GEN-LAST:event_defaultButtActionPerformed
 
     private void indoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_indoButtonActionPerformed

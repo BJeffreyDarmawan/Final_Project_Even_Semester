@@ -31,6 +31,7 @@ public class FindLocation {
     Statement stmt;
     ResultSet rs;
     
+    
     public FindLocation(){
         connectDB();
         //findBusStop();
