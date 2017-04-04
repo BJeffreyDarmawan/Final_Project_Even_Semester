@@ -6,10 +6,13 @@
 package View;
 import Model.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,12 +30,14 @@ public class AdminView extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     
-    
+    int curRow = 0;
+    String regex = "\\d*";
     
     public AdminView(Settings set) {
         this.Preferences=set;
         initComponents();
         printTable();
+        this.setLocationRelativeTo(null);
     }
     
     public void printTable() {
@@ -105,12 +110,16 @@ public class AdminView extends javax.swing.JFrame {
         busStopTxt = new javax.swing.JTextField();
         corridorTxt = new javax.swing.JTextField();
         nearbyTxt = new javax.swing.JTextField();
-        regionTxt = new javax.swing.JTextField();
         addButt = new javax.swing.JButton();
+        updateButt = new javax.swing.JButton();
+        deleteButt = new javax.swing.JButton();
+        saveButt = new javax.swing.JButton();
+        cancelButt = new javax.swing.JButton();
+        regionTxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        doneButt.setText("Done");
+        doneButt.setText("Log Out");
         doneButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doneButtActionPerformed(evt);
@@ -167,6 +176,56 @@ public class AdminView extends javax.swing.JFrame {
         });
 
         addButt.setText("Add");
+        addButt.setMaximumSize(new java.awt.Dimension(94, 29));
+        addButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtActionPerformed(evt);
+            }
+        });
+
+        updateButt.setText("Update");
+        updateButt.setMaximumSize(new java.awt.Dimension(94, 29));
+        updateButt.setMinimumSize(new java.awt.Dimension(94, 29));
+        updateButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtActionPerformed(evt);
+            }
+        });
+
+        deleteButt.setText("Delete");
+        deleteButt.setMaximumSize(new java.awt.Dimension(94, 29));
+        deleteButt.setMinimumSize(new java.awt.Dimension(94, 29));
+        deleteButt.setPreferredSize(new java.awt.Dimension(94, 29));
+        deleteButt.setSize(new java.awt.Dimension(94, 29));
+        deleteButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtActionPerformed(evt);
+            }
+        });
+
+        saveButt.setText("Save");
+        saveButt.setEnabled(false);
+        saveButt.setMaximumSize(new java.awt.Dimension(94, 29));
+        saveButt.setMinimumSize(new java.awt.Dimension(94, 29));
+        saveButt.setPreferredSize(new java.awt.Dimension(94, 29));
+        saveButt.setSize(new java.awt.Dimension(94, 29));
+        saveButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtActionPerformed(evt);
+            }
+        });
+
+        cancelButt.setText("Cancel");
+        cancelButt.setEnabled(false);
+        cancelButt.setMaximumSize(new java.awt.Dimension(94, 29));
+        cancelButt.setMinimumSize(new java.awt.Dimension(94, 29));
+        cancelButt.setPreferredSize(new java.awt.Dimension(94, 29));
+        cancelButt.setSize(new java.awt.Dimension(94, 29));
+        cancelButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,26 +237,32 @@ public class AdminView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(indexLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(busStopLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                            .addComponent(busStopLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(corridorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nearbyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(regionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(indexTxt)
+                            .addComponent(indexTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                             .addComponent(busStopTxt)
                             .addComponent(corridorTxt)
                             .addComponent(nearbyTxt)
-                            .addComponent(regionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
-                        .addGap(10, 10, 10))
+                            .addComponent(regionTxt))
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addButt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(doneButt)
-                .addGap(22, 22, 22))
+                        .addComponent(addButt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(updateButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(deleteButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(saveButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(doneButt)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,9 +270,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(doneButt))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -230,8 +293,14 @@ public class AdminView extends javax.swing.JFrame {
                             .addComponent(regionLabel)
                             .addComponent(regionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(addButt)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(saveButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(doneButt)
+                            .addComponent(cancelButt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -249,10 +318,184 @@ public class AdminView extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int a = jTable1.getSelectedRow();
-        System.out.println(a);
-        jTable1.getModel().
+        a = jTable1.convertRowIndexToModel(a);
+        int index = (int) jTable1.getModel().getValueAt(a, 0);
+        String sIndex = Integer.toString(index);
+        String busStop = (String) jTable1.getModel().getValueAt(a, 1);
+        String corridor = (String) jTable1.getModel().getValueAt(a, 2);
+        String nearby = (String) jTable1.getModel().getValueAt(a, 3);
+        String region = (String) jTable1.getModel().getValueAt(a, 4);
+        indexTxt.setText(sIndex);
+        busStopTxt.setText(busStop);
+        corridorTxt.setText(corridor);
+        nearbyTxt.setText(nearby);
+        regionTxt.setText(region);
         //indexTxt.setText(jTable1.getSelectedRow());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void addButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtActionPerformed
+        try {
+            // TODO add your handling code here:
+            addButt.setEnabled(false);
+            updateButt.setEnabled(false);
+            deleteButt.setEnabled(false);
+            doneButt.setEnabled(false);
+            cancelButt.setEnabled(true);
+            saveButt.setEnabled(true);
+            curRow = rs.getRow();
+            indexTxt.setText("");
+            busStopTxt.setText("");
+            corridorTxt.setText("");
+            nearbyTxt.setText("");
+            regionTxt.setText("");
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_addButtActionPerformed
+
+    private void saveButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtActionPerformed
+        // TODO add your handling code here:
+        String sIndex = indexTxt.getText();
+        String sBusStop = busStopTxt.getText();
+        String sCorridor = corridorTxt.getText();
+        String sNearby = nearbyTxt.getText();
+        String sRegion = regionTxt.getText();
+        Object[] row = {sIndex, sBusStop, sCorridor, sNearby, sRegion};
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(row);
+        jTable1.setModel(model);
+        String addQuery = "insert into tj values(?,?,?,?,?)";
+        try
+        {
+            PreparedStatement pstmt = con.prepareStatement(addQuery);
+            
+            //Index cannot contain letters
+            if(!sIndex.matches(regex))
+            {
+                JOptionPane.showMessageDialog(this, "Index cannot contain letters");
+            }
+            //Index cannot be blank
+            else if(sIndex.length()==0)
+            {
+                JOptionPane.showMessageDialog(this, "Index cannot be blank");
+            }
+            //validation suceed
+            else
+            {
+                int newIndex = Integer.parseInt(sIndex);
+                pstmt.setInt(1, newIndex); 
+            }
+            
+            //Bus Stop cannot be blank
+            if(sBusStop.length() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Bus Stop cannot be blank");
+            }
+            //validation succeed
+            else
+            {
+                pstmt.setString(2, sBusStop); 
+            }
+            
+            //corridor
+            if(sCorridor.length()==0)
+            {
+                JOptionPane.showMessageDialog(this, "Corridor cannot be blank");
+            }
+            else
+            {
+                pstmt.setString(3, sCorridor);
+            }
+            
+            //nearby
+            if(sNearby.length() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Nearby cannot be blank");
+            }
+            //validation succeed
+            else
+            {
+                pstmt.setString(4, sNearby);
+            }
+            
+            //region
+            if(sRegion.length() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Nearby cannot be blank");
+            }
+            //validation succeed
+            else
+            {
+                pstmt.setString(5, sRegion);
+            }
+            pstmt.execute();
+            
+            addButt.setEnabled(true);
+            updateButt.setEnabled(true);
+            deleteButt.setEnabled(true);
+            doneButt.setEnabled(true);
+            cancelButt.setEnabled(false);
+            saveButt.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Record added!");
+            
+        }
+        catch(SQLException err)
+        {
+            JOptionPane.showMessageDialog(this, err.getMessage());
+        }
+    }//GEN-LAST:event_saveButtActionPerformed
+
+    private void cancelButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtActionPerformed
+        try {
+            // TODO add your handling code here:
+            //rs.absolute(curRow);
+            rs.cancelRowUpdates();
+            addButt.setEnabled(true);
+            updateButt.setEnabled(true);
+            deleteButt.setEnabled(true);
+            doneButt.setEnabled(true);
+            saveButt.setEnabled(false);
+            cancelButt.setEnabled(false);
+            
+            //jTable1.setSelectionModel(curRow-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_cancelButtActionPerformed
+
+    private void deleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtActionPerformed
+        // TODO add your handling code here:
+        int a = jTable1.getSelectedRow();
+        a = jTable1.convertRowIndexToModel(a);
+        int index = (int) jTable1.getModel().getValueAt(a, 0);
+        String sIndex = Integer.toString(index);
+        String busStop = (String) jTable1.getModel().getValueAt(a, 1);
+        String corridor = (String) jTable1.getModel().getValueAt(a, 2);
+        String nearby = (String) jTable1.getModel().getValueAt(a, 3);
+        String region = (String) jTable1.getModel().getValueAt(a, 4);
+        Object[] row = {sIndex, busStop, corridor, nearby, region};
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.removeRow(a);
+        jTable1.setModel(model);
+        JOptionPane.showMessageDialog(this, "Record deleted!");
+        
+    }//GEN-LAST:event_deleteButtActionPerformed
+
+    private void updateButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtActionPerformed
+        try {
+            // TODO add your handling code here:
+            con = ConnectionConfig.createConnection();
+            stmt = con.createStatement();
+            
+            String query = "UPDATE tj SET index ='" + indexTxt.getText() + "', halte ='" + busStopTxt.getText()+ "', corridor ='" + corridorTxt.getText()+ "', nearby='" + nearbyTxt.getText() + "', region='" + regionTxt.getText() + "' WHERE halte ='" + busStopTxt.getText()+ "'";
+            rs = stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_updateButtActionPerformed
 
   
 
@@ -260,8 +503,10 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton addButt;
     private javax.swing.JLabel busStopLabel;
     private javax.swing.JTextField busStopTxt;
+    private javax.swing.JButton cancelButt;
     private javax.swing.JLabel corridorLabel;
     private javax.swing.JTextField corridorTxt;
+    private javax.swing.JButton deleteButt;
     private javax.swing.JButton doneButt;
     private javax.swing.JLabel indexLabel;
     private javax.swing.JTextField indexTxt;
@@ -271,5 +516,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField nearbyTxt;
     private javax.swing.JLabel regionLabel;
     private javax.swing.JTextField regionTxt;
+    private javax.swing.JButton saveButt;
+    private javax.swing.JButton updateButt;
     // End of variables declaration//GEN-END:variables
 }
