@@ -140,12 +140,25 @@ public class FindLocation {
                 test = nearBy.split(",\\s");
                 ArrayList<String> list = new ArrayList(Arrays.asList(test));
                 nearBys.addAll(list);
+                
+                
+            }
+            Collections.sort(nearBys);
+            for(int i = 0; i < nearBys.size(); i++){
+                if(nearBys.get(i).equals(null))
+                    break;
+                if(i != 0){
+                    //remove the data with the same value
+                    if(nearBys.get(i).equals(nearBys.get(i-1))){
+                        nearBys.remove(i);
+                    }
+                }
             }
         }catch(SQLException e)
         {
            System.out.println(e);
         }
-        Collections.sort(nearBys);
+        
         return nearBys;
     }
     

@@ -8,6 +8,7 @@ package View;
 import Model.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
      */
     
     Settings Preferences;
-    String fromidk;
+    String fromidk, toidk;
     Connection con;
     Statement stmt;
     ResultSet rs;
@@ -41,8 +42,9 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         initComponents();
         connectDB();
         apply();
+        this.fromidk = "";
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
-        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        redisplay();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         fromBox.setPreferredSize(new Dimension(52, 27));
@@ -89,6 +91,23 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         }catch (ClassNotFoundException ex) {
             //JOptionPane.showMessageDialog(this, ex.getMessage());
             //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void redisplay(){
+        //fromBox.removeAllItems();
+        toBox.removeAllItems();
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        if(fromidk.equals(""))
+            fromBox.setSelectedIndex(0);
+        //else
+            //fromBox.setSelectedItem(fromidk);
+        for(int i = 0; i < toBox.getModel().getSize(); i++)
+        {
+            if(fromBox.getSelectedItem().equals(toBox.getItemAt(i))){
+                toBox.removeItemAt(i);
+                break;
+            }  
         }
     }
     
@@ -168,6 +187,11 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 fromBoxItemStateChanged(evt);
             }
         });
+        fromBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fromBoxActionPerformed(evt);
+            }
+        });
 
         toBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -237,12 +261,22 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
-        fromidk = (String) fromBox.getSelectedItem();
+        //if(evt.getStateChange() == ItemEvent.SELECTED){
+            this.fromidk = (String) fromBox.getSelectedItem();System.out.println(fromBox.getSelectedItem() + " " + fromidk);
+        //}    
+        redisplay();
+        
     }//GEN-LAST:event_fromBoxItemStateChanged
 
     private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
         // to = (String) toBox.getSelectedItem();
+        toidk= (String) toBox.getSelectedItem();
+        //redisplay();
     }//GEN-LAST:event_toBoxItemStateChanged
+
+    private void fromBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fromBoxActionPerformed
 
     /**
      * @param args the command line arguments
