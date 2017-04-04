@@ -215,7 +215,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
                 .addComponent(mapButt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(settings)
-                .addGap(53, 53, 53))
+                .addGap(71, 71, 71))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -224,7 +224,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
                         .addComponent(findBusStopButt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sRoutesButt)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
