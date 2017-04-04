@@ -26,6 +26,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         this.Preferences = set;
         initComponents();     
         apply();
+        this.setLocationRelativeTo(null);
     }
     
     @Override

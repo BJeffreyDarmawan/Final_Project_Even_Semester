@@ -53,7 +53,6 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         apply();
         fromBox.setModel(new DefaultComboBoxModel(getHalte()));
         fromBox.setSelectedItem(from);
-        
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
         this.setLocationRelativeTo(null);
     }
@@ -92,9 +91,6 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                     if(allHalte.get(allHalte.size()-1).equals(allHalte.get(allHalte.size()-2))){
                     allHalte.remove(allHalte.size()-1);
                 }
-                
-                if(fromBox.getSelectedItem().equals(allHalte.size()))
-                    allHalte.remove(allHalte.size());
             }
         }
         }catch(SQLException e)
