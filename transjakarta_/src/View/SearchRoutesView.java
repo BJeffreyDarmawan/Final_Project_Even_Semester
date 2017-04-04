@@ -6,6 +6,13 @@
 package View;
 
 import Model.*;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 
 /**
@@ -19,55 +26,82 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
      */
     
     Settings Preferences;
+    String fromidk;
+    Connection con;
+    Statement stmt;
+    ResultSet rs;
     
-    String language;
-    String color;
     public SearchRoutesView() {
         initComponents();
     }
 
-    public SearchRoutesView(String language, String color) {
-        initComponents();
-        this.Preferences = new Settings(language, color);
-    }
-    
-    public SearchRoutesView(Settings set){
-        initComponents();
+    public SearchRoutesView(Settings set) {
         this.Preferences = set;
+        initComponents();
+        connectDB();
+        apply();
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        this.setLocationRelativeTo(null);
     }
     
-    @Override
-    public void changeToIndo(){
+    public SearchRoutesView(Settings set, String from){
+        this.Preferences = set;
+        this.fromidk = from;
+        initComponents();
+        connectDB();
+        apply();
+        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
+        fromBox.setSelectedItem(from);
+        toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        this.setLocationRelativeTo(null);
+    }
+   
+    public final void connectDB(){
+        try{
+            //singleton
+            con = ConnectionConfig.createConnection();
+            
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String query = "SELECT * FROM tj order by halte";
+            rs = stmt.executeQuery(query);
+            rs.next();
+        }catch(SQLException e){
+            System.out.println(e);
+            //JOptionPane.showMessageDialog(this, e.getMessage());
+        }catch (ClassNotFoundException ex) {
+            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String[] getHalte()
+    {
+        ArrayList<String> allHalte = new ArrayList();
+        String halte;
+        String[] sHalte = null;
+        try{
+            rs = stmt.executeQuery("select * from tj order by halte");
+            while(rs.next()){ 
+                allHalte.add(rs.getString("halte"));
+                
+                //check after the first data is the same as the next one
+                if(allHalte.size()!= 1){
+                    //remove the data with the same value
+                    if(allHalte.get(allHalte.size()-1).equals(allHalte.get(allHalte.size()-2))){
+                    allHalte.remove(allHalte.size()-1);
+                }
+            }
+        }
+        }catch(SQLException e)
+        {
+           System.out.println(e);
+        }
+        String[] halteArr = new String[allHalte.size()];//System.out.println(allHalte);
+        halteArr = allHalte.toArray(halteArr);
         
+        return halteArr;
     }
-    
-    @Override
-    public void changeToEng(){
-        
-    }
-    
-    @Override
-    public void changePink(JFrame frame){
-        
-    }
-    
-    @Override
-    public void changeGray(JFrame frame){
-        
-    }
-    
-    @Override
-    public void changeDefault(){
-        
-    }
-    
-    @Override
-    public void changeToIndoOpeningView(){
-        
-    }
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,7 +111,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        From_label = new javax.swing.JLabel();
+        from = new javax.swing.JLabel();
         to = new javax.swing.JLabel();
         searchroute = new javax.swing.JLabel();
         searchRoutesButt = new javax.swing.JButton();
@@ -87,8 +121,8 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        From_label.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        From_label.setText("From");
+        from.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        from.setText("From");
 
         to.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         to.setText("To");
@@ -135,7 +169,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(From_label)
+                                    .addComponent(from)
                                     .addGap(26, 26, 26))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(to)
@@ -157,7 +191,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 .addComponent(searchroute)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(From_label)
+                    .addComponent(from)
                     .addComponent(fromBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -176,17 +210,17 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
         //JOptionPane.showMessageDialog(this, from);
         this.dispose();
-        new resultView().setVisible(true);
+        new ResultView(Preferences).setVisible(true);
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void findBSLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findBSLabelMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new FindBusStopView(language, color).setVisible(true);
+        new FindBusStopView(Preferences).setVisible(true);
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
-        from = (String) fromBox.getSelectedItem();
+        fromidk = (String) fromBox.getSelectedItem();
     }//GEN-LAST:event_fromBoxItemStateChanged
 
     private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
@@ -202,7 +236,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -210,14 +244,14 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(searchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(searchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(searchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(searchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+            java.util.logging.Logger.getLogger(SearchRoutesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }*/
         //</editor-fold>
 
         /* Create and display the form */
@@ -229,12 +263,70 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     //}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel From_label;
     private javax.swing.JLabel findBSLabel;
+    private javax.swing.JLabel from;
     private javax.swing.JComboBox<String> fromBox;
     private javax.swing.JButton searchRoutesButt;
     private javax.swing.JLabel searchroute;
     private javax.swing.JLabel to;
     private javax.swing.JComboBox<String> toBox;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void apply() {
+        if(this.Preferences.getLanguage().equals("eng")){
+            changeToEng();
+        }        
+        else if (this.Preferences.getLanguage().equals("indo")){
+            changeToIndo();
+        }
+        if(this.Preferences.getColor().equals("pink")){
+            changePink();
+        }
+        else if (this.Preferences.getColor().equals("gray")){
+            changeGray();
+        }
+        else{
+            changeDefault();
+        }
+    }
+
+    @Override
+    public void changeToIndo() {
+        searchroute.setText("CARI RUTE");
+        from.setText("Dari");
+        to.setText("Ke");
+        findBSLabel.setText("Cari halte?");
+        searchRoutesButt.setText("Cari");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeToEng() {
+        searchroute.setText("Search Routes");
+        from.setText("From");
+        to.setText("To");
+        findBSLabel.setText("Find bus stop?");
+        searchRoutesButt.setText("Search");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   @Override
+    public void changePink() {
+        this.getContentPane().setBackground(Color.pink);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeGray() {
+        this.getContentPane().setBackground(Color.GRAY);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeDefault() {
+        this.getContentPane().setBackground(null);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

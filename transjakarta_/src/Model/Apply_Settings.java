@@ -18,5 +18,4 @@ public interface Apply_Settings {
     public void changePink();
     public void changeGray();
     public void changeDefault();
-    public void changeToIndoOpeningView();
 }

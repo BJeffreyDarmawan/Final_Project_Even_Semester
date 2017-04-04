@@ -12,7 +12,7 @@ import Model.*;
  *
  * @author Mikha Putri
  */
-public class resultView extends javax.swing.JFrame implements Apply_Settings{
+public class ResultView extends javax.swing.JFrame implements Apply_Settings{
 
     /**
      * Creates new form resultView
@@ -20,12 +20,19 @@ public class resultView extends javax.swing.JFrame implements Apply_Settings{
     
     Settings Preferences;
     
-    public resultView() {
+    public ResultView() {
         initComponents();
     }
     
-    public resultView(Settings set){
+    public ResultView(Settings set){
         this.Preferences = set;
+        apply();
+        this.setLocationRelativeTo(null);
+    }
+    
+    @Override
+    public void apply() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
@@ -39,22 +46,17 @@ public class resultView extends javax.swing.JFrame implements Apply_Settings{
     }
 
     @Override
-    public void changePink(JFrame frame) {
+    public void changePink() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void changeGray(JFrame frame) {
+    public void changeGray() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeToIndoOpeningView() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -120,7 +122,7 @@ public class resultView extends javax.swing.JFrame implements Apply_Settings{
 
     private void repeat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeat2ActionPerformed
         this.dispose();
-        new openingView().setVisible(true);
+        new OpeningView(Preferences).setVisible(true);
     }//GEN-LAST:event_repeat2ActionPerformed
 
     /**
@@ -140,20 +142,20 @@ public class resultView extends javax.swing.JFrame implements Apply_Settings{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(resultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(resultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(resultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(resultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new resultView().setVisible(true);
+                new ResultView().setVisible(true);
             }
         });
     }
@@ -166,6 +168,7 @@ public class resultView extends javax.swing.JFrame implements Apply_Settings{
     private javax.swing.JButton repeat1;
     private javax.swing.JButton repeat2;
     // End of variables declaration//GEN-END:variables
+
 
     
 }
