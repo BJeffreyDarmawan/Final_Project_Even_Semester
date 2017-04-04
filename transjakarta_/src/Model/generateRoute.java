@@ -35,7 +35,6 @@ public class generateRoute {
     ArrayList<findLoc> Transit = new ArrayList();
     ArrayList<String> halteRoute = new ArrayList();
     ArrayList<String> corridorPassed = new ArrayList();
-    ArrayList<findLoc> BusStopPassed = new ArrayList();
     
     generateRoute(){
         
@@ -180,7 +179,7 @@ public class generateRoute {
                     return;
                 }
             } else {
-                //System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
+                System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
                 ArrayList<String> possibleCorridorsA = findPossibleCorridors(corridorA);
                     ArrayList<String> possibleCorridorsB = findPossibleCorridors(corridorB);
                     for(String a : possibleCorridorsA){

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package transjakarta_;
+package Model;
 
 import java.util.ArrayList;
 /**
@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public interface IRegardingCorridors {
     public final String[] arrCorridorsList = {"1", "2", "4C", "8", "10", "12"}; 
-    //public final ArrayList<String> arrCorridorsList = new ArrayList();
     
     public boolean doWeHaveSameStops(String corridorA, String corridorB);
     public ArrayList<String> findPossibleCorridors(String corridorX);

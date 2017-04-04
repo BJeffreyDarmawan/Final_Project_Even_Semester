@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     Settings Preferences;
+    User guest;
 
     /**
      * Creates new form openingView
@@ -51,7 +52,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     public OpeningView(Settings set){
         try {
             this.Preferences = set;
-            //this.setLocationRelativeTo(null);
             initComponents();
             showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
             apply();
@@ -64,6 +64,21 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
             Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public OpeningView(User s){
+        try {
+            this.guest = s;
+            initComponents();
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
+            apply();
+            this.setLocationRelativeTo(null);
+            this.setResizable(false);
+            findBusStopButt.setPreferredSize(new Dimension(150, 29));
+            sRoutesButt.setPreferredSize(new Dimension(150, 29));
+        } catch (SQLException ex) {
+            Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void showImage(String image, JLabel label) throws SQLException

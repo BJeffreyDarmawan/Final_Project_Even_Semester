@@ -20,10 +20,18 @@ import javax.swing.JOptionPane;
  */
 public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     
-    Settings Preferences;    
+    Settings Preferences; 
+    User guest;
     
     public SettingsView(Settings set){
         this.Preferences = set;
+        initComponents();     
+        apply();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public SettingsView(User s){
+        this.guest = s;
         initComponents();     
         apply();
         this.setLocationRelativeTo(null);
@@ -34,7 +42,7 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         if(this.Preferences.getLanguage().equals("eng")){
             changeToEng();
             languageGroup.setSelected(engButton.getModel(), true);
-        }        
+        }
         else if (this.Preferences.getLanguage().equals("indo")){
             changeToIndo();
             languageGroup.setSelected(indoButton.getModel(), true);
