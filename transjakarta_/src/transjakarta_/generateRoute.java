@@ -57,7 +57,8 @@ public class generateRoute {
         }catch(SQLException e){
             System.out.println(e);
         }catch (ClassNotFoundException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            System.out.println(ex);
+            System.out.println("Error at connectDB");
         }
     }
     
@@ -66,24 +67,25 @@ public class generateRoute {
             rs1 = stmt1.executeQuery("select * from tj where corridor = '" + a + "'");
             rs2 = stmt2.executeQuery("select * from tj where corridor = '" + b + "'");
             while(rs1.next()){
-                //System.out.println(rs1.getString("halte"));
                 rs2.beforeFirst();
-                while(rs2.next()){//System.out.println(rs2.getString("halte"));
+                while(rs2.next()){
                     if(rs1.getString("halte").equals(rs2.getString("halte"))){
-                        //System.out.println(rs1.getString("halte"));//haltePoints.add(rs1.getString("halte"));
                         return true;
                     }
                 }
-            }System.out.println("SAME STOP NOT FOUND");return false;
+            }
+            System.out.println("SAME STOP NOT FOUND");
+            return false;
         }catch(SQLException e){
             System.out.println(e);
+            System.out.println("Error at doWeHaveSameStops");
             return false;
         }
     }
     
     public void goToRS(int i){
         try{ 
-            rs1.first(); rs1.previous();//System.out.print(haltePoints.get(i));System.out.println(i);
+            rs1.first(); rs1.previous();
             while(true){
                 rs1.next();
                 if(rs1.getString("halte").equals(haltePoints.get(i))){System.out.println(haltePoints.get(i) + " line 92");
@@ -91,16 +93,11 @@ public class generateRoute {
                 } 
             }System.out.println(haltePoints.get(i) + " line 95 " + rs1.getInt("index"));
         }catch(SQLException ex){
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            System.out.println(ex);
+            System.out.println("Error at goToRS");
         }
     }
-    /*
-    public void iteratelah(String halte, String halte){
-        if()
-    }
-        
-    if indexTransit > indexDepart go forth
-    */
+    
     public void gataunimethodapa(){
         try{
             if(Departure.getCorridor().equals(Destination.getCorridor())){
@@ -124,7 +121,6 @@ public class generateRoute {
                         }
                     }
                 }
-                //gotors departure, loop, add busstops
             } else {
                 haltePoints.add(Departure.getBusStop()); 
                 Transit.add(new findLoc(Departure.getBusStop()));
@@ -132,13 +128,13 @@ public class generateRoute {
                 for(int i = 0; i < corridorPassed.size(); i++){System.out.println(corridorPassed.size() + " line 136");
                     rs1 = stmt1.executeQuery("select * from tj where corridor = '" + corridorPassed.get(i) + "'");  
                     goToRS(i);
-                    halteRoute.add(rs1.getString("halte")); //System.out.println(Transit.get(i+1).getCorridors());
+                    halteRoute.add(rs1.getString("halte")); 
                     System.out.println(corridorPassed.get(i) + " line 159");
                     Transit.get(i+1).chooseCorridor(new ArrayList<String>(Arrays.asList(corridorPassed.get(i))));System.out.println(Transit.get(i+1).getCorridor());
                     Transit.get(i).chooseCorridor(new ArrayList<String>(Arrays.asList(corridorPassed.get(i))));//System.out.println(Transit.get(i).getIndex() + " line 160 " + i + " " + Transit.size());
                     
                     System.out.println(haltePoints.get(i) + "  " + rs1.getInt("index") + " berangkat ::" + Transit.get(i).getIndex() + " brenti : " +Transit.get(i+1).getIndex());
-                    //System.out.println(rs1.getInt("index") + "sini" +Transit.get(i+1).getIndex());
+                    System.out.println(rs1.getInt("index") + "sini" +Transit.get(i+1).getIndex() + Transit.get(i+1).getBusStop());
                     if(rs1.getInt("index") < Transit.get(i+1).getIndex()){
                         while(rs1.next()){
                             halteRoute.add(rs1.getString("halte"));
@@ -150,8 +146,8 @@ public class generateRoute {
                         while(rs1.previous()){
                             System.out.println("abcd");
                             halteRoute.add(rs1.getString("halte"));
-                            if(rs1.getString("halte").equals(Destination.getBusStop())){
-                            break;
+                            if(rs1.getString("halte").equals(Transit.get(i+1).getBusStop())){
+                                break;
                             }
                         }
                     }
@@ -174,40 +170,45 @@ public class generateRoute {
                 corridorPassed.add(rs1.getString("corridor"));System.out.println(haltePoints);
                 if(corridorB.equals(Destination.getCorridor())){ 
                     corridorPassed.add(Destination.getCorridor());  
-                    Transit.add(new findLoc(Destination.getBusStop()));
+                    Transit.add(Destination);
                     haltePoints.add(Destination.getBusStop()); System.out.println(corridorPassed + "line 198");
                     return;
-                } else {
-                    System.out.println("UNFORTINATELY IT GOES HERE"); a=0;
+                } else { 
+                    System.out.println("UNFORTINATELY IT GOES HERE"); 
                     findCorridorAndTransit(corridorB, Destination.getCorridor()); //dia muter2 disini
+                    return;
                 }
             } else {
-                System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);/*
-                if (corridorB.equals(Departure.getCorridor()) || corridorB.equals(arrCorridorsList[a])) {
-                    a++;
-                }
-                findCorridorAndTransit(corridorA, arrCorridorsList[a++]);*/
-                /*
-                while(corridorB.equals(Departure.getCorridor()) && corridorB.equals(arrCorridorsList[a])){
-                    a++;
-                }*/
-                //findCorridorAndTransit(corridorA, arrCorridorsList[a++]);
-                for(int i = 0; i < arrCorridorsList.length; i++){System.out.println(arrCorridorsList[i] + "  " + corridorA);
-                    if(doWeHaveSameStops(corridorA, arrCorridorsList[i]) && doWeHaveSameStops(arrCorridorsList[i], corridorB)){
-                        findCorridorAndTransit(corridorA, arrCorridorsList[i]); System.out.println(corridorB);
+                System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
+                ArrayList<String> possibleCorridorsA = findPossibleCorridors(corridorA);
+                    ArrayList<String> possibleCorridorsB = findPossibleCorridors(corridorB);
+                    for(String a : possibleCorridorsA){
+                        for(String b : possibleCorridorsB){
+                            if(a.equals(b)){
+                                findCorridorAndTransit(corridorA, b);
+                                return;
+                            }
+                            else if(doWeHaveSameStops(a, b)){
+                                findCorridorAndTransit(corridorA, a); System.out.println("HEHEHEHEHEHE");
+                                return;
+                            }
+                        }
                     }
-                }
-                /*
-                for(int i = 0; i < arrCorridorsList.length; i++){
-                    if(doWeHaveSameStops(corridorA, arrCorridorsList[i])){
-                        findCorridorAndTransit(corridorA, arrCorridorsList[i]); System.out.println(corridorB);
-                    }
-                }*/
                 System.out.println("did it go here?");
             }
         } catch (SQLException e){
+            System.out.println(e);
             System.out.println("Error at findCorridorAndTransit");
         }
+    }
+    
+    public ArrayList<String> findPossibleCorridors(String corridorX){
+        ArrayList<String> possibleCorridors = new ArrayList();
+        for(int i = 0; i < arrCorridorsList.length; i++){
+            if(doWeHaveSameStops(corridorX, arrCorridorsList[i]))
+                possibleCorridors.add(arrCorridorsList[i]);
+        }
+        return possibleCorridors;
     }
     
     public ArrayList getRoute(){
@@ -215,10 +216,9 @@ public class generateRoute {
         return halteRoute;
     }
     
-    
     public void showTransits(){
         for(findLoc a : Transit){
-            System.out.println(a.getBusStop());
+            System.out.println("Transits: " + a.getBusStop() + " " + a.getCorridors());
         }
     }
     
@@ -229,14 +229,11 @@ public class generateRoute {
         //findLoc Destination = new findLoc("Central Jakarta", "Atma Jaya");
         //findLoc Departure = new findLoc("West Jakarta", "Apartment Kedoya Elok");
         //findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
-        findLoc Departure = new findLoc("North Jakarta", "Mall Artha Gading");
-        findLoc Destination = new findLoc("West Jakarta", "Apartment Kedoya Elok");
+        findLoc Destination = new findLoc("North Jakarta", "Mall Of Indonesia");
+        findLoc Departure = new findLoc("West Jakarta", "Apartment Kedoya Elok");
         generateRoute WEH = new generateRoute(Departure, Destination);
         System.out.println(Departure.getCorridor());
         System.out.println(Destination.getCorridor());
         System.out.println(WEH.getRoute());
-        /*if(abc.doWeHaveSameStops("1", "8")){
-            System.out.println("abc");
-        }*/
     }
 }

@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Lenovo
  */
-public class findLoc {
+public class findLoc implements IRegardingCorridors{
     
     private String region;
     private String location;
@@ -75,6 +75,7 @@ public class findLoc {
     
     public void chooseCorridor(ArrayList<String> b){
         System.out.println(b.size() + " findLoc line 77"); System.out.println("INDEXES " + this.indxs + " " + this.corridors);int i = 0;
+        // if possible, choose corridor where we can move within 1 corridor
         for(String a : corridors){
             for(String c : b){
                 if(c.equals(a)){ 
@@ -85,6 +86,7 @@ public class findLoc {
             }i++;
         } 
         i = 0;
+        // OR if possible, 1 transit
         for(String a : corridors){
             for(String c : b){
                 if (doWeHaveSameStops(a, c) ){
@@ -93,6 +95,48 @@ public class findLoc {
                     return;
                 }
             }
+        }
+        i = 0;
+        // OR if possible, 2 transits
+        for(String a : corridors){
+            
+            ArrayList<String> possibleCorridorsA = findPossibleCorridors(a);
+            
+            for(String c : b){
+                
+                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
+                for(String possa : possibleCorridorsA){
+                    for(String possb : possibleCorridorsB){
+                        if(possa.equals(possb)){
+                            this.corridor = a;
+                            this.indx = this.indxs.get(i);
+                            return;
+                        }
+                    }
+                }
+            }
+            i++;
+        }
+        i = 0;
+        // OR if possible, 3 transits
+        for(String a : corridors){
+            
+            ArrayList<String> possibleCorridorsA = findPossibleCorridors(a);
+            
+            for(String c : b){
+                
+                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
+                for(String possa : possibleCorridorsA){
+                    for(String possb : possibleCorridorsB){
+                        if(doWeHaveSameStops(possa, possb)){
+                            this.corridor = a;
+                            this.indx = this.indxs.get(i);
+                            return;
+                        }
+                    }
+                }
+            }
+            i++;
         }
         corridor = this.corridors.get(0);
         indx = this.indxs.get(0);
@@ -174,6 +218,7 @@ public class findLoc {
         }
     }
     
+    @Override
     public boolean doWeHaveSameStops(String a, String b){
         try{System.out.println(a + "     " + b);
             Statement stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -194,5 +239,15 @@ public class findLoc {
             System.out.println(e);
             return false;
         }
+    }
+    
+    @Override
+    public ArrayList<String> findPossibleCorridors(String corridorX){
+        ArrayList<String> possibleCorridors = new ArrayList();
+        for(int i = 0; i < arrCorridorsList.length; i++){
+            if(doWeHaveSameStops(corridorX, arrCorridorsList[i]))
+                possibleCorridors.add(arrCorridorsList[i]);
+        }
+        return possibleCorridors;
     }
 }
