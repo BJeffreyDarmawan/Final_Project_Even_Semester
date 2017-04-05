@@ -96,24 +96,29 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     
     int index = 0;
     public void display(){
+        
         lblCurrentCorridor.setText(CorridorsPassed.get(index));
         
-        String text = "";
-        for(String each : BusStops){
-            if(each.equals(BusStops.get(0))){
-                if(each.equals(BusStops.get(index)))
-                    text += "<html><b>" + each + "</b><html>";
-                else
-                    text += each;
+        String text = "<html>"; 
+        String transit = "";
+        
+        for(int i = 0; i < BusStops.size(); i++){
+            if(i == 0){
+                    text += BusStops.get(i);
             }
-            else{
-                if(each.equals(BusStops.get(index)))
-                    text += " - <html><b>" + each +"</b></html>";
+            else if (i+1 < BusStops.size()){
+                if (BusStops.get(i).equals(BusStops.get(i+1))){
+                    text += " - " + BusStops.get(i);
+                    i++;
+                    transit+= BusStops.get(i);
+                }
                 else
-                    text += " - " + each;
+                    text += " - " + BusStops.get(i);
             }
         }
+        text += "</html>";
         
+        transitAt.setText(transit);
         ROUTE.setText(text);
         
         index++;
@@ -133,6 +138,7 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
         ROUTE = new javax.swing.JLabel();
         lblCorridor = new javax.swing.JLabel();
         lblCurrentCorridor = new javax.swing.JLabel();
+        transitAt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,6 +161,8 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
 
         lblCurrentCorridor.setText("jLabel4");
 
+        transitAt.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,6 +170,7 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(transitAt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ROUTE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -186,8 +195,10 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
                     .addComponent(lblCorridor, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCurrentCorridor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ROUTE, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ROUTE, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(transitAt)
+                .addGap(7, 7, 7)
                 .addComponent(repeat2)
                 .addContainerGap())
         );
@@ -206,40 +217,6 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
         display();
     }//GEN-LAST:event_ROUTEMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ResultView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResultView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ROUTE;
@@ -247,6 +224,7 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     private javax.swing.JLabel lblCorridor;
     private javax.swing.JLabel lblCurrentCorridor;
     private javax.swing.JButton repeat2;
+    private javax.swing.JLabel transitAt;
     // End of variables declaration//GEN-END:variables
 
 

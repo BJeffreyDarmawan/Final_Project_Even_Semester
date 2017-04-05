@@ -119,6 +119,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
         if(departure.equals(""))
             fromBox.setSelectedIndex(0);
+       
         //else
             //fromBox.setSelectedItem(fromidk);
         for(int i = 0; i < toBox.getModel().getSize(); i++)
@@ -128,6 +129,8 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
                 break;
             }  
         }
+        
+            toBox.setSelectedIndex(0);
     }
     
     public String[] getHalte()
@@ -291,6 +294,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
 
     private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
         // to = (String) toBox.getSelectedItem();
+        if(evt.getStateChange() == ItemEvent.SELECTED)
         this.destination= (String) toBox.getSelectedItem();
         //redisplay();
     }//GEN-LAST:event_toBoxItemStateChanged
