@@ -434,7 +434,8 @@ public class AdminView extends javax.swing.JFrame {
             cancelButt.setEnabled(false);
             saveButt.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Record added!");
-            
+            dispose();
+            new AdminView(Preferences).setVisible(true);
         }
         catch(SQLException err)
         {
@@ -475,6 +476,15 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.removeRow(a);
         jTable1.setModel(model);
+        
+        String deleteQuery = "DELETE FROM tj WHERE halte = ?"; //+ busStop;
+        try {
+            PreparedStatement pstmt = con.prepareStatement(deleteQuery);
+            pstmt.setString(1, busStop);
+            pstmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         JOptionPane.showMessageDialog(this, "Record deleted!");
         
     }//GEN-LAST:event_deleteButtActionPerformed
@@ -482,14 +492,93 @@ public class AdminView extends javax.swing.JFrame {
     private void updateButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtActionPerformed
         try {
             // TODO add your handling code here:
-            con = ConnectionConfig.createConnection();
-            stmt = con.createStatement();
+            int a = jTable1.getSelectedRow();
+            a = jTable1.convertRowIndexToModel(a);
             
-            String query = "UPDATE tj SET index ='" + indexTxt.getText() + "', halte ='" + busStopTxt.getText()+ "', corridor ='" + corridorTxt.getText()+ "', nearby='" + nearbyTxt.getText() + "', region='" + regionTxt.getText() + "' WHERE halte ='" + busStopTxt.getText()+ "'";
-            rs = stmt.executeQuery(query);
+            //get value
+            int index = (int) jTable1.getModel().getValueAt(a, 0);
+            String sIndex = Integer.toString(index);
+            String busStop = (String) jTable1.getModel().getValueAt(a, 1);
+            String corridor = (String) jTable1.getModel().getValueAt(a, 2);
+            String nearby = (String) jTable1.getModel().getValueAt(a, 3);
+            String region = (String) jTable1.getModel().getValueAt(a, 4);
+            
+            //Object[] row = {sIndex, busStop, corridor, nearby, region};
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setValueAt(sIndex, a, 0);
+            model.setValueAt(busStop, a, 1);
+            model.setValueAt(corridor, a, 2);
+            model.setValueAt(nearby, a, 3);
+            model.setValueAt(region, a, 4);
+            jTable1.setModel(model);
+            String updQuery = "UPDATE tj SET index = '?', halte = '?', corridor = '?', nearby= '?', region= '?' WHERE halte = '?' AND corridor = '?'";
+            
+            PreparedStatement pstmt = con.prepareStatement(updQuery);
+            
+            //Index cannot contain letters
+            if(!sIndex.matches(regex))
+            {
+                JOptionPane.showMessageDialog(this, "Index cannot contain letters");
+            }
+            //Index cannot be blank
+            else if(sIndex.length()==0)
+            {
+                JOptionPane.showMessageDialog(this, "Index cannot be blank");
+            }
+            //validation suceed
+            else
+            {
+                int newIndex = Integer.parseInt(sIndex);
+                pstmt.setInt(1, newIndex); 
+            }
+            
+            //Bus Stop cannot be blank
+            if(busStop.length() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Bus Stop cannot be blank");
+            }
+            //validation succeed
+            else
+            {
+                pstmt.setString(2, busStop); 
+            }
+            
+            //corridor
+            if(corridor.length()==0)
+            {
+                JOptionPane.showMessageDialog(this, "Corridor cannot be blank");
+            }
+            else
+            {
+                pstmt.setString(3, corridor);
+            }
+            
+            //nearby
+            if(nearby.length() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Nearby cannot be blank");
+            }
+            //validation succeed
+            else
+            {
+                pstmt.setString(4, nearby);
+            }
+            
+            //region
+            if(region.length() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Nearby cannot be blank");
+            }
+            //validation succeed
+            else
+            {
+                pstmt.setString(5, region);
+            }
+            
+            pstmt.setString(6, busStop);
+            pstmt.setString(7, corridor);
+            pstmt.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_updateButtActionPerformed
