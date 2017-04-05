@@ -41,7 +41,7 @@
                               <Component id="lblCurrentCorridor" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="170" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="272" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,8 +58,13 @@
                   <Component id="lblCorridor" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="lblCurrentCorridor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+<<<<<<< Updated upstream
               <EmptySpace max="32767" attributes="0"/>
               <Component id="ROUTE" min="-2" pref="53" max="-2" attributes="0"/>
+=======
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="ROUTE" pref="133" max="32767" attributes="0"/>
+>>>>>>> Stashed changes
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="transitAt" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -77,7 +82,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="repeat2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Do again?"/>
+        <Property name="text" type="java.lang.String" value="Main Menu"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="repeat2ActionPerformed"/>

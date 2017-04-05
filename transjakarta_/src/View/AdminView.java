@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package View;
+import Controller.User;
 import Model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,16 +27,27 @@ public class AdminView extends javax.swing.JFrame {
      * Creates new form AdminView
      */
     Settings Preferences;    
+    User guest;
     Connection con;
     Statement stmt;
     ResultSet rs;
     
     int curRow = 0;
     String regex = "\\d*";
+    String halte;
     
     public AdminView(Settings set) {
         this.Preferences=set;
         initComponents();
+        connectDB();
+        printTable();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public AdminView(User guest) {
+        this.guest=guest;
+        initComponents();
+        connectDB();
         printTable();
         this.setLocationRelativeTo(null);
     }
@@ -305,7 +317,7 @@ public class AdminView extends javax.swing.JFrame {
 
     private void doneButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneButtActionPerformed
         this.dispose();
-        new OpeningView(Preferences).setVisible(true);
+        this.guest.openOpeningView();
     }//GEN-LAST:event_doneButtActionPerformed
 
     private void indexTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_indexTxtActionPerformed
@@ -327,6 +339,7 @@ public class AdminView extends javax.swing.JFrame {
         corridorTxt.setText(corridor);
         nearbyTxt.setText(nearby);
         regionTxt.setText(region);
+        halte = (String) jTable1.getModel().getValueAt(a, 1);
         //indexTxt.setText(jTable1.getSelectedRow());
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -494,7 +507,6 @@ public class AdminView extends javax.swing.JFrame {
             // TODO add your handling code here:
             int a = jTable1.getSelectedRow();
             a = jTable1.convertRowIndexToModel(a);
-            
             //get value
             int index = (int) jTable1.getModel().getValueAt(a, 0);
             String sIndex = Integer.toString(index);
@@ -502,7 +514,6 @@ public class AdminView extends javax.swing.JFrame {
             String corridor = (String) jTable1.getModel().getValueAt(a, 2);
             String nearby = (String) jTable1.getModel().getValueAt(a, 3);
             String region = (String) jTable1.getModel().getValueAt(a, 4);
-            
             //Object[] row = {sIndex, busStop, corridor, nearby, region};
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setValueAt(sIndex, a, 0);
@@ -511,73 +522,11 @@ public class AdminView extends javax.swing.JFrame {
             model.setValueAt(nearby, a, 3);
             model.setValueAt(region, a, 4);
             jTable1.setModel(model);
-            String updQuery = "UPDATE tj SET index = '?', halte = '?', corridor = '?', nearby= '?', region= '?' WHERE halte = '?' AND corridor = '?'";
             
-            PreparedStatement pstmt = con.prepareStatement(updQuery);
+            String updQuery = "UPDATE tj SET index =" + index + ", halte ="  + busStop + ", corridor =" + corridor + ", nearby=" + nearby +", region =" + region + " WHERE halte = "+ busStop;
+            stmt.executeUpdate(updQuery);
             
-            //Index cannot contain letters
-            if(!sIndex.matches(regex))
-            {
-                JOptionPane.showMessageDialog(this, "Index cannot contain letters");
-            }
-            //Index cannot be blank
-            else if(sIndex.length()==0)
-            {
-                JOptionPane.showMessageDialog(this, "Index cannot be blank");
-            }
-            //validation suceed
-            else
-            {
-                int newIndex = Integer.parseInt(sIndex);
-                pstmt.setInt(1, newIndex); 
-            }
-            
-            //Bus Stop cannot be blank
-            if(busStop.length() == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Bus Stop cannot be blank");
-            }
-            //validation succeed
-            else
-            {
-                pstmt.setString(2, busStop); 
-            }
-            
-            //corridor
-            if(corridor.length()==0)
-            {
-                JOptionPane.showMessageDialog(this, "Corridor cannot be blank");
-            }
-            else
-            {
-                pstmt.setString(3, corridor);
-            }
-            
-            //nearby
-            if(nearby.length() == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Nearby cannot be blank");
-            }
-            //validation succeed
-            else
-            {
-                pstmt.setString(4, nearby);
-            }
-            
-            //region
-            if(region.length() == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Nearby cannot be blank");
-            }
-            //validation succeed
-            else
-            {
-                pstmt.setString(5, region);
-            }
-            
-            pstmt.setString(6, busStop);
-            pstmt.setString(7, corridor);
-            pstmt.execute();
+           
         } catch (SQLException ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }

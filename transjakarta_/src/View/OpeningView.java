@@ -49,9 +49,8 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
             getContentPane().setLayout(null);
             getContentPane().add(findBusStopButt);
             getContentPane().add(sRoutesButt);
-            getContentPane().add(mapButt);
+            getContentPane().add(mapButt); 
             getContentPane().add(settings);
-            //cs.ChangeOpeningView(language, color, findBusStopButt, sRoutesButt, Settings, mapButt);
         } catch (SQLException ex) {
             Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,7 +60,7 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         try {
             this.guest = s;
             initComponents();
-            showImage("C:\\Users\\Wilson Fransicius\\Desktop\\FinalProject_TJ\\Final_Project_Even_Semester\\transjakarta_\\logotransjakarta.png", logoLabel);
+            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
             apply();
             this.setLocationRelativeTo(null);
             this.setResizable(false);
@@ -293,7 +292,8 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     private void adminButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtActionPerformed
         this.dispose();
-        new LoginForm(this.guest.getSettings()).setVisible(true);
+        this.guest.openLoginForm();
+        //new LoginForm(this.guest.getSettings()).setVisible(true);
     }//GEN-LAST:event_adminButtActionPerformed
 
 

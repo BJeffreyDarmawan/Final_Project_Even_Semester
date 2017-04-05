@@ -21,6 +21,14 @@ public class User {
         this.Journey = new generateRoute();
     }
     
+    public void openAdminView(){
+        AdminView s = new AdminView(this);
+        s.setVisible(true);
+    }
+    public void openLoginForm(){
+        LoginForm s = new LoginForm(this);
+        s.setVisible(true);
+    }
     public void openSettingsView(){
         SettingsView s = new SettingsView(this);
         s.setVisible(true);

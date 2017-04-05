@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.User;
 import Model.*;
 import javax.swing.JOptionPane;
 
@@ -18,11 +19,17 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     Settings preferences;
+    User guest;
     public LoginForm(Settings set) {
         this.preferences = set;
         initComponents();
     }
 
+    public LoginForm(User guest) {
+        this.guest = guest;
+        initComponents();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,12 +98,12 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtActionPerformed
     if("admin".equals(Username_txt.getText()) && "admin".equals(Password_txt.getText())){
         this.dispose();
-        new AdminView(preferences).setVisible(true);
+        this.guest.openAdminView();
+        //new AdminView(preferences).setVisible(true);
     }
     else{
         JOptionPane.showMessageDialog(this, "Wrong!");
-        this.dispose();
-        new OpeningView(preferences).setVisible(true);
+ 
     }
     
     }//GEN-LAST:event_LoginButtActionPerformed
