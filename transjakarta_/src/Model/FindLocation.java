@@ -68,7 +68,7 @@ public class FindLocation implements IRegardingCorridors{
     }
     
     public void chooseCorridor(ArrayList<String> b){
-        int i = 0;
+        int i = 0; System.out.println("CHOOSE CORRIDOR");
         
         // if possible, choose corridor where we can move within 1 corridor
         for(String a : corridors){
@@ -92,7 +92,7 @@ public class FindLocation implements IRegardingCorridors{
                 }
             }
         }
-        
+        System.out.println("IT WENT HERE");
         // OR if possible, 2 transits
         i = 0;
         for(String a : corridors){
@@ -101,13 +101,13 @@ public class FindLocation implements IRegardingCorridors{
             
             for(String c : b){
                 
-                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
+                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);//System.out.println(possibleCorridorsA + " " + possibleCorridorsB);
                 
                 for(String possa : possibleCorridorsA){
                     for(String possb : possibleCorridorsB){
                         if(possa.equals(possb)){
                             this.corridor = a;
-                            this.indx = this.indxs.get(i);
+                            this.indx = this.indxs.get(i); System.out.println(this.corridor);
                             return;
                         }
                     }
@@ -115,7 +115,7 @@ public class FindLocation implements IRegardingCorridors{
             }
             i++;
         }
-        System.out.println("IT WENT HERE");
+        System.out.println("GONE HERE");
         // OR if possible, 3 transits
         i = 0;
         for(String a : corridors){

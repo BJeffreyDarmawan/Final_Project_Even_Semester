@@ -10,6 +10,7 @@ import Model.*;
 import Controller.*;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,11 +40,12 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     
     public ResultView(User s){
         this.guest = s;
-        this.BusStops.addAll(this.guest.getBusStopList());
-        this.CorridorsPassed.addAll(this.guest.getCorridorsPassed());
+        this.BusStops.addAll(this.guest.getBusStopList()); 
+        this.CorridorsPassed.addAll(this.guest.getCorridorsPassed()); System.out.println("COR PASS" + this.guest.getCorridorsPassed());
         initComponents();
         apply();
         display();
+        JOptionPane.showMessageDialog(this, "You're journey will pass through " + BusStops.size() + " bus stops and use " + CorridorsPassed.size() + " corridors");
     }
     
     @Override

@@ -61,13 +61,15 @@ public class generateRoute implements IRegardingCorridors{
         }
     }
     
+    @Override
     public boolean doWeHaveSameStops(String a, String b){
-        try{
+        try{System.out.println(a + " SAME STOPS " + b);
             rs1 = stmt1.executeQuery("select * from tj where corridor = '" + a + "'");
             rs2 = stmt2.executeQuery("select * from tj where corridor = '" + b + "'");
             while(rs1.next()){
+                
                 rs2.beforeFirst();
-                while(rs2.next()){
+                while(rs2.next()){ System.out.println(rs1.getString("halte") + " and " + rs2.getString("halte"));
                     if(rs1.getString("halte").equals(rs2.getString("halte"))){
                         return true;
                     }
@@ -104,6 +106,7 @@ public class generateRoute implements IRegardingCorridors{
                 rs1 = stmt1.executeQuery("select * from tj where corridor = '" + Departure.getCorridor() + "'");
                 goToRS(0); 
                 halteRoute.add(rs1.getString("halte"));
+                corridorPassed.add(rs1.getString("corridor"));
                 if(Departure.getIndex() < Destination.getIndex()){
                     while(rs1.next()){
                         halteRoute.add(rs1.getString("halte"));
@@ -161,7 +164,7 @@ public class generateRoute implements IRegardingCorridors{
     //recursion
     int a = 0;
     public void findCorridorAndTransit(String corridorA, String corridorB){
-        try{System.out.println("findCorridorAndTransiit");
+        try{System.out.println("findCorridorAndTransiit"); System.out.println("coridor a" + corridorA + "coridor b "+ corridorB);
         
             if(doWeHaveSameStops(corridorA, corridorB) && !corridorB.equals(corridorA)){ System.out.println("HERE GOES SEMIFINAL");
                 Transit.add(new FindLocation(rs1.getString("halte")));
@@ -178,16 +181,15 @@ public class generateRoute implements IRegardingCorridors{
                     return;
                 }
             } else {
-                //System.out.println("YES IT GOES HERE!!"); System.out.println(corridorA);
                 ArrayList<String> possibleCorridorsA = findPossibleCorridors(corridorA);
-                    ArrayList<String> possibleCorridorsB = findPossibleCorridors(corridorB);
+                    ArrayList<String> possibleCorridorsB = findPossibleCorridors(corridorB); System.out.println(possibleCorridorsA + " " + possibleCorridorsB);
                     for(String a : possibleCorridorsA){
                         for(String b : possibleCorridorsB){
-                            if(a.equals(b)){
-                                findCorridorAndTransit(corridorA, b);
+                            if(a.equals(b)){System.out.println("EQUALS");
+                                findCorridorAndTransit(corridorA, b);System.out.println(corridorA + " " +  b);
                                 return;
                             }
-                            else if(doWeHaveSameStops(a, b)){
+                            else if(doWeHaveSameStops(a, b)){System.out.println("HAVESAMESTOPS");System.out.println(corridorA + " " +  b);
                                 findCorridorAndTransit(corridorA, a); System.out.println("HEHEHEHEHEHE");
                                 return;
                             }
@@ -201,10 +203,11 @@ public class generateRoute implements IRegardingCorridors{
         }
     }
     
+    @Override
     public ArrayList<String> findPossibleCorridors(String corridorX){
         ArrayList<String> possibleCorridors = new ArrayList();
         for(int i = 0; i < arrCorridorsList.length; i++){
-            if(doWeHaveSameStops(corridorX, arrCorridorsList[i]))
+            if(doWeHaveSameStops(corridorX, arrCorridorsList[i]) && !corridorX.equals(arrCorridorsList[i]))
                 possibleCorridors.add(arrCorridorsList[i]);
         }
         return possibleCorridors;
