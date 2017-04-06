@@ -37,12 +37,12 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
     public ResultView(User s){
         this.guest = s;
         this.BusStops.addAll(this.guest.getBusStopList()); 
-        this.CorridorsPassed.addAll(this.guest.getCorridorsPassed()); System.out.println("COR PASS" + this.guest.getCorridorsPassed());
+        this.CorridorsPassed.addAll(this.guest.getCorridorsPassed()); 
         initComponents();
         apply();
         display();
         this.setLocationRelativeTo(null);
-        JOptionPane.showMessageDialog(this, "You're journey will pass through " + BusStops.size() + " bus stops and use " + CorridorsPassed.size() + " corridors");
+        JOptionPane.showMessageDialog(this, "Your journey will pass through " + BusStops.size() + " bus stops and use " + CorridorsPassed.size() + " corridors");
     }
     
     // Apply_Settings methods
@@ -67,12 +67,12 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
     
     @Override
     public void changeToIndo() {
-        lblCorridor.setText("Koridor saat ini: ");
+        lblCorridor.setText("Menggunakan Koridor: ");
     }
 
     @Override
     public void changeToEng() {
-        lblCorridor.setText("Current Corridor: ");
+        lblCorridor.setText("Corridors Passed: ");
     }
 
     @Override
@@ -96,24 +96,29 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
         lblCurrentCorridor.setText(CorridorsPassed.get(index));
         
         String text = "<html>"; // apply wrap text
-        String transit = "";
+        String transit = "Transit at: ";
         
         for(int i = 0; i < BusStops.size(); i++){
             if(i == 0){
                     text += BusStops.get(i);
             }
             else if (i < BusStops.size()){
-                if (BusStops.get(i).equals(BusStops.get(i+1))){
+                if (BusStops.get(i).equals(BusStops.get(i-1))){
                     text += " - " + BusStops.get(i);
                     i++;
-                    transit+= BusStops.get(i);
+                    transit+= BusStops.get(i) + " ";
                 }
                 else
                     text += " - " + BusStops.get(i);
             }
         }
-        text += "</html>";
+        String corridors="";
+        for(String a : CorridorsPassed){
+            corridors+= a + " ";
+        }
         
+        text += "</html>";
+        lblCurrentCorridor.setText(corridors);
         transitAt.setText(transit);
         ROUTE.setText(text);
         
@@ -140,7 +145,7 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
 
         jLabel3.setText("Alternative Route");
 
-        repeat2.setText("Main Menu");
+        repeat2.setText("Do again?");
         repeat2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 repeat2ActionPerformed(evt);
@@ -153,7 +158,7 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
             }
         });
 
-        lblCorridor.setText("Current Corridor:");
+        lblCorridor.setText("Corridors used:");
 
         lblCurrentCorridor.setText("jLabel4");
 
@@ -178,7 +183,7 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
                                 .addComponent(lblCorridor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCurrentCorridor)))
-                        .addGap(0, 272, Short.MAX_VALUE)))
+                        .addGap(0, 170, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -190,8 +195,8 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCorridor, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCurrentCorridor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ROUTE, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ROUTE, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(transitAt)
                 .addGap(7, 7, 7)

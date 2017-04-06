@@ -14,11 +14,11 @@ import java.util.ArrayList;
  */
 public class User {
     private Settings Preferences;
-    private generateRoute Journey;
+    private GenerateRoute Journey;
     
     public User(){
         this.Preferences = new Settings();
-        this.Journey = new generateRoute();
+        this.Journey = new GenerateRoute();
         openOpeningView();
     }
     
@@ -62,7 +62,7 @@ public class User {
     }
     
     public void setJourney(String departure, String destination){
-        this.Journey = new generateRoute(new BusStop(departure), new BusStop(destination)); 
+        this.Journey = new GenerateRoute(new BusStop(departure), new BusStop(destination)); 
     }
     
     public void setDeparture(String departure){

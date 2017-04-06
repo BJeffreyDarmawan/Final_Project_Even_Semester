@@ -18,7 +18,7 @@ import Model.*;
  *
  * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public class generateRoute implements IRegardingCorridors{
+public class GenerateRoute implements IRegardingCorridors{
     
     BusStop Departure;
     BusStop Destination;
@@ -31,14 +31,13 @@ public class generateRoute implements IRegardingCorridors{
     ArrayList<BusStop> Transit = new ArrayList();
     ArrayList<String> halteRoute = new ArrayList();
     ArrayList<String> corridorPassed = new ArrayList();
-    ArrayList<BusStop> BusStopPassed = new ArrayList();
     
-    public generateRoute(){
+    public GenerateRoute(){
         this.Departure = new BusStop("");
         this.Destination = new BusStop("");
     }
     
-    public generateRoute(BusStop Departure, BusStop Destination){
+    public GenerateRoute(BusStop Departure, BusStop Destination){
         this.Departure = Departure;
         this.Destination = Destination;System.out.println(Destination.getCorridors() + " " + Departure.getCorridors());
         Departure.chooseCorridor(Destination.getCorridors()); 
@@ -110,7 +109,7 @@ public class generateRoute implements IRegardingCorridors{
         }
     }
     
-    public void gataunimethodapa(){
+    public void findRoute(){
         try{
             if(Departure.getCorridor().equals(Destination.getCorridor())){
                 haltePoints.add(Departure.getBusStop());
@@ -221,7 +220,7 @@ public class generateRoute implements IRegardingCorridors{
     }
     
     public ArrayList getRoute(){
-        gataunimethodapa();
+        findRoute();
         return halteRoute;
     }
     

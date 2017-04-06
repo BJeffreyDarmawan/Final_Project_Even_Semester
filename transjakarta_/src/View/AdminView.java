@@ -328,7 +328,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         int a = jTable1.getSelectedRow();
         a = jTable1.convertRowIndexToModel(a);
-        int index = (int) jTable1.getModel().getValueAt(a, 0);
+        int index = Integer.valueOf(jTable1.getModel().getValueAt(a, 0).toString());
         String sIndex = Integer.toString(index);
         String busStop = (String) jTable1.getModel().getValueAt(a, 1);
         String corridor = (String) jTable1.getModel().getValueAt(a, 2);
@@ -454,6 +454,7 @@ public class AdminView extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, err.getMessage());
         }
+        printTable();
     }//GEN-LAST:event_saveButtActionPerformed
 
     private void cancelButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtActionPerformed
@@ -479,7 +480,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         int a = jTable1.getSelectedRow();
         a = jTable1.convertRowIndexToModel(a);
-        int index = (int) jTable1.getModel().getValueAt(a, 0);
+        int index = Integer.valueOf(jTable1.getModel().getValueAt(a, 0).toString());
         String sIndex = Integer.toString(index);
         String busStop = (String) jTable1.getModel().getValueAt(a, 1);
         String corridor = (String) jTable1.getModel().getValueAt(a, 2);
@@ -498,6 +499,7 @@ public class AdminView extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }
+        printTable();
         JOptionPane.showMessageDialog(this, "Record deleted!");
         
     }//GEN-LAST:event_deleteButtActionPerformed
@@ -508,7 +510,7 @@ public class AdminView extends javax.swing.JFrame {
             int a = jTable1.getSelectedRow();
             a = jTable1.convertRowIndexToModel(a);
             //get value
-            int index = (int) jTable1.getModel().getValueAt(a, 0);
+            int index = Integer.valueOf(jTable1.getModel().getValueAt(a, 0).toString());
             String sIndex = Integer.toString(index);
             String busStop = (String) jTable1.getModel().getValueAt(a, 1);
             String corridor = (String) jTable1.getModel().getValueAt(a, 2);
@@ -523,13 +525,12 @@ public class AdminView extends javax.swing.JFrame {
             model.setValueAt(region, a, 4);
             jTable1.setModel(model);
             
-            String updQuery = "UPDATE tj SET index =" + index + ", halte ="  + busStop + ", corridor =" + corridor + ", nearby=" + nearby +", region =" + region + " WHERE halte = "+ busStop;
-            stmt.executeUpdate(updQuery);
-            
+            stmt.executeUpdate("UPDATE tj SET indx = " + indexTxt.getText() + ", halte = '" + busStopTxt.getText() + "', corridor = '" + corridorTxt.getText() + "', nearby = '" + nearbyTxt.getText() + "', region = '" + regionTxt.getText() + "' WHERE halte = '" + busStop +"'");
            
         } catch (SQLException ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }
+        printTable();
     }//GEN-LAST:event_updateButtActionPerformed
 
   
