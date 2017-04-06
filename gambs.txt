@@ -1,5 +1,0 @@
-
-Keep track of your current location
-press 'passed' (or something) if you already passed the mentioned bus stop
-
-message dialog: Transit at next bus stop!

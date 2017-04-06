@@ -102,15 +102,15 @@ public class ResultView extends javax.swing.JFrame implements IApply_Settings{
             if(i == 0){
                     text += BusStops.get(i);
             }
-            else if (i < BusStops.size()){
+            else if (i < BusStops.size()-1){
                 if (BusStops.get(i).equals(BusStops.get(i-1))){
                     text += " - " + BusStops.get(i);
+                    transit+= " - " + BusStops.get(i);
                     i++;
-                    transit+= BusStops.get(i) + " ";
                 }
                 else
                     text += " - " + BusStops.get(i);
-            }
+                }
         }
         String corridors="";
         for(String a : CorridorsPassed){

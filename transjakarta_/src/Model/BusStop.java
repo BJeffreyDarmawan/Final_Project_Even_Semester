@@ -186,7 +186,7 @@ public class BusStop implements IRegardingCorridors{
             
             while(rs.next()){
                 this.corridors.add(rs.getString("corridor"));
-                this.indxs.add(rs.getInt("index"));
+                this.indxs.add(rs.getInt("indx"));
             }
         }catch(SQLException e){
             System.out.println(e);

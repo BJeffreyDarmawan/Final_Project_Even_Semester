@@ -150,7 +150,7 @@ public class GenerateRoute implements IRegardingCorridors{
                     Transit.get(i).chooseCorridor(new ArrayList<String>(Arrays.asList(corridorPassed.get(i))));
                     
                     // write all the bus stops passed in 'this' corridor
-                    if(rs1.getInt("index") < Transit.get(i+1).getIndex()){
+                    if(rs1.getInt("indx") < Transit.get(i+1).getIndex()){
                         while(rs1.next()){
                             halteRoute.add(rs1.getString("halte"));
                             if(rs1.getString("halte").equals(Transit.get(i+1).getBusStop())){
