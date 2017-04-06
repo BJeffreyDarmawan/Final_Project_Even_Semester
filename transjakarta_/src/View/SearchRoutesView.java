@@ -20,9 +20,9 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settings{
+public class SearchRoutesView extends javax.swing.JFrame implements IApply_Settings{
 
     /**
      * Creates new form searchRoutesView
@@ -55,73 +55,27 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
         getContentPane().add(toBox);
         getContentPane().add(searchRoutesButt);
     }
-
-    public SearchRoutesView(Settings set) {
-        this.Preferences = set;
-        initComponents();
-        connectDB();
-        apply();
-        this.departure = "";
-        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
-        redisplay();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        fromBox.setPreferredSize(new Dimension(52, 27));
-        toBox.setPreferredSize(new Dimension(52, 27));
-        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
-        getContentPane().setLayout(null);
-        getContentPane().add(fromBox);
-        getContentPane().add(toBox);
-        getContentPane().add(searchRoutesButt);
-    }
-    
-    public SearchRoutesView(Settings set, String from){
-        this.Preferences = set;
-        this.departure = from;
-        initComponents();
-        connectDB();
-        apply();
-        fromBox.setModel(new DefaultComboBoxModel(getHalte()));
-        fromBox.setSelectedItem(from);
-        toBox.setModel(new DefaultComboBoxModel(getHalte()));
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        fromBox.setPreferredSize(new Dimension(52, 27));
-        toBox.setPreferredSize(new Dimension(52, 27));
-        searchRoutesButt.setPreferredSize(new Dimension(90, 29));
-        getContentPane().setLayout(null);
-        getContentPane().add(fromBox);
-        getContentPane().add(toBox);
-        getContentPane().add(searchRoutesButt);
-    }
    
     public final void connectDB(){
         try{
             //singleton
             con = ConnectionConfig.createConnection();
-            
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "SELECT * FROM tj order by halte";
-            rs = stmt.executeQuery(query);
-            rs.next();
         }catch(SQLException e){
             System.out.println(e);
-            //JOptionPane.showMessageDialog(this, e.getMessage());
         }catch (ClassNotFoundException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
-            //Logger.getLogger(JListFirstAssignment.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
     }
     
+    // to refresh display of toBox; selected item in fromBox will not appear in toBox
     public void redisplay(){
-        //fromBox.removeAllItems();
         toBox.removeAllItems();
         toBox.setModel(new DefaultComboBoxModel(getHalte()));
+        
         if(departure.equals(""))
             fromBox.setSelectedIndex(0);
-       
-        //else
-            //fromBox.setSelectedItem(fromidk);
+        
         for(int i = 0; i < toBox.getModel().getSize(); i++)
         {
             if(fromBox.getSelectedItem().equals(toBox.getItemAt(i))){
@@ -130,7 +84,7 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
             }  
         }
         
-            toBox.setSelectedIndex(0);
+        toBox.setSelectedIndex(0);
     }
     
     public String[] getHalte()
@@ -271,32 +225,24 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
-        //JOptionPane.showMessageDialog(this, from);
         this.dispose();
-        //new ResultView(Preferences).setVisible(true);
         this.guest.setJourney(departure, destination);
         this.guest.openResultView();
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void findBSLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findBSLabelMouseClicked
-        // TODO add your handling code here:
         this.dispose();
         this.guest.openFindBusStopView();
     }//GEN-LAST:event_findBSLabelMouseClicked
 
     private void fromBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fromBoxItemStateChanged
-        //if(evt.getStateChange() == ItemEvent.SELECTED){
-            this.departure = (String) fromBox.getSelectedItem();System.out.println(fromBox.getSelectedItem() + " " + departure);
-        //}    
+        this.departure = (String) fromBox.getSelectedItem();System.out.println(fromBox.getSelectedItem() + " " + departure);
         redisplay();
-        
     }//GEN-LAST:event_fromBoxItemStateChanged
 
     private void toBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toBoxItemStateChanged
-        // to = (String) toBox.getSelectedItem();
         if(evt.getStateChange() == ItemEvent.SELECTED)
         this.destination= (String) toBox.getSelectedItem();
-        //redisplay();
     }//GEN-LAST:event_toBoxItemStateChanged
 
     private void fromBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromBoxActionPerformed
@@ -348,18 +294,19 @@ public class SearchRoutesView extends javax.swing.JFrame implements Apply_Settin
     private javax.swing.JComboBox<String> toBox;
     // End of variables declaration//GEN-END:variables
 
+    // Apply_Settings methods
     @Override
     public void apply() {
-        if(this.guest.getSettings().getLanguage().equals("eng")){
+        if(this.guest.getLanguage().equals("eng")){
             changeToEng();
         }        
-        else if (this.guest.getSettings().getLanguage().equals("indo")){
+        else if (this.guest.getLanguage().equals("indo")){
             changeToIndo();
         }
-        if(this.guest.getSettings().getColor().equals("pink")){
+        if(this.guest.getColor().equals("pink")){
             changePink();
         }
-        else if (this.guest.getSettings().getColor().equals("gray")){
+        else if (this.guest.getColor().equals("gray")){
             changeGray();
         }
         else{

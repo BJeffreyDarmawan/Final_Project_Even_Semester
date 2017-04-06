@@ -10,7 +10,7 @@ import View.*;
 import java.util.ArrayList;
 /**
  *
- * @author Lenovo
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
 public class User {
     private Settings Preferences;
@@ -19,6 +19,7 @@ public class User {
     public User(){
         this.Preferences = new Settings();
         this.Journey = new generateRoute();
+        openOpeningView();
     }
     
     public void openAdminView(){
@@ -60,21 +61,16 @@ public class User {
         this.Preferences.setLanguage(lang);
     }
     
-    public void setJourney(String A, String B){
-        System.out.println(A + " " + B);
-        this.Journey = new generateRoute(new FindLocation(A), new FindLocation(B)); 
+    public void setJourney(String departure, String destination){
+        this.Journey = new generateRoute(new BusStop(departure), new BusStop(destination)); 
     }
     
-    public void setDeparture(String A){
-        this.Journey.setDeparture(A);
+    public void setDeparture(String departure){
+        this.Journey.setDeparture(departure);
     }
     
     public String getDeparture(){
         return this.Journey.getDeparture().getBusStop();
-    }
-    
-    public generateRoute getJourney(){
-        return this.Journey;
     }
     
     public ArrayList<String> getBusStopList(){
@@ -85,8 +81,12 @@ public class User {
         return this.Journey.getCorridorsPassed();
     }
     
-    public Settings getSettings(){
-        return this.Preferences;
+    public String getLanguage(){
+        return this.Preferences.getLanguage();
+    }
+    
+    public String getColor(){
+        return this.Preferences.getColor();
     }
     
 }

@@ -25,42 +25,20 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
+public class OpeningView extends javax.swing.JFrame implements IApply_Settings{
 
-    Settings Preferences;
-    User guest;
-   
-    public OpeningView(Settings set){
-        try {
-            this.Preferences = set;
-            initComponents();
-            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
-            apply();
-            this.setLocationRelativeTo(null);
-            this.setResizable(false);
-            findBusStopButt.setPreferredSize(new Dimension(150, 29));
-            sRoutesButt.setPreferredSize(new Dimension(150, 29));
-            mapButt.setPreferredSize(new Dimension(95, 29));
-            settings.setPreferredSize(new Dimension(95,29));
-            getContentPane().setLayout(null);
-            getContentPane().add(findBusStopButt);
-            getContentPane().add(sRoutesButt);
-            getContentPane().add(mapButt); 
-            getContentPane().add(settings);
-        } catch (SQLException ex) {
-            Logger.getLogger(transjakarta_.openingView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    private User guest;
     
     public OpeningView(User s){
         try {
             this.guest = s;
             initComponents();
-            showImage("/Users/Home/Desktop/BINUS/SEMESTER 2/Programming Language/Final Project/Final_Project_Even_Semester/transjakarta_/logotransjakarta.png", logoLabel);
+            showImage("logotransjakarta.png", logoLabel);
             apply();
             this.setLocationRelativeTo(null);
             this.setResizable(false);
@@ -111,16 +89,17 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         }
     }
     
+    // Apply_Settings methods
     @Override
     public void apply(){
-        if(this.guest.getSettings().getLanguage().equals("eng"))
+        if(this.guest.getLanguage().equals("eng"))
             changeToEng();
-        else if(this.guest.getSettings().getLanguage().equals("indo"))
+        else if(this.guest.getLanguage().equals("indo"))
             changeToIndo();
         
-        if(this.guest.getSettings().getColor().equals("pink"))
+        if(this.guest.getColor().equals("pink"))
             changePink();
-        else if(this.guest.getSettings().getColor().equals("gray"))
+        else if(this.guest.getColor().equals("gray"))
             changeGray();
         else
             changeDefault();
@@ -132,7 +111,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         sRoutesButt.setText("Cari Rute");
         mapButt.setText("Peta");
         settings.setText("Pengaturan");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -141,7 +119,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
         sRoutesButt.setText("Search Routes");
         mapButt.setText("Map");
         settings.setText("Settings");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -157,7 +134,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     @Override
     public void changeDefault() {
         this.getContentPane().setBackground(null);        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
@@ -265,13 +241,11 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     }// </editor-fold>//GEN-END:initComponents
 
     private void findBusStopButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBusStopButtActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.guest.openFindBusStopView();
     }//GEN-LAST:event_findBusStopButtActionPerformed
 
     private void sRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRoutesButtActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.guest.openSearchRoutesView();
     }//GEN-LAST:event_sRoutesButtActionPerformed
@@ -283,7 +257,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
 
     private void mapButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtActionPerformed
         try {
-            // TODO add your handling code here:
             openBrowser();
         } catch (IOException ex) {
             Logger.getLogger(OpeningView.class.getName()).log(Level.SEVERE, null, ex);
@@ -293,7 +266,6 @@ public class OpeningView extends javax.swing.JFrame implements Apply_Settings{
     private void adminButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtActionPerformed
         this.dispose();
         this.guest.openLoginForm();
-        //new LoginForm(this.guest.getSettings()).setVisible(true);
     }//GEN-LAST:event_adminButtActionPerformed
 
 

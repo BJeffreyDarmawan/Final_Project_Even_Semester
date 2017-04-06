@@ -5,11 +5,9 @@
  */
 package Controller;
 
-import View.*;
-
 // Start program
 public class Main {
     public static void main(String[] args) {
-        new OpeningView(new User()).setVisible(true);
+        User run = new User();
     }
 }

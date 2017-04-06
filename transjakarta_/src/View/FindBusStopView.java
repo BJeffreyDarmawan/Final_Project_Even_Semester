@@ -8,21 +8,31 @@ import Controller.*;
 import Model.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public class FindBusStopView extends javax.swing.JFrame implements Apply_Settings{
+public class FindBusStopView extends javax.swing.JFrame implements IApply_Settings{
 
     /**
      * Creates new form findBusStopView
      */
     
-    Settings Preferences;
     private User guest;
+    
+    Connection con;
+    Statement stmt;
+    ResultSet rs;
     
     public FindBusStopView(){
         initComponents();
@@ -32,6 +42,7 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         this.guest = s;
         initComponents();
         apply();
+        connectDB();
         this.setLocationRelativeTo(null);
         regionBox.setPreferredSize(new Dimension(157, 27));
         nearbyBox.setPreferredSize(new Dimension(157, 27));
@@ -45,41 +56,38 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         displayNearby();
     }
     
-    public FindBusStopView(Settings set){
-        this.Preferences = set;
-        initComponents();
-        apply();
-        this.setLocationRelativeTo(null);
-        regionBox.setPreferredSize(new Dimension(157, 27));
-        nearbyBox.setPreferredSize(new Dimension(157, 27));
-        mainmenu.setPreferredSize(new Dimension(150, 29));
-        searchRoutesButt.setPreferredSize(new Dimension(150, 29));
-        getContentPane().setLayout(null);
-        getContentPane().add(regionBox);
-        getContentPane().add(nearbyBox);
-        getContentPane().add(mainmenu);
-        getContentPane().add(searchRoutesButt);
-        displayNearby();
+    public final void connectDB(){
+        try{
+            //singleton
+            con = ConnectionConfig.createConnection();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        }catch(SQLException e){
+            System.out.println("Errot at findLoc.connectDB()");
+            System.out.println(e);
+        }catch (ClassNotFoundException ex) {
+            System.out.println("Error at findLoc.connectDB()");
+            System.out.println(ex);
+        }
     }
     
+    // Apply_Settings methods
     @Override
     public void apply() {
-        if(this.guest.getSettings().getLanguage().equals("eng")){
+        if(this.guest.getLanguage().equals("eng")){
             changeToEng();
         }        
-        else if (this.guest.getSettings().getLanguage().equals("indo")){
+        else if (this.guest.getLanguage().equals("indo")){
             changeToIndo();
         }
-        if(this.guest.getSettings().getColor().equals("pink")){
+        if(this.guest.getColor().equals("pink")){
             changePink();
         }
-        else if (this.guest.getSettings().getColor().equals("gray")){
+        else if (this.guest.getColor().equals("gray")){
             changeGray();
         }
         else{
             changeDefault();
         }
-        
     }
     
     @Override
@@ -93,7 +101,6 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         searchRoutesButt.setText("Cari Rute");
         findBSButt.setText("Cari");
         mainmenu.setText("Menu Utama");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -106,53 +113,80 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
         searchRoutesButt.setText("Search Routes");
         findBSButt.setText("Find");
         mainmenu.setText("Main Menu");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changePink() {
         this.getContentPane().setBackground(Color.pink);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeGray() {
         this.getContentPane().setBackground(Color.GRAY);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
         this.getContentPane().setBackground(null);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    // display all nearby places in the chosen region
     public void displayNearby(){
-        if(this.guest.getSettings().getLanguage().equals("indo")){
-            //System.out.println(regionBox.getSelectedItem());
-            String weh = (String)regionBox.getSelectedItem();
-                if(weh.equals("Jakarta Pusat"))
-                    weh = "Central Jakarta";
-                else if(weh.equals("Jakarta Barat"))
-                    weh = "West Jakarta";
-                else if(weh.equals("Jakarta Timur"))
-                    weh = "East Jakarta";
-                else if(weh.equals("Jakarta Selatan"))
-                    weh = "South Jakarta";
-                else if(weh.equals("Jakarta Utara"))
-                    weh = "North Jakarta";
-            FindLocation user = new FindLocation();
-            ArrayList<String> abcdefghi = user.getNearby(weh);
-            String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
-            nearbyBox.setModel(new DefaultComboBoxModel(abc));
-        } else {
-            String weh = (String)regionBox.getSelectedItem();
-            FindLocation user = new FindLocation();
-            ArrayList<String> abcdefghi = user.getNearby(weh);
-            String[] abc = abcdefghi.toArray(new String[abcdefghi.size()]);
-            nearbyBox.setModel(new DefaultComboBoxModel(abc));
+        
+        String reg = (String)regionBox.getSelectedItem();
+        
+        if(this.guest.getLanguage().equals("indo")){
+            if(reg.equals("Jakarta Pusat"))
+                reg = "Central Jakarta";
+            else if(reg.equals("Jakarta Barat"))
+                reg = "West Jakarta";
+            else if(reg.equals("Jakarta Timur"))
+                reg = "East Jakarta";
+            else if(reg.equals("Jakarta Selatan"))
+                reg = "South Jakarta";
+            else if(reg.equals("Jakarta Utara"))
+                reg = "North Jakarta";
         }
+        
+        String[] abc = getNearby(reg).toArray(new String[getNearby(reg).size()]);
+        nearbyBox.setModel(new DefaultComboBoxModel(abc));
     }
+    
+    // get all bus stops of selected region
+    public ArrayList<String> getNearby(String reg){
+        
+        ArrayList<String> nearBys = new ArrayList();
+        String nearBy;
+        String[] test;
+        
+        try{
+            rs = stmt.executeQuery("select * from tj where region = '" + reg + "' order by nearby");
+            while(rs.next()){
+                nearBy = rs.getString("nearby");
+                test = nearBy.split(",\\s");
+                ArrayList<String> list = new ArrayList(Arrays.asList(test));
+                nearBys.addAll(list);
+                
+            }
+            Collections.sort(nearBys);
+            for(int i = 0; i < nearBys.size(); i++){
+                if(nearBys.get(i).equals(null))
+                    break;
+                if(i != 0){
+                    // remove the data with the same value
+                    if(nearBys.get(i).equals(nearBys.get(i-1))){
+                        nearBys.remove(i);
+                    }
+                }
+            }
+        }catch(SQLException e)
+        {
+           System.out.println(e);
+        }
+        
+        return nearBys;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -313,58 +347,20 @@ public class FindBusStopView extends javax.swing.JFrame implements Apply_Setting
             region = "North Jakarta";
         String nearby = (String) nearbyBox.getSelectedItem();
 
-        FindLocation user = new FindLocation(region, nearby);
+        BusStop user = new BusStop(region, nearby);
         nearestBSLabel.setText(user.getBusStop());
         this.guest.setDeparture(nearestBSLabel.getText());
     }//GEN-LAST:event_findBSButtActionPerformed
 
     private void searchRoutesButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRoutesButtActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.guest.openSearchRoutesView();
-        //new SearchRoutesView(Preferences, nearestBSLabel.getText()).setVisible(true);
-        //nearestBSLabel.getText();
     }//GEN-LAST:event_searchRoutesButtActionPerformed
 
     private void mainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainmenuActionPerformed
         this.dispose();
         this.guest.openOpeningView();
     }//GEN-LAST:event_mainmenuActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    //public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(findBusStopView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        //java.awt.EventQueue.invokeLater(new Runnable() {
-            //public void run() {
-                //new findBusStopView().setVisible(true);
-            //}
-        //});
-    //}*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton findBSButt;

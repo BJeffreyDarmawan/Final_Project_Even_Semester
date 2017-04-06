@@ -5,13 +5,11 @@
  */
 package Model;
 
-import javax.swing.JFrame;
-
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public interface Apply_Settings {
+public interface IApply_Settings {
     public void apply();
     public void changeToIndo();
     public void changeToEng();

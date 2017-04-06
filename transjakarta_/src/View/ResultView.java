@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public class ResultView extends javax.swing.JFrame implements Apply_Settings{
+public class ResultView extends javax.swing.JFrame implements IApply_Settings{
 
     /**
      * Creates new form resultView
@@ -26,10 +26,6 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     private User guest;
     private ArrayList<String> BusStops = new ArrayList();
     private ArrayList<String> CorridorsPassed = new ArrayList();
-    
-    public ResultView() {
-        initComponents();
-    }
     
     public ResultView(Settings set){
         initComponents();
@@ -49,18 +45,19 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
         JOptionPane.showMessageDialog(this, "You're journey will pass through " + BusStops.size() + " bus stops and use " + CorridorsPassed.size() + " corridors");
     }
     
+    // Apply_Settings methods
     @Override
     public void apply() {
-        if(this.guest.getSettings().getLanguage().equals("eng")){
+        if(this.guest.getLanguage().equals("eng")){
             changeToEng();
         }        
-        else if (this.guest.getSettings().getLanguage().equals("indo")){
+        else if (this.guest.getLanguage().equals("indo")){
             changeToIndo();
         }
-        if(this.guest.getSettings().getColor().equals("pink")){
+        if(this.guest.getColor().equals("pink")){
             changePink();
         }
-        else if (this.guest.getSettings().getColor().equals("gray")){
+        else if (this.guest.getColor().equals("gray")){
             changeGray();
         }
         else{
@@ -86,13 +83,11 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
     @Override
     public void changeGray() {
         this.getContentPane().setBackground(Color.GRAY);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void changeDefault() {
         this.getContentPane().setBackground(null);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     int index = 0;
@@ -100,14 +95,14 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
         
         lblCurrentCorridor.setText(CorridorsPassed.get(index));
         
-        String text = "<html>"; 
+        String text = "<html>"; // apply wrap text
         String transit = "";
         
         for(int i = 0; i < BusStops.size(); i++){
             if(i == 0){
                     text += BusStops.get(i);
             }
-            else if (i+1 < BusStops.size()){
+            else if (i < BusStops.size()){
                 if (BusStops.get(i).equals(BusStops.get(i+1))){
                     text += " - " + BusStops.get(i);
                     i++;
@@ -209,12 +204,10 @@ public class ResultView extends javax.swing.JFrame implements Apply_Settings{
 
     private void repeat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeat2ActionPerformed
         this.dispose();
-        //new OpeningView(Preferences).setVisible(true);
         this.guest.openOpeningView();
     }//GEN-LAST:event_repeat2ActionPerformed
 
     private void ROUTEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROUTEMouseClicked
-        // TODO add your handling code here:
         display();
     }//GEN-LAST:event_ROUTEMouseClicked
 

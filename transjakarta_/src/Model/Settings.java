@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
 public class Settings{
     
-    String language;
-    String color;
+    private String language;
+    private String color;
 
     public Settings() {
         this.language = "eng";

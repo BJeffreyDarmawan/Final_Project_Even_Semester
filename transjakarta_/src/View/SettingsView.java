@@ -17,31 +17,11 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Mikha Putri
+ * @author Mikha Putri, Jeffrey Darmawan, Wilson Fransicius
  */
-public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
+public class SettingsView extends javax.swing.JFrame implements IApply_Settings{
     
-    Settings Preferences; 
-    User guest;
-    
-    public SettingsView(Settings set){
-        this.Preferences = set;
-        initComponents();     
-        apply();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        okButton.setPreferredSize(new Dimension(130,29));
-        backButton.setPreferredSize(new Dimension(130,29));
-        defaultButt.setPreferredSize(new Dimension(130,29));
-        pinkButton.setPreferredSize(new Dimension(60, 29));
-        grayButton.setPreferredSize(new Dimension(60, 29));
-        getContentPane().setLayout(null);
-        getContentPane().add(okButton);
-        getContentPane().add(backButton);
-        getContentPane().add(defaultButt);
-        getContentPane().add(pinkButton);
-        getContentPane().add(grayButton);
-    }
+    private User guest;
     
     public SettingsView(User s){
         this.guest = s;
@@ -65,20 +45,20 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
     // Apply_Settings methods
     @Override
     public void apply() {
-        if(this.guest.getSettings().getLanguage().equals("eng")){
+        if(this.guest.getLanguage().equals("eng")){
             changeToEng(); System.out.println("default");
             languageGroup.setSelected(engButton.getModel(), true);
         }
-        else if (this.guest.getSettings().getLanguage().equals("indo")){
+        else if (this.guest.getLanguage().equals("indo")){
             changeToIndo();
             languageGroup.setSelected(indoButton.getModel(), true);
         }else System.out.println("went here");
         
-        if(this.guest.getSettings().getColor().equals("pink")){
+        if(this.guest.getColor().equals("pink")){
             changePink();
             colorGroup.setSelected(pinkButton.getModel(), true);
         }
-        else if (this.guest.getSettings().getColor().equals("gray")){
+        else if (this.guest.getColor().equals("gray")){
             changeGray();
             colorGroup.setSelected(grayButton.getModel(), true);
         }
@@ -107,7 +87,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton.setText("Bahasa");
         pinkButton.setText("Merah Muda");
         grayButton.setText("Kelabu");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
@@ -121,7 +100,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton.setText("Indonesia");
         pinkButton.setText("Pink");
         grayButton.setText("Gray");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -131,7 +109,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton.setBackground(Color.PINK);
         pinkButton.setBackground(Color.PINK);
         grayButton.setBackground(Color.PINK);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -141,7 +118,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton.setBackground(Color.GRAY);
         pinkButton.setBackground(Color.GRAY);
         grayButton.setBackground(Color.GRAY);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -151,7 +127,6 @@ public class SettingsView extends javax.swing.JFrame implements Apply_Settings{
         indoButton.setBackground(null);
         pinkButton.setBackground(null);
         grayButton.setBackground(null);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

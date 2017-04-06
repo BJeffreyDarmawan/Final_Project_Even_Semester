@@ -10,21 +10,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import Controller.*;
 
 /**
  *
  * @author Mikha Putri
  */
-public class FindLocation implements IRegardingCorridors{
-    public static String region;
-    public static String location;
+public class BusStop implements IRegardingCorridors{
+    private String region;
+    private String location;
     private String busStop;
     private int indx;
     private String corridor;
-    private boolean gotBusStop = false;
     private ArrayList<String> corridors = new ArrayList();
     private ArrayList<Integer> indxs = new ArrayList();
     
@@ -33,18 +29,17 @@ public class FindLocation implements IRegardingCorridors{
     ResultSet rs;
     
     
-    public FindLocation(){
+    public BusStop(){
         connectDB();
-        //findBusStop();
     }
     
-    public FindLocation(String busStop){
+    public BusStop(String busStop){
         this.busStop = busStop;
         connectDB();
         findCorridor();
     }
     
-    public FindLocation(String region, String location){
+    public BusStop(String region, String location){
         this.region = region;
         this.location = location;
         connectDB();
@@ -68,9 +63,9 @@ public class FindLocation implements IRegardingCorridors{
     }
     
     public void chooseCorridor(ArrayList<String> b){
-        int i = 0; System.out.println("CHOOSE CORRIDOR");
+        int i = 0;
         
-        // if possible, choose corridor where we can move within 1 corridor
+        // if possible, choose corridor where we can move within 1 corridor, no transit
         for(String a : corridors){
             for(String c : b){
                 if(c.equals(a)){ 
@@ -92,7 +87,7 @@ public class FindLocation implements IRegardingCorridors{
                 }
             }
         }
-        System.out.println("IT WENT HERE");
+        
         // OR if possible, 2 transits
         i = 0;
         for(String a : corridors){
@@ -101,7 +96,7 @@ public class FindLocation implements IRegardingCorridors{
             
             for(String c : b){
                 
-                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);//System.out.println(possibleCorridorsA + " " + possibleCorridorsB);
+                ArrayList<String> possibleCorridorsB = findPossibleCorridors(c);
                 
                 for(String possa : possibleCorridorsA){
                     for(String possb : possibleCorridorsB){
@@ -115,7 +110,7 @@ public class FindLocation implements IRegardingCorridors{
             }
             i++;
         }
-        System.out.println("GONE HERE");
+        
         // OR if possible, 3 transits
         i = 0;
         for(String a : corridors){
@@ -156,25 +151,25 @@ public class FindLocation implements IRegardingCorridors{
         }
     }
     
+    // find nearest bus stop from acquired 'place'
     public void findBusStop(){
         String[] nearBys;
         String nearBy;
+        boolean gotBusStop = false;
         try{
-            rs = stmt.executeQuery("select * from tj");
+            rs = stmt.executeQuery("select * from tj where region = '" + this.region + "'");
             rs.beforeFirst();
             while(!gotBusStop){
                 rs.next();
-                if(this.region.equals(rs.getString("region"))){
-                    nearBy = rs.getString("nearby");
+                nearBy = rs.getString("nearby");
 			
-                    nearBys = nearBy.split(",\\s");
-                    for(int i = 0; i < nearBys.length; i++){
-                        if(location.equals(nearBys[i])){
-                            this.busStop = rs.getString("halte");
-                            findCorridor();
-                            gotBusStop = true;
-                            break;
-                        }
+                nearBys = nearBy.split(",\\s");
+                for(int i = 0; i < nearBys.length; i++){
+                    if(location.equals(nearBys[i])){
+                        this.busStop = rs.getString("halte");
+                        findCorridor();
+                        gotBusStop = true;
+                        break;
                     }
                 }
             }
@@ -183,46 +178,12 @@ public class FindLocation implements IRegardingCorridors{
             System.out.println("Error at findBusStop");
         }
     }
-
-    public ArrayList getNearby(String reg)
-    {
-        ArrayList<String> nearBys = new ArrayList();
-        String nearBy;
-        String[] test;
-        //System.out.println(reg);
-        try{
-            rs = stmt.executeQuery("select * from tj where region = '" + reg + "' order by nearby");
-            while(rs.next()){
-                nearBy = rs.getString("nearby");
-                test = nearBy.split(",\\s");
-                ArrayList<String> list = new ArrayList(Arrays.asList(test));
-                nearBys.addAll(list);
-                
-                
-            }
-            Collections.sort(nearBys);
-            for(int i = 0; i < nearBys.size(); i++){
-                if(nearBys.get(i).equals(null))
-                    break;
-                if(i != 0){
-                    //remove the data with the same value
-                    if(nearBys.get(i).equals(nearBys.get(i-1))){
-                        nearBys.remove(i);
-                    }
-                }
-            }
-        }catch(SQLException e)
-        {
-           System.out.println(e);
-        }
-        
-        return nearBys;
-    }
     
     public void findCorridor(){
-        try{System.out.println("findCorridor"); System.out.println(this.busStop);
-            //boolean gotCorridor = false;
-            rs = stmt.executeQuery("select * from tj where halte = '" + this.busStop + "'"); //System.out.println(rs.getString("corridor"));
+        try{
+            
+            rs = stmt.executeQuery("select * from tj where halte = '" + this.busStop + "'"); 
+            
             while(rs.next()){
                 this.corridors.add(rs.getString("corridor"));
                 this.indxs.add(rs.getInt("index"));
@@ -233,9 +194,11 @@ public class FindLocation implements IRegardingCorridors{
         }
     }
     
+    // IRegardingCorridors methods
     @Override
     public boolean doWeHaveSameStops(String a, String b){
-        try{System.out.println(a + "     " + b);
+        try{
+            
             Statement stmt1 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Statement stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs1 = stmt1.executeQuery("select * from tj where corridor = '" + a + "'");
@@ -245,7 +208,6 @@ public class FindLocation implements IRegardingCorridors{
                 rs2.beforeFirst();
                 while(rs2.next()){
                     if(rs1.getString("halte").equals(rs2.getString("halte"))){
-                        //System.out.println(rs1.getString("halte"));//haltePoints.add(rs1.getString("halte"));
                         return true;
                     }
                 }

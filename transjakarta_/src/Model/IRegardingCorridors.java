@@ -13,7 +13,10 @@ import java.util.ArrayList;
 public interface IRegardingCorridors {
     public final String[] arrCorridorsList = {"1", "2", "4C", "8", "10", "12"}; 
     
+    // checks whether the two corridors has intersecting bus stops
     public boolean doWeHaveSameStops(String corridorA, String corridorB);
+    
+    // finds all other corridors that intersects with 'this' corridor
     public ArrayList<String> findPossibleCorridors(String corridorX);
     
 }
